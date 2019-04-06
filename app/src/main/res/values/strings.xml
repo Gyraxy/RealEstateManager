@@ -1,3 +1,13 @@
 <resources>
     <string name="app_name">RealEstateManager</string>
+
+    //TOOLBAR
+    <string name="add">Add</string>
+    <string name="modify">Modify</string>
+    <string name="search">Search</string>
+
+    //BOTTOM NAVIGATION
+    <string name="accomodation_list">Liste</string>
+    <string name="map">Carte</string>
+
 </resources>
