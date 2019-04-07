@@ -4,7 +4,7 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.support.design.widget.BottomNavigationView
-import android.widget.Toast
+import android.support.v4.app.ListFragment
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -14,6 +14,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         configureToolBar()
         bottom_navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
+        initFragment()
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -35,5 +36,14 @@ class MainActivity : AppCompatActivity() {
             }
         }
         false
+    }
+
+    private fun initFragment(){
+        val fragmentManager = supportFragmentManager
+        val fragmentTransaction = fragmentManager.beginTransaction()
+        val listFragment = ListFragment()
+        fragmentTransaction.add(R.id.main_activity_frame_layout, listFragment)
+        fragmentTransaction.commit()
+
     }
 }
