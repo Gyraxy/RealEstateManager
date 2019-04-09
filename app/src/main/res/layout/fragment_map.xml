@@ -17,7 +17,7 @@
             android:id="@+id/fragment_map_view_my_location_floating_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
+            android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
             android:layout_margin="7.5dp"
             android:src="@drawable/ic_my_location"

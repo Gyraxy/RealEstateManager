@@ -2,17 +2,15 @@ package com.nicolas.duboscq.realestatemanager
 
 import android.os.Bundle
 import android.support.v4.app.Fragment
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.google.android.gms.location.FusedLocationProviderClient
-import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.*
 import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
 
-class MapFragment : Fragment() , OnMapReadyCallback {
+class MapFragment : Fragment() , OnMapReadyCallback,GoogleMap.OnMarkerClickListener {
 
 
     private lateinit var googleMap :GoogleMap
@@ -47,5 +45,11 @@ class MapFragment : Fragment() , OnMapReadyCallback {
             it!!.addMarker(markerOptions)
             it.moveCamera(CameraUpdateFactory.newLatLngZoom(nantes, zoomLevel))
         }
+
+        val mapSettings = googleMap.uiSettings
+        mapSettings.isZoomControlsEnabled = true
+        googleMap.setOnMarkerClickListener(this)
     }
+
+    override fun onMarkerClick(p0: Marker?) = false
 }

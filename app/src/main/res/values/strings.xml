@@ -5,6 +5,7 @@
     <string name="add">Add</string>
     <string name="modify">Modify</string>
     <string name="search">Search</string>
+    <string name="position">Localisation</string>
 
     //BOTTOM NAVIGATION
     <string name="accomodation_list">Liste</string>

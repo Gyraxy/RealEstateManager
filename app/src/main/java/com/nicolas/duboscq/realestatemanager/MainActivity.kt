@@ -11,17 +11,28 @@ class MainActivity : AppCompatActivity() {
 
     private val listFragment = ListFragment()
     private val mapFragment = MapFragment()
+    private lateinit var mode : String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        if (main_activity_frame_layout_detail == null){
+            mode = "phone"
+        } else mode = "tablet"
+
+        when (mode){
+            "phone"-> configureAndShowPhone()
+            "tablet"-> configureAndShowTablet()
+        }
         configureToolBar()
-        bottom_navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
         openFragment(listFragment)
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        menuInflater.inflate(R.menu.main_activity_toolbar, menu)
+        when (mode){
+            "phone"-> menuInflater.inflate(R.menu.main_activity_toolbar_phone, menu)
+            "tablet"-> menuInflater.inflate(R.menu.main_activity_toolbar_tablet, menu)
+        }
         return true
     }
 
@@ -45,8 +56,22 @@ class MainActivity : AppCompatActivity() {
 
     private fun openFragment(fragment: Fragment) {
         val fragmentTransaction = supportFragmentManager.beginTransaction()
-        fragmentTransaction.replace(R.id.main_activity_frame_layout, fragment)
+        fragmentTransaction.replace(R.id.main_activity_frame_layout_list, fragment)
         fragmentTransaction.addToBackStack(null)
         fragmentTransaction.commit()
+    }
+
+    private fun configureAndShowTablet() {
+        var detailFragment = supportFragmentManager.findFragmentById(R.id.main_activity_frame_layout_detail)
+        if (detailFragment == null && main_activity_frame_layout_detail != null) {
+            detailFragment = DetailFragment()
+            supportFragmentManager.beginTransaction()
+                .add(R.id.main_activity_frame_layout_detail, detailFragment)
+                .commit()
+        }
+    }
+
+    private fun configureAndShowPhone(){
+        bottom_navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
     }
 }
