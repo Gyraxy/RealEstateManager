@@ -1,10 +1,12 @@
 package com.nicolas.duboscq.realestatemanager
 
+import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.support.design.widget.BottomNavigationView
 import android.support.v4.app.Fragment
+import android.view.MenuItem
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -38,6 +40,22 @@ class MainActivity : AppCompatActivity() {
 
     private fun configureToolBar() {
         setSupportActionBar(activity_main_toolbar)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.menu_activity_main_search -> {
+                val searchIntent = Intent(this, SearchActivity::class.java)
+                startActivity(searchIntent)
+            }
+            R.id.menu_activity_main_position -> {
+                val searchIntent = Intent(this, MapDetailActivity::class.java)
+                startActivity(searchIntent)
+            }
+            else -> {
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 
     private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->

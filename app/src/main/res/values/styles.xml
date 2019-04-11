@@ -13,4 +13,9 @@
         <item name="android:textColorSecondary">@color/colorGrey</item>
     </style>
 
+    <!-- TOOLBAR THEME -->
+    <style name="ToolbarTheme" parent="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+    </style>
+
 </resources>

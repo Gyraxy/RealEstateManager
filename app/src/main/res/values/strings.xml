@@ -8,7 +8,21 @@
     <string name="position">Localisation</string>
 
     //BOTTOM NAVIGATION
-    <string name="accomodation_list">Liste</string>
+    <string name="property_list">Liste</string>
     <string name="map">Carte</string>
+
+    //SEARCH ACTIVITY
+    <string name="any">Aucun</string>
+    <string name="type">Types de bien</string>
+    <string name="price">Prix</string>
+    <string name="status">Statut</string>
+    <string name="place">Emplacement</string>
+    <string name="surface">Surface</string>
+    <string name="room">Pièces</string>
+    <string name="appartment">Appartment</string>
+    <string name="house">Maison</string>
+    <string name="date">Date</string>
+    <string name="search_fr">RECHERCHE</string>
+
 
 </resources>
