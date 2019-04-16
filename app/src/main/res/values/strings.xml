@@ -19,10 +19,40 @@
     <string name="place">Emplacement</string>
     <string name="surface">Surface</string>
     <string name="room">Pièces</string>
-    <string name="appartment">Appartment</string>
-    <string name="house">Maison</string>
     <string name="date">Date</string>
     <string name="search_fr">RECHERCHE</string>
+    <string name="euro_symbol">€</string>
+    <string name="and">Et</string>
+    <string name="between">Entre</string>
+    <string name="from">Du</string>
+    <string name="to">Au</string>
 
+    <string-array name="search_type">
+        <item>Aucun</item>
+        <item>Maison</item>
+        <item>Appartment</item>
+        <item>Duplex</item>
+    </string-array>
 
+    <string-array name="search_price">
+        <item>0</item>
+        <item>100000</item>
+        <item>500000</item>
+        <item>1000000</item>
+        <item>2000000</item>
+    </string-array>
+
+    <string-array name="search_surface">
+        <item>0</item>
+        <item>50</item>
+        <item>100</item>
+        <item>150</item>
+        <item>200</item>
+    </string-array>
+
+    <string-array name="search_status">
+        <item>Aucun</item>
+        <item>Vendu</item>
+        <item>A Vendre</item>
+    </string-array>
 </resources>

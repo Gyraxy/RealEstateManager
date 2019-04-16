@@ -52,6 +52,9 @@ class MainActivity : AppCompatActivity() {
                 val searchIntent = Intent(this, MapDetailActivity::class.java)
                 startActivity(searchIntent)
             }
+            R.id.menu_activity_main_add -> {
+
+            }
             else -> {
             }
         }
@@ -90,6 +93,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun configureAndShowPhone(){
-        bottom_navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
+        bottom_navigation!!.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
     }
 }

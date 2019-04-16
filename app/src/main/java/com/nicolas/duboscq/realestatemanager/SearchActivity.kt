@@ -3,27 +3,17 @@ package com.nicolas.duboscq.realestatemanager
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.Menu
-import kotlinx.android.synthetic.main.activity_search.*
-import android.support.v7.app.AlertDialog
-import android.view.MotionEvent
 import android.view.View
+import android.widget.*
+import kotlinx.android.synthetic.main.activity_search.*
 
-
-class SearchActivity : AppCompatActivity() {
+class SearchActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_search)
         configureToolBar()
-        activity_search_type_edt.setOnTouchListener(object : View.OnTouchListener {
-            override fun onTouch(v: View?, event: MotionEvent?): Boolean {
-                when (event?.action) {
-                    MotionEvent.ACTION_DOWN -> showAlertDialog(R.layout.alert_dialog_search_type_selection)
-                }
-
-                return v?.onTouchEvent(event) ?: true
-            }
-        })
+        configureAllSpinner()
     }
 
     private fun configureToolBar() {
@@ -37,12 +27,30 @@ class SearchActivity : AppCompatActivity() {
         return true
     }
 
-    private fun showAlertDialog(layout : Int){
-        val alert = AlertDialog.Builder(this)
-        val inflater = getLayoutInflater()
-        val view = inflater.inflate(layout,null)
-        alert.setView(view)
-        alert.show()
+    // SPINNER CONFIGURATION
+    private fun configureSpinner(idRStringArray: Int,spinner: Spinner){
+
+        val adapter = ArrayAdapter.createFromResource(this, idRStringArray, android.R.layout.simple_spinner_item)
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_item)
+        spinner.setAdapter(adapter)
+        spinner.onItemSelectedListener
     }
 
+    private fun configureAllSpinner(){
+        this.configureSpinner(R.array.search_type,activity_search_type_sp)
+        this.configureSpinner(R.array.search_price,activity_search_price_min_sp)
+        this.configureSpinner(R.array.search_price,activity_search_price_max_sp)
+        this.configureSpinner(R.array.search_surface,activity_search_surf_min_sp)
+        this.configureSpinner(R.array.search_surface,activity_search_surf_max_sp)
+        this.configureSpinner(R.array.search_status,activity_search_status_sp)
+    }
+
+    override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+            when(parent!!.id) {
+            }
+    }
+
+    override fun onNothingSelected(parent: AdapterView<*>?) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
 }

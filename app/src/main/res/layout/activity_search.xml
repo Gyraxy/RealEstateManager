@@ -21,26 +21,27 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:layout_marginTop="20dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp">
+            android:layout_marginEnd="5dp"
+            android:layout_marginBottom="5dp"
+            android:layout_marginStart="5dp">
 
         <TextView
                 android:text="@string/type"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="50"
+                android:layout_weight="40"
                 android:padding="5dp"
                 android:gravity="center_vertical"
-                android:textSize="16sp"/>
+                android:drawableStart="@drawable/ic_home"
+                android:drawableTint="@color/colorGrey"
+                android:textSize="14sp"/>
 
-        <EditText
-                android:id="@+id/activity_search_type_edt"
+        <Spinner
+                android:id="@+id/activity_search_type_sp"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="50"
-                android:textSize="16sp"
-                android:text="@string/any"
-                android:drawableEnd="@drawable/ic_arrow_drop"/>
+                android:layout_weight="60"
+                style="@style/Base.Widget.AppCompat.Spinner.Underlined"/>
 
     </LinearLayout>
 
@@ -48,27 +49,74 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp">
+            android:layout_margin="5dp">
 
         <TextView
                 android:text="@string/price"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="50"
+                android:layout_weight="40"
                 android:padding="5dp"
                 android:gravity="center_vertical"
-                android:textSize="16sp"/>
+                android:drawableStart="@drawable/ic_money"
+                android:drawableTint="@color/colorGrey"
+                android:textSize="14sp"/>
 
-        <EditText
-                android:id="@+id/activity_search_price_edt"
+        <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="50"
+                android:layout_weight="60"
                 android:textSize="16sp"
-                android:text="@string/any"
-                android:drawableEnd="@drawable/ic_arrow_drop"
-                android:inputType="text"/>
+                android:orientation="horizontal">
+
+            <TableLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="match_parent">
+
+                <TableRow
+                    android:layout_width="fill_parent">
+
+                    <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="center_vertical"
+                            android:text="@string/between"/>
+
+                    <Spinner
+                            android:id="@+id/activity_search_price_min_sp"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            style="@style/Base.Widget.AppCompat.Spinner.Underlined"/>
+                    <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:gravity="center_vertical"
+                            android:text="@string/euro_symbol"/>
+                </TableRow>
+                <TableRow>
+
+                    <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:gravity="center_vertical"
+                            android:text="@string/and"/>
+
+                    <Spinner
+                            android:id="@+id/activity_search_price_max_sp"
+                            android:layout_width="150dp"
+                            android:layout_height="match_parent"
+                            style="@style/Base.Widget.AppCompat.Spinner.Underlined"/>
+
+                    <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:gravity="center_vertical"
+                            android:text="@string/euro_symbol"/>
+                </TableRow>
+
+            </TableLayout>
+
+        </LinearLayout>
 
     </LinearLayout>
 
@@ -76,27 +124,25 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp">
+            android:layout_margin="5dp">
 
         <TextView
                 android:text="@string/status"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="50"
+                android:layout_weight="40"
                 android:padding="5dp"
                 android:gravity="center_vertical"
-                android:textSize="16sp"/>
+                android:drawableStart="@drawable/ic_status"
+                android:drawableTint="@color/colorGrey"
+                android:textSize="14sp"/>
 
-        <EditText
-                android:id="@+id/activity_search_status_edt"
+        <Spinner
+                android:id="@+id/activity_search_status_sp"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="50"
-                android:textSize="16sp"
-                android:text="@string/any"
-                android:drawableEnd="@drawable/ic_arrow_drop"
-                android:inputType="text"/>
+                android:layout_weight="60"
+                style="@style/Base.Widget.AppCompat.Spinner.Underlined"/>
 
     </LinearLayout>
 
@@ -104,27 +150,63 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp">
+            android:layout_margin="5dp">
 
         <TextView
                 android:text="@string/date"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="50"
+                android:layout_weight="40"
                 android:padding="5dp"
                 android:gravity="center_vertical"
-                android:textSize="16sp"/>
+                android:drawableStart="@drawable/ic_date"
+                android:drawableTint="@color/colorGrey"
+                android:textSize="14sp"/>
 
-        <EditText
-                android:id="@+id/activity_search_date_edt"
+        <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="50"
+                android:layout_weight="60"
                 android:textSize="16sp"
-                android:text="@string/any"
-                android:drawableEnd="@drawable/ic_arrow_drop"
-                android:inputType="datetime"/>
+                android:orientation="horizontal">
+
+            <TableLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="match_parent">
+
+                <TableRow
+                        android:layout_width="fill_parent">
+
+                    <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="center_vertical"
+                            android:text="@string/from"/>
+
+                    <EditText
+                            android:id="@+id/activity_search_date_min_edt"
+                            android:layout_width="120dp"
+                            android:layout_height="match_parent"
+                            android:textSize="14sp"/>
+                </TableRow>
+                <TableRow>
+
+                    <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:gravity="center_vertical"
+                            android:text="@string/to"/>
+
+                    <EditText
+                            android:id="@+id/activity_search_date_max_edt"
+                            android:layout_width="120dp"
+                            android:layout_height="match_parent"
+                            android:textSize="14sp"/>
+                </TableRow>
+
+            </TableLayout>
+
+        </LinearLayout>
 
     </LinearLayout>
 
@@ -132,27 +214,48 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp">
+            android:layout_margin="5dp">
 
         <TextView
                 android:text="@string/surface"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="50"
+                android:layout_weight="40"
                 android:padding="5dp"
                 android:gravity="center_vertical"
-                android:textSize="16sp"/>
+                android:drawableStart="@drawable/ic_surface"
+                android:drawableTint="@color/colorGrey"
+                android:textSize="14sp"/>
 
-        <EditText
-                android:id="@+id/activity_search_surface_edt"
+        <LinearLayout
                 android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="50"
-                android:textSize="16sp"
-                android:text="@string/any"
-                android:drawableEnd="@drawable/ic_arrow_drop"
-                android:inputType="text"/>
+                android:layout_weight="60"
+                android:layout_height="match_parent">
+
+            <Spinner
+                    android:id="@+id/activity_search_surf_min_sp"
+                    android:layout_width="72dp"
+                    android:layout_height="match_parent"
+                    style="@style/Base.Widget.AppCompat.Spinner.Underlined"/>
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:text="m2 et "/>
+
+            <Spinner
+                    android:id="@+id/activity_search_surf_max_sp"
+                    android:layout_width="72dp"
+                    android:layout_height="match_parent"
+                    style="@style/Base.Widget.AppCompat.Spinner.Underlined"/>
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:text="m2"/>
+
+        </LinearLayout>
 
     </LinearLayout>
 
@@ -160,27 +263,25 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp">
+            android:layout_margin="5dp">
 
         <TextView
                 android:text="@string/room"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="50"
+                android:layout_weight="40"
                 android:padding="5dp"
                 android:gravity="center_vertical"
-                android:textSize="16sp"/>
+                android:drawableStart="@drawable/ic_room"
+                android:drawableTint="@color/colorGrey"
+                android:textSize="14sp"/>
 
         <EditText
                 android:id="@+id/activity_search_room_edt"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="50"
-                android:textSize="16sp"
-                android:text="@string/any"
-                android:drawableEnd="@drawable/ic_arrow_drop"
-                android:inputType="text"/>
+                android:layout_weight="60"
+                android:textSize="14sp"/>
 
     </LinearLayout>
 
@@ -188,38 +289,36 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp">
+            android:layout_margin="5dp">
 
         <TextView
                 android:text="@string/place"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="50"
+                android:layout_weight="40"
                 android:padding="5dp"
                 android:gravity="center_vertical"
-                android:textSize="16sp"/>
+                android:textSize="14sp"
+                android:drawableStart="@drawable/ic_location"
+                android:drawableTint="@color/colorGrey"/>
 
         <EditText
                 android:id="@+id/activity_search_place_edt"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="50"
-                android:textSize="16sp"
-                android:text="@string/any"
-                android:drawableEnd="@drawable/ic_arrow_drop"
-                android:inputType="text"/>
+                android:layout_weight="60"
+                android:textSize="14sp"/>
 
     </LinearLayout>
 
-
     <Button
+            android:id="@+id/activity_search_btn"
             android:text="@string/search_fr"
             android:textColor="@color/colorWhite"
-            android:layout_marginTop="100dp"
+            android:layout_marginTop="50dp"
             android:layout_width="200dp"
             android:layout_height="50dp"
             android:drawableStart="@drawable/ic_search_icon"
-            android:background="@color/colorAccent"/>
+            android:background="@drawable/button_bg_rounded_corners"/>
 
 </LinearLayout>
