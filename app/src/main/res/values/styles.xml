@@ -13,9 +13,32 @@
         <item name="android:textColorSecondary">@color/colorGrey</item>
     </style>
 
-    <!-- TOOLBAR THEME -->
-    <style name="ToolbarTheme" parent="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+    <!-- SEARCH ACTIVITY -->
+    <style name="SearchActivityTextTitle">
+        <item name="android:textSize">@dimen/activity_search_title_txt</item>
+        <item name="android:drawableTint">@color/colorGrey</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:padding">5dp</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_weight">35</item>
+    </style>
 
+    <style name="SearchActivityLayout">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_margin">2dp</item>
+        <item name="android:orientation">horizontal</item>
+    </style>
+
+    <style name="SearchActivityTextView">
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_width">120dp</item>
+        <item name="android:layout_margin">5dp</item>
+        <item name="android:textSize">@dimen/activity_search_title_txt</item>
+        <item name="android:focusable">false</item>
+        <item name="android:clickable">true</item>
+        <item name="android:textColor">@color/colorBlack</item>
     </style>
 
 </resources>
