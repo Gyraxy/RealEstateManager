@@ -13,18 +13,18 @@
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
         <activity
-                android:name=".MapDetailActivity"
-                android:parentActivityName=".MainActivity">
+                android:name=".controllers.activities.MapDetailActivity"
+                android:parentActivityName=".controllers.activities.MainActivity">
             <meta-data
                     android:name="android.support.PARENT_ACTIVITY"
-                    android:value=".MainActivity"/>>
+                    android:value=".controllers.activities.MainActivity"/>
         </activity>
 
         <meta-data
                 android:name="com.google.android.geo.API_KEY"
-                android:value="AIzaSyC24PqmjWqUBzEWXfezarHfgM7z3aykmo4"/>
+                android:value="AIzaSyDE8xBMmrWat5ugUmWhLANHGDui3ngNJjI"/>
 
-        <activity android:name=".MainActivity">
+        <activity android:name=".controllers.activities.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
@@ -32,12 +32,12 @@
             </intent-filter>
         </activity>
         <activity
-                android:name=".SearchActivity"
+                android:name=".controllers.activities.SearchActivity"
                 android:label="Recherche"
-                android:parentActivityName=".MainActivity">
+                android:parentActivityName=".controllers.activities.MainActivity">
             <meta-data
                     android:name="android.support.PARENT_ACTIVITY"
-                    android:value=".MainActivity"/>
+                    android:value=".controllers.activities.MainActivity"/>
         </activity>
     </application>
 

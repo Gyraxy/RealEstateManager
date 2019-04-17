@@ -15,8 +15,10 @@
     <string name="any">Aucun</string>
     <string name="type">Types de bien</string>
     <string name="price">Prix</string>
+    <string name="picture">Photos</string>
     <string name="status">Statut</string>
-    <string name="place">Emplacement</string>
+    <string name="place">Localisation</string>
+    <string name="commodity">Commodités</string>
     <string name="surface">Surface</string>
     <string name="room">Pièces</string>
     <string name="date">Date</string>
@@ -27,5 +29,13 @@
     <string name="from">Du</string>
     <string name="to">Au</string>
     <string name="square_meters">m2</string>
+
+    <string-array name="place">
+        <item>Aucune</item>
+        <item>Piscine</item>
+        <item>Ecole</item>
+        <item>Bibliotheque</item>
+        <item>Commerces</item>
+    </string-array>
 
 </resources>

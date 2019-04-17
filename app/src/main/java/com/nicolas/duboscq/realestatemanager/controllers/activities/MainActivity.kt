@@ -1,4 +1,4 @@
-package com.nicolas.duboscq.realestatemanager
+package com.nicolas.duboscq.realestatemanager.controllers.activities
 
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
@@ -7,6 +7,10 @@ import android.view.Menu
 import android.support.design.widget.BottomNavigationView
 import android.support.v4.app.Fragment
 import android.view.MenuItem
+import com.nicolas.duboscq.realestatemanager.controllers.fragments.MapFragment
+import com.nicolas.duboscq.realestatemanager.R
+import com.nicolas.duboscq.realestatemanager.controllers.fragments.DetailFragment
+import com.nicolas.duboscq.realestatemanager.controllers.fragments.ListFragment
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {

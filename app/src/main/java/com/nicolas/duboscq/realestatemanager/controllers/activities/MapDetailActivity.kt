@@ -1,8 +1,10 @@
-package com.nicolas.duboscq.realestatemanager
+package com.nicolas.duboscq.realestatemanager.controllers.activities
 
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
+import com.nicolas.duboscq.realestatemanager.controllers.fragments.MapFragment
+import com.nicolas.duboscq.realestatemanager.R
 import kotlinx.android.synthetic.main.activity_search.*
 
 class MapDetailActivity : AppCompatActivity() {

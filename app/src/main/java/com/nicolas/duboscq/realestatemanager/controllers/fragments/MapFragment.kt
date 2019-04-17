@@ -1,4 +1,4 @@
-package com.nicolas.duboscq.realestatemanager
+package com.nicolas.duboscq.realestatemanager.controllers.fragments
 
 
 import android.content.pm.PackageManager
@@ -14,6 +14,7 @@ import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.*
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
+import com.nicolas.duboscq.realestatemanager.R
 
 class MapFragment : Fragment() , OnMapReadyCallback,GoogleMap.OnMarkerClickListener {
 
@@ -54,7 +55,9 @@ class MapFragment : Fragment() , OnMapReadyCallback,GoogleMap.OnMarkerClickListe
         if (ActivityCompat.checkSelfPermission(activity!!.applicationContext,
                 android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(requireActivity(),
-                arrayOf(android.Manifest.permission.ACCESS_FINE_LOCATION), LOCATION_PERMISSION_REQUEST_CODE)
+                arrayOf(android.Manifest.permission.ACCESS_FINE_LOCATION),
+                LOCATION_PERMISSION_REQUEST_CODE
+            )
             return
         }
         googleMap.isMyLocationEnabled = true
