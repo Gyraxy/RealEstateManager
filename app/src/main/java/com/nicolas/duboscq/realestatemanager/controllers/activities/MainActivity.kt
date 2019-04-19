@@ -57,7 +57,8 @@ class MainActivity : AppCompatActivity() {
                 startActivity(searchIntent)
             }
             R.id.menu_activity_main_add -> {
-
+                val addIntent = Intent(this, MapDetailActivity::class.java)
+                startActivity(addIntent)
             }
             else -> {
             }

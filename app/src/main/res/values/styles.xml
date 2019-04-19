@@ -41,4 +41,14 @@
         <item name="android:textColor">@color/colorBlack</item>
     </style>
 
+    <!-- FRAGMENT DETAIL -->
+
+    <style name="FragmentDetailTextIco">
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:textColor">@color/colorPrimary</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">@dimen/fragment_detail_textico_txt</item>
+    </style>
 </resources>

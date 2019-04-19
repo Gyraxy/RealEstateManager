@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+
+<RelativeLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
@@ -7,4 +8,219 @@
         tools:context=".controllers.fragments.DetailFragment"
         android:orientation="vertical">
 
-</LinearLayout>
+    <ImageView
+            android:id="@+id/fragment_detail_picture_imv"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:scaleType="centerCrop"
+            android:layout_margin="5dp"
+            android:contentDescription="@string/none"/>
+
+    <TextView
+            android:id="@+id/fragment_detail_price_txtv"
+            android:gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:textColor="#F0000B"
+            android:background="@drawable/price_bg_rounded_corners"
+            android:padding="5dp"
+            android:layout_alignBottom="@+id/fragment_detail_picture_imv"
+            android:layout_alignStart="@+id/fragment_detail_picture_imv"/>
+
+    <TableLayout
+            android:id="@+id/fragment_detail_status_ly"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/fragment_detail_picture_imv"
+            android:layout_margin="5dp">
+
+        <TableRow>
+
+            <TextView
+                    android:id="@+id/fragment_detail_ref_txtv"
+                    android:layout_width="0dp"
+                    android:layout_weight="50"
+                    android:layout_height="wrap_content"
+                    android:text=""
+                    android:textSize="14sp"
+                    android:textColor="@color/colorBlack"/>
+
+            <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="50"
+                    android:layout_height="wrap_content"
+                    android:gravity="end"
+                    android:text="@string/created"
+                    android:textSize="12sp"/>
+
+            <TextView
+                    android:id="@+id/fragment_detail_create_status_txtv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="end"
+                    android:textSize="12sp"/>
+
+        </TableRow>
+
+
+        <TableRow
+            android:paddingTop="5dp">
+
+            <TextView
+                android:id="@+id/fragment_detail_status_txtv"
+                android:layout_width="0dp"
+                android:layout_weight="50"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                android:textColor="@color/colorPrimary"/>
+
+            <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="50"
+                    android:layout_height="wrap_content"
+                    android:gravity="end"
+                    android:text="@string/modified"
+                    android:textSize="12sp"/>
+
+            <TextView
+                    android:id="@+id/fragment_detail_modify_status_txtv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="end"
+                    android:textSize="12sp"/>
+        </TableRow>
+
+    </TableLayout>
+
+    <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/fragment_detail_status_ly">
+
+        <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            <TableLayout
+
+                    android:id="@+id/fragment_detail_description_ly"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp">
+
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/description"
+                        android:textSize="@dimen/fragment_detail_description_txt"/>
+
+                <TextView
+                        android:id="@+id/fragment_detail_description_txtv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/colorBlack"
+                        android:textSize="@dimen/fragment_detail_description_txt"/>
+
+            </TableLayout>
+
+            <TableLayout
+                    android:id="@+id/fragment_detail_compo_ly"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:layout_below="@+id/fragment_detail_description_ly">
+
+                <TableRow>
+
+                    <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/ic_surface"
+                            android:padding="5dp"
+                            android:contentDescription="@string/none"/>
+
+                    <TextView
+                            android:id="@+id/fragment_detail_surface_txtv"
+                            style="@style/FragmentDetailTextIco"/>
+
+                    <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/ic_home"
+                            android:padding="5dp"
+                            android:contentDescription="@string/none"/>
+
+                    <TextView
+                            android:id="@+id/fragment_detail_room_txtv"
+                            style="@style/FragmentDetailTextIco"/>
+
+                    <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/ic_room"
+                            android:padding="5dp"
+                            android:contentDescription="@string/none"/>
+
+                    <TextView
+                            android:id="@+id/fragment_detail_bedroom_txtv"
+                            style="@style/FragmentDetailTextIco"/>
+
+                    <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/ic_bathroom"
+                            android:padding="5dp"
+                            android:contentDescription="@string/none"/>
+
+                    <TextView
+                            android:id="@+id/fragment_detail_bathroom_txt"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:textStyle="bold"
+                            android:gravity="center_vertical"
+                            android:textColor="@color/colorPrimary"/>
+
+                </TableRow>
+
+            </TableLayout>
+
+            <TableLayout
+
+                    android:id="@+id/fragment_detail_location_ly"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/fragment_detail_compo_ly"
+                    android:layout_margin="5dp">
+
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/place"
+                        android:drawableStart="@drawable/ic_location"
+                        android:textSize="@dimen/fragment_detail_description_txt"
+                        android:drawableTint="@color/colorGrey"/>
+
+                <TextView
+                        android:id="@+id/fragment_detail_adress_txtv"
+                        android:padding="5dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/colorBlack"/>
+
+            </TableLayout>
+
+            <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:scaleType="centerCrop"
+                    android:layout_margin="5dp"
+                    android:layout_below="@+id/fragment_detail_location_ly"/>
+
+        </RelativeLayout>
+
+    </ScrollView>
+
+</RelativeLayout>

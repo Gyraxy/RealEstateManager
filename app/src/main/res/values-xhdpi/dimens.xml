@@ -1,4 +1,8 @@
 <resources>
     <dimen name="activity_search_title_txt">18sp</dimen>
 
+    <!-- FRAGMENT DETAIL -->
+    <dimen name="fragment_detail_textico_txt">18sp</dimen>
+    <dimen name="fragment_detail_description_txt">18sp</dimen>
+    <dimen name="fragment_detail_status_txt">16sp</dimen>
 </resources>
