@@ -1,8 +1,13 @@
 <resources>
     <dimen name="activity_search_title_txt">10sp</dimen>
+    <dimen name="floating_btn_margin">7.5dp</dimen>
 
     <!-- FRAGMENT DETAIL -->
     <dimen name="fragment_detail_textico_txt">12sp</dimen>
     <dimen name="fragment_detail_description_txt">12sp</dimen>
     <dimen name="fragment_detail_status_txt">12sp</dimen>
+
+    <!-- ACTIVITY SEARCH PADDING -->
+    <dimen name="activity_search_padding_margin">5dp</dimen>
+    <dimen name="activity_search_padding_top">8dp</dimen>
 </resources>

@@ -13,7 +13,7 @@
 
     //SEARCH ACTIVITY
     <string name="any">Aucun</string>
-    <string name="type">Types de bien</string>
+    <string name="type">Type de bien</string>
     <string name="price">Prix</string>
     <string name="picture">Photos</string>
     <string name="status">Statut</string>
@@ -22,7 +22,6 @@
     <string name="surface">Surface</string>
     <string name="room">Pièces</string>
     <string name="date">Date</string>
-    <string name="search_fr">RECHERCHE</string>
     <string name="euro_symbol">€</string>
     <string name="and">Et</string>
     <string name="between">Entre</string>
@@ -41,5 +40,27 @@
         <item>Bibliotheque</item>
         <item>Commerces</item>
     </string-array>
+
+    <string name="title_activity_edit_update">Edition</string>
+    <string name="price_min">Prix Min</string>
+    <string name="price_max">Prix Max</string>
+    <string name="surface_min">Surface Min</string>
+    <string name="surface_max">Surface Max</string>
+    <string name="room_min">Nbre Pièces Min</string>
+    <string name="room_max">Nbre Pièces Max</string>
+    <string name="bedroom_min">Nbre Chambres Min</string>
+    <string name="bedroom_max">Nbre Chambres Max</string>
+    <string name="bathroom_min">Nbre SdB Min</string>
+    <string name="bathroom_max">Nbre SdB Max</string>
+    <string name="picture_min">Nbre Photos Min</string>
+    <string name="picture_max">Nbre Photos Max</string>
+    <string name="begin_date">Date début</string>
+    <string name="end_date">Date Fin</string>
+    <string name="put_description">Renseigner la description</string>
+    <string name="nb_room">Nb de pièces</string>
+    <string name="nb_bedroom">Nb de chambres</string>
+    <string name="nb_bathroom">Nb de SdB</string>
+    <string name="add_picture">Ajouter Photo</string>
+    <string name="take_picture">Prendre Photo</string>
 
 </resources>

@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<RelativeLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:gravity="center_horizontal"
-        android:orientation="vertical">
+        xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
@@ -16,285 +14,225 @@
             android:background="?attr/colorPrimary"
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"/>
 
-    <LinearLayout
-            style="@style/SearchActivityLayout">
+    <android.support.design.widget.FloatingActionButton
+            android:id="@+id/activity_search_fl_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true"
+            android:layout_margin="@dimen/floating_btn_margin"
+            android:src="@drawable/ic_search_icon"
+            app:backgroundTint="@color/colorAccent"/>
 
-        <TextView
-                android:text="@string/type"
-                style="@style/SearchActivityTextTitle"
-                android:drawableStart="@drawable/ic_home"/>
-
-        <Spinner
-                android:id="@+id/activity_search_type_sp"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="65"
-                style="@style/Base.Widget.AppCompat.Spinner.Underlined"/>
-
-    </LinearLayout>
-
-    <LinearLayout
-            style="@style/SearchActivityLayout">
-
-        <TextView
-                android:text="@string/price"
-                style="@style/SearchActivityTextTitle"
-                android:drawableStart="@drawable/ic_money"/>
+    <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/toolbar">
 
         <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="65"
-                android:orientation="horizontal">
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="@dimen/activity_search_padding_margin">
 
-            <TableLayout
-                    android:layout_width="fill_parent"
-                    android:layout_height="match_parent">
+            <TableRow
+                    android:paddingTop="@dimen/activity_search_padding_top"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
 
-                <TableRow
-                    android:layout_width="fill_parent">
+                <Spinner
+                        android:id="@+id/activity_search_type_sp"
+                        style="@style/SearchActivitySpinner"/>
 
-                    <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:gravity="center_vertical"
-                            android:text="@string/between"
-                            android:textSize="@dimen/activity_search_title_txt"/>
+                <Spinner
+                        android:id="@+id/activity_search_status_sp"
+                        style="@style/SearchActivitySpinner"/>
 
-                    <Spinner
-                            android:id="@+id/activity_search_price_min_sp"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            style="@style/Base.Widget.AppCompat.Spinner.Underlined"/>
-                    <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:gravity="center_vertical"
-                            android:text="@string/euro_symbol"
-                            android:textSize="@dimen/activity_search_title_txt"/>
-                </TableRow>
-                <TableRow>
+            </TableRow>
 
-                    <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:gravity="center_vertical"
-                            android:text="@string/and"
-                            android:textSize="@dimen/activity_search_title_txt"/>
+            <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center">
 
-                    <Spinner
-                            android:id="@+id/activity_search_price_max_sp"
-                            android:layout_width="150dp"
-                            android:layout_height="match_parent"
-                            style="@style/Base.Widget.AppCompat.Spinner.Underlined"/>
+                <EditText
+                        android:hint="@string/price_min"
+                        android:id="@+id/activity_search_price_min_edt"
+                        android:inputType="number"
+                        style="@style/SearchActivityEditText"/>
 
-                    <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:gravity="center_vertical"
-                            android:text="@string/euro_symbol"
-                            android:textSize="@dimen/activity_search_title_txt"/>
-                </TableRow>
+                <ImageView
+                        android:src="@drawable/ic_money"
+                        style="@style/SearchActivityIcon"/>
 
-            </TableLayout>
+                <EditText
+                        android:hint="@string/price_max"
+                        android:id="@+id/activity_search_price_max_edt"
+                        style="@style/SearchActivityEditText"
+                        android:inputType="number"/>
+            </TableRow>
+
+            <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center">
+
+                <EditText
+                        android:hint="@string/surface_min"
+                        android:id="@+id/activity_search_surf_min_edt"
+                        style="@style/SearchActivityEditText"
+                        android:inputType="number"/>
+
+                <ImageView
+                        android:src="@drawable/ic_surface"
+                        style="@style/SearchActivityIcon"/>
+
+                <EditText
+                        android:hint="@string/surface_max"
+                        android:id="@+id/activity_search_surf_max_edt"
+                        style="@style/SearchActivityEditText"
+                        android:inputType="number"/>
+
+            </TableRow>
+
+            <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center">
+
+                <EditText
+                        android:hint="@string/room_min"
+                        android:id="@+id/activity_search_room_min_edt"
+                        style="@style/SearchActivityEditText"
+                        android:inputType="number"/>
+
+                <ImageView
+                        android:src="@drawable/ic_home"
+                        style="@style/SearchActivityIcon"/>
+
+                <EditText
+                        android:hint="@string/room_max"
+                        android:id="@+id/activity_search_room_max_edt"
+                        style="@style/SearchActivityEditText"
+                        android:inputType="number"/>
+
+            </TableRow>
+
+            <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center">
+
+                <EditText
+                        android:hint="@string/bedroom_min"
+                        android:id="@+id/activity_search_bedroom_min_edt"
+                        style="@style/SearchActivityEditText"
+                        android:inputType="number"/>
+
+                <ImageView
+                        android:src="@drawable/ic_room"
+                        style="@style/SearchActivityIcon"/>
+
+                <EditText
+                        android:hint="@string/bedroom_max"
+                        android:id="@+id/activity_search_bedroom_max_edt"
+                        style="@style/SearchActivityEditText"
+                        android:inputType="number"/>
+
+            </TableRow>
+
+            <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center">
+
+                <EditText
+                        android:hint="@string/bathroom_min"
+                        android:id="@+id/activity_search_bathroom_min_edt"
+                        style="@style/SearchActivityEditText"
+                        android:inputType="number"/>
+
+                <ImageView
+                        android:src="@drawable/ic_bathroom"
+                        style="@style/SearchActivityIcon"/>
+
+                <EditText
+                        android:hint="@string/bathroom_max"
+                        android:id="@+id/activity_search_bathroom_max_edt"
+                        style="@style/SearchActivityEditText"
+                        android:inputType="number"/>
+
+            </TableRow>
+
+            <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center">
+
+                <EditText
+                        android:hint="@string/picture_min"
+                        android:id="@+id/activity_search_picture_min_edt"
+                        android:inputType="number"
+                        style="@style/SearchActivityEditText"/>
+
+                <ImageView
+                        android:src="@drawable/ic_camera"
+                        style="@style/SearchActivityIcon"
+                        android:contentDescription="@string/none"/>
+
+                <EditText
+                        android:hint="@string/picture_max"
+                        android:id="@+id/activity_search_picture_max_edt"
+                        android:inputType="number"
+                        style="@style/SearchActivityEditText"/>
+
+            </TableRow>
+
+            <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center">
+
+                <EditText
+                        android:hint="@string/begin_date"
+                        android:id="@+id/activity_search_date_min_edt"
+                        android:focusable="false"
+                        android:clickable="true"
+                        style="@style/SearchActivityEditText"/>
+
+                <ImageView
+                        android:src="@drawable/ic_date"
+                        style="@style/SearchActivityIcon"
+                        android:contentDescription="@string/none"/>
+
+                <EditText
+                        android:hint="@string/end_date"
+                        android:id="@+id/activity_search_date_max_edt"
+                        android:focusable="false"
+                        android:clickable="true"
+                        style="@style/SearchActivityEditText"/>
+
+            </TableRow>
+
+            <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center">
+
+                <ImageView
+                        android:src="@drawable/ic_location"
+                        style="@style/SearchActivityIcon"
+                        android:contentDescription="@string/none"/>
+
+                <TextView
+                        android:hint="@string/place"
+                        android:id="@+id/activity_search_place_edt"
+                        style="@style/SearchActivityEditText"/>
+
+            </TableRow>
 
         </LinearLayout>
 
-    </LinearLayout>
+    </ScrollView>
 
-    <LinearLayout
-            style="@style/SearchActivityLayout">
-
-        <TextView
-                android:text="@string/status"
-                style="@style/SearchActivityTextTitle"
-                android:drawableStart="@drawable/ic_status"/>
-
-        <Spinner
-                android:id="@+id/activity_search_status_sp"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="65"
-                style="@style/Base.Widget.AppCompat.Spinner.Underlined"/>
-
-    </LinearLayout>
-
-    <LinearLayout
-            style="@style/SearchActivityLayout">
-
-        <TextView
-                android:text="@string/picture"
-                style="@style/SearchActivityTextTitle"
-                android:drawableStart="@drawable/ic_camera"/>
-
-        <Spinner
-                android:id="@+id/activity_search_picture_sp"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="65"
-                style="@style/Base.Widget.AppCompat.Spinner.Underlined"/>
-
-    </LinearLayout>
-
-    <LinearLayout
-            style="@style/SearchActivityLayout">
-
-        <TextView
-                android:text="@string/date"
-                style="@style/SearchActivityTextTitle"
-                android:drawableStart="@drawable/ic_date"/>
-
-        <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="65"
-                android:textSize="16sp"
-                android:orientation="horizontal">
-
-            <TableLayout
-                    android:layout_width="fill_parent"
-                    android:layout_height="match_parent">
-
-                <TableRow
-                        android:layout_width="fill_parent">
-
-                    <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:gravity="center_vertical"
-                            android:text="@string/from"
-                            android:textSize="@dimen/activity_search_title_txt"/>
-
-                    <TextView
-                            android:id="@+id/activity_search_date_min_edt"
-                            style="@style/SearchActivityTextView"/>
-                </TableRow>
-
-                <TableRow>
-
-                    <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:gravity="center_vertical"
-                            android:text="@string/to"
-                            android:textSize="@dimen/activity_search_title_txt"/>
-
-                    <TextView
-                            android:id="@+id/activity_search_date_max_edt"
-                            style="@style/SearchActivityTextView"/>
-                </TableRow>
-
-            </TableLayout>
-
-        </LinearLayout>
-
-    </LinearLayout>
-
-    <LinearLayout
-            style="@style/SearchActivityLayout">
-
-        <TextView
-                android:text="@string/surface"
-                style="@style/SearchActivityTextTitle"
-                android:drawableStart="@drawable/ic_surface"/>
-
-        <LinearLayout
-                android:layout_width="0dp"
-                android:layout_weight="65"
-                android:layout_height="match_parent">
-
-            <Spinner
-                    android:id="@+id/activity_search_surf_min_sp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    style="@style/Base.Widget.AppCompat.Spinner.Underlined"/>
-
-            <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:gravity="center_vertical"
-                    android:text="@string/and"
-                    android:textSize="@dimen/activity_search_title_txt"/>
-
-            <Spinner
-                    android:id="@+id/activity_search_surf_max_sp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    style="@style/Base.Widget.AppCompat.Spinner.Underlined"/>
-            <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:gravity="center_vertical"
-                    android:text="@string/square_meters"
-                    android:textSize="@dimen/activity_search_title_txt"/>
-
-        </LinearLayout>
-
-    </LinearLayout>
-
-    <LinearLayout
-            style="@style/SearchActivityLayout">
-
-        <TextView
-                android:text="@string/room"
-                style="@style/SearchActivityTextTitle"
-                android:drawableStart="@drawable/ic_room"/>
-
-        <Spinner
-                android:id="@+id/activity_search_room_sp"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="65"
-                style="@style/Base.Widget.AppCompat.Spinner.Underlined"/>
-
-    </LinearLayout>
-
-    <LinearLayout
-            style="@style/SearchActivityLayout">
-
-        <TextView
-                android:text="@string/place"
-                style="@style/SearchActivityTextTitle"
-                android:drawableStart="@drawable/ic_location"/>
-
-        <TextView
-                android:id="@+id/activity_search_place_edt"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_marginStart="6dp"
-                android:gravity="center_vertical"
-                android:layout_weight="65"
-                android:textSize="14sp"
-                android:focusable="false"/>
-
-    </LinearLayout>
-
-    <LinearLayout
-            style="@style/SearchActivityLayout">
-
-        <TextView
-                android:text="@string/commodity"
-                style="@style/SearchActivityTextTitle"
-                android:drawableStart="@drawable/ic_local_activity"/>
-
-        <com.nicolas.duboscq.realestatemanager.utils.MultiSpinner
-                android:id="@+id/multispinner"
-                android:layout_width="0dp"
-                android:layout_weight="65"
-                android:layout_height="match_parent"
-                android:entries="@array/place" />
-
-    </LinearLayout>
-
-    <Button
-            android:id="@+id/activity_search_btn"
-            android:text="@string/search_fr"
-            android:textSize="@dimen/activity_search_title_txt"
-            android:textColor="@color/colorWhite"
-            android:layout_marginTop="20dp"
-            android:layout_width="200dp"
-            android:layout_height="50dp"
-            android:drawableStart="@drawable/ic_search_icon"
-            android:background="@drawable/button_bg_rounded_corners"/>
-
-</LinearLayout>
+</RelativeLayout>

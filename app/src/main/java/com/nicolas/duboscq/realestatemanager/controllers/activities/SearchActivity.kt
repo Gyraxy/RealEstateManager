@@ -25,30 +25,19 @@ class SearchActivity : AppCompatActivity() {
 
     private val AUTOCOMPLETE_REQUEST_CODE = 1
     private val fields = asList(Place.Field.ID, Place.Field.NAME)
-    private val searchType = arrayOf("Aucun", "Appartement", "Maison", "Duplex", "Penthouse")
-    private val searchPrice = arrayOf("0", "10000", "50000", "100000", "500000", "1000000", "2000000")
-    private val searchSurface = arrayOf("0", "50", "100", "150", "200", "250", "300")
-    private val searchStatus = arrayOf("Aucun", "A Vendre", "Vendu")
-    private val searchRooms = arrayOf("0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10+")
+    private val searchType = arrayOf("Type", "Appartement", "Maison", "Duplex", "Penthouse")
+    private val searchStatus = arrayOf("Status", "A Vendre", "Vendu")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_search)
         configureToolBar()
-        underlineEDT()
         configureAllSpinner()
         configureDatePicker()
         if (!Places.isInitialized()) {
             Places.initialize(applicationContext, "AIzaSyDE8xBMmrWat5ugUmWhLANHGDui3ngNJjI")
         }
         activity_search_place_edt.setOnClickListener { autocompletePlace() }
-    }
-
-    //UI
-    private fun underlineEDT(){
-        underlineEditText(activity_search_place_edt)
-        underlineEditText(activity_search_date_min_edt)
-        underlineEditText(activity_search_date_max_edt)
     }
 
     //TOOLBAR CONFIGURATION
@@ -78,13 +67,7 @@ class SearchActivity : AppCompatActivity() {
 
     private fun configureAllSpinner() {
         this.configureSpinner(searchType, activity_search_type_sp)
-        this.configureSpinner(searchPrice, activity_search_price_min_sp)
-        this.configureSpinner(searchPrice, activity_search_price_max_sp)
-        this.configureSpinner(searchSurface, activity_search_surf_min_sp)
-        this.configureSpinner(searchSurface, activity_search_surf_max_sp)
         this.configureSpinner(searchStatus, activity_search_status_sp)
-        this.configureSpinner(searchRooms, activity_search_room_sp)
-        this.configureSpinner(searchRooms,activity_search_picture_sp)
     }
 
     //DATE PICKER

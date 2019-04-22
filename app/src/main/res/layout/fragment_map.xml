@@ -19,7 +19,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
-            android:layout_margin="7.5dp"
+            android:layout_margin="@dimen/floating_btn_margin"
             android:src="@drawable/ic_my_location"
             app:backgroundTint="@color/colorWhite"/>
 

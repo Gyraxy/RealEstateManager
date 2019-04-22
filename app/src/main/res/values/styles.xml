@@ -14,31 +14,30 @@
     </style>
 
     <!-- SEARCH ACTIVITY -->
-    <style name="SearchActivityTextTitle">
-        <item name="android:textSize">@dimen/activity_search_title_txt</item>
-        <item name="android:drawableTint">@color/colorGrey</item>
-        <item name="android:gravity">center_vertical</item>
-        <item name="android:padding">5dp</item>
-        <item name="android:layout_height">match_parent</item>
-        <item name="android:layout_width">0dp</item>
-        <item name="android:layout_weight">35</item>
-    </style>
 
-    <style name="SearchActivityLayout">
-        <item name="android:layout_height">wrap_content</item>
+    <style name="SearchActivitySpinner">
+        <item name="android:layout_height">50dp</item>
         <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_margin">2dp</item>
-        <item name="android:orientation">horizontal</item>
+        <item name="android:layout_margin">5dp</item>
+        <item name="android:layout_weight">50</item>
+        <item name="android:background">@drawable/search_bg_transp</item>
     </style>
 
-    <style name="SearchActivityTextView">
-        <item name="android:layout_height">match_parent</item>
-        <item name="android:layout_width">120dp</item>
+    <style name="SearchActivityEditText">
+        <item name="android:layout_height">50dp</item>
+        <item name="android:layout_width">match_parent</item>
         <item name="android:layout_margin">5dp</item>
+        <item name="android:layout_weight">50</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@color/colorGrey</item>
         <item name="android:textSize">@dimen/activity_search_title_txt</item>
-        <item name="android:focusable">false</item>
-        <item name="android:clickable">true</item>
-        <item name="android:textColor">@color/colorBlack</item>
+        <item name="android:background">@drawable/search_bg_transp</item>
+    </style>
+
+    <style name="SearchActivityIcon">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_margin">@dimen/activity_search_padding_margin</item>
     </style>
 
     <!-- FRAGMENT DETAIL -->
@@ -51,4 +50,31 @@
         <item name="android:textStyle">bold</item>
         <item name="android:textSize">@dimen/fragment_detail_textico_txt</item>
     </style>
+
+    <!-- EDIT/UPDATE ACTIVITY -->
+    <style name="EditUpdateActivityTextTitle">
+        <item name="android:textSize">@dimen/activity_search_title_txt</item>
+        <item name="android:drawableTint">@color/colorGrey</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_weight">35</item>
+    </style>
+
+    <style name="EditUpdateActivityLayout">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_margin">10dp</item>
+        <item name="android:orientation">horizontal</item>
+    </style>
+
+    <style name="EditUpdateActivityEditText">
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:textSize">@dimen/activity_search_title_txt</item>
+        <item name="android:background">@drawable/search_bg_transp</item>
+        <item name="android:inputType">number</item>
+        <item name="android:gravity">center</item>
+    </style>
+
 </resources>

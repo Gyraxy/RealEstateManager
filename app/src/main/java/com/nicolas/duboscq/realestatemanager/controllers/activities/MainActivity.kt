@@ -36,8 +36,14 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         when (mode){
-            "phone"-> menuInflater.inflate(R.menu.main_activity_toolbar_phone, menu)
-            "tablet"-> menuInflater.inflate(R.menu.main_activity_toolbar_tablet, menu)
+            "phone"-> {
+                menuInflater.inflate(R.menu.main_activity_toolbar, menu)
+                menu.getItem(0).isVisible = false
+                menu.getItem(2).isVisible = false
+            }
+            "tablet"-> {
+                menuInflater.inflate(R.menu.main_activity_toolbar, menu)
+            }
         }
         return true
     }
@@ -53,11 +59,12 @@ class MainActivity : AppCompatActivity() {
                 startActivity(searchIntent)
             }
             R.id.menu_activity_main_position -> {
-                val searchIntent = Intent(this, MapDetailActivity::class.java)
-                startActivity(searchIntent)
+                val positionIntent = Intent(this, MapDetailActivity::class.java)
+                positionIntent.putExtra("activity","location")
+                startActivity(positionIntent)
             }
             R.id.menu_activity_main_add -> {
-                val addIntent = Intent(this, MapDetailActivity::class.java)
+                val addIntent = Intent(this, EditUpdateActivity::class.java)
                 startActivity(addIntent)
             }
             else -> {

@@ -13,6 +13,13 @@
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
         <activity
+                android:name=".controllers.activities.EditUpdateActivity"
+                android:label="@string/title_activity_edit_update">
+            <meta-data
+                    android:name="android.support.PARENT_ACTIVITY"
+                    android:value=".controllers.activities.MainActivity"/>
+        </activity>
+        <activity
                 android:name=".controllers.activities.MapDetailActivity"
                 android:parentActivityName=".controllers.activities.MainActivity">
             <meta-data
@@ -31,6 +38,7 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+
         <activity
                 android:name=".controllers.activities.SearchActivity"
                 android:label="Recherche"
@@ -39,6 +47,7 @@
                     android:name="android.support.PARENT_ACTIVITY"
                     android:value=".controllers.activities.MainActivity"/>
         </activity>
+
     </application>
 
 </manifest>

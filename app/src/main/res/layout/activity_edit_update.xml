@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:minHeight="?attr/actionBarSize"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:titleTextColor="@android:color/white"
+            android:background="?attr/colorPrimary"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"/>
+
+    <android.support.design.widget.FloatingActionButton
+            android:id="@+id/activity_search_fl_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true"
+            android:layout_margin="@dimen/floating_btn_margin"
+            android:src="@drawable/ic_edit"
+            app:backgroundTint="@color/colorAccent"/>
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:gravity="center_horizontal"
+            android:layout_below="@+id/toolbar">
+
+        <LinearLayout
+                style="@style/EditUpdateActivityLayout">
+
+            <TextView
+                    android:text="Ref:"
+                    style="@style/EditUpdateActivityTextTitle"/>
+
+            <TableLayout
+                    android:layout_width="0dp"
+                    android:layout_height="30dp"
+                    android:layout_weight="65">
+
+                <TableRow>
+
+                    <TextView
+                            android:layout_width="0dp"
+                            android:layout_weight="50"
+                            android:layout_height="wrap_content"
+                            android:gravity="end"
+                            android:text="@string/created"
+                            android:textSize="12sp"/>
+
+                    <TextView
+                            android:id="@+id/activity_edit_update_create_status_txtv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="end"
+                            android:textSize="12sp"/>
+
+                </TableRow>
+
+                <TableRow>
+
+                    <TextView
+                            android:layout_width="0dp"
+                            android:layout_weight="50"
+                            android:layout_height="wrap_content"
+                            android:gravity="end"
+                            android:text="@string/modified"
+                            android:textSize="12sp"/>
+
+                    <TextView
+                            android:id="@+id/activity_edit_update_update_status_txtv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="end"
+                            android:textSize="12sp"/>
+
+                </TableRow>
+
+
+            </TableLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+                style="@style/EditUpdateActivityLayout">
+
+            <TextView
+                    android:text="@string/type"
+                    style="@style/EditUpdateActivityTextTitle"
+                    android:drawableStart="@drawable/ic_home"/>
+
+            <Spinner
+                    android:id="@+id/activity_edit_update_type_sp"
+                    android:layout_width="0dp"
+                    android:layout_height="30dp"
+                    android:layout_weight="65"
+                    android:background="@drawable/search_bg_transp"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+                style="@style/EditUpdateActivityLayout">
+
+            <TextView
+                    android:text="@string/price"
+                    style="@style/EditUpdateActivityTextTitle"
+                    android:drawableStart="@drawable/ic_money"/>
+
+            <EditText
+                    android:id="@+id/activity_edit_update_price_edt"
+                    android:layout_width="0dp"
+                    android:layout_height="30dp"
+                    android:textSize="14sp"
+                    android:layout_weight="65"
+                    android:background="@drawable/search_bg_transp"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+                style="@style/EditUpdateActivityLayout">
+
+            <TextView
+                    android:text="@string/status"
+                    style="@style/EditUpdateActivityTextTitle"
+                    android:drawableStart="@drawable/ic_status"/>
+
+            <Spinner
+                    android:id="@+id/activity_edit_update_status_sp"
+                    android:layout_width="0dp"
+                    android:layout_height="30dp"
+                    android:layout_weight="65"
+                    android:background="@drawable/search_bg_transp"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:padding="10dp"
+                android:orientation="vertical"
+                android:background="@drawable/search_bg_transp"
+                android:layout_margin="10dp">
+
+            <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/description"
+                    android:textSize="@dimen/activity_search_title_txt"/>
+
+            <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:lines="2"
+                    android:textSize="12sp"
+                    android:hint="@string/put_description"
+                    android:inputType="textMultiLine"/>
+
+
+        </LinearLayout>
+
+        <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp">
+
+            <TableRow
+                    android:layout_height="wrap_content"
+                    android:layout_width="0dp"
+                    android:layout_weight="50">
+
+                <ImageView
+                        style="@style/SearchActivityIcon"
+                        android:src="@drawable/ic_surface"/>
+
+                <EditText
+                        android:hint="@string/surface"
+                        style="@style/EditUpdateActivityEditText"/>
+
+            </TableRow>
+
+            <TableRow
+                    android:layout_height="wrap_content"
+                    android:layout_width="0dp"
+                    android:layout_weight="50">
+
+                <ImageView
+                        style="@style/SearchActivityIcon"
+                        android:src="@drawable/ic_home"/>
+
+                <EditText
+                        android:hint="@string/nb_room"
+                        style="@style/EditUpdateActivityEditText"/>
+            </TableRow>
+
+        </TableRow>
+
+        <TableRow
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:padding="10dp"
+                android:gravity="center_horizontal">
+
+            <TableRow
+                    android:layout_height="wrap_content"
+                    android:layout_width="0dp"
+                    android:layout_weight="50">
+
+                <ImageView
+                        style="@style/SearchActivityIcon"
+                        android:src="@drawable/ic_room"/>
+
+                <EditText
+                        android:hint="@string/nb_bedroom"
+                        style="@style/EditUpdateActivityEditText"/>
+            </TableRow>
+
+            <TableRow
+                    android:layout_height="wrap_content"
+                    android:layout_width="0dp"
+                    android:layout_weight="50">
+
+                <ImageView
+                        style="@style/SearchActivityIcon"
+                        android:src="@drawable/ic_bathroom"/>
+
+                <EditText
+                        android:hint="@string/nb_bathroom"
+                        style="@style/EditUpdateActivityEditText"/>
+            </TableRow>
+
+        </TableRow>
+
+        <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:gravity="center">
+
+            <Button
+                    android:layout_width="160dp"
+                    android:text="@string/add_picture"
+                    android:drawableStart="@drawable/ic_photo"/>
+
+            <Button
+                    android:layout_width="160dp"
+                    android:text="@string/take_picture"
+                    android:drawableStart="@drawable/ic_camera"/>
+
+        </TableRow>
+
+    </LinearLayout>
+
+</RelativeLayout>
