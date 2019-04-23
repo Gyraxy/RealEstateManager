@@ -1,5 +1,7 @@
 package com.nicolas.duboscq.realestatemanager.controllers.activities
 
+import android.arch.lifecycle.Observer
+import android.arch.lifecycle.ViewModelProviders
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
@@ -7,10 +9,13 @@ import android.view.Menu
 import android.support.design.widget.BottomNavigationView
 import android.support.v4.app.Fragment
 import android.view.MenuItem
+import android.widget.Toast
+import com.facebook.stetho.Stetho
 import com.nicolas.duboscq.realestatemanager.controllers.fragments.MapFragment
 import com.nicolas.duboscq.realestatemanager.R
 import com.nicolas.duboscq.realestatemanager.controllers.fragments.DetailFragment
 import com.nicolas.duboscq.realestatemanager.controllers.fragments.ListFragment
+import com.nicolas.duboscq.realestatemanager.models.PropertyViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -18,10 +23,16 @@ class MainActivity : AppCompatActivity() {
     private val listFragment = ListFragment()
     private val mapFragment = MapFragment()
     private lateinit var mode : String
+    private lateinit var propertyViewModel: PropertyViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        propertyViewModel = ViewModelProviders.of(this).get(PropertyViewModel::class.java)
+        propertyViewModel.allProperty.observe(this, Observer { Toast.makeText(this,"ViewModel OK",Toast.LENGTH_SHORT).show() })
+
+        Stetho.initializeWithDefaults(this)
         if (main_activity_frame_layout_detail == null){
             mode = "phone"
         } else mode = "tablet"

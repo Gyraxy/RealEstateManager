@@ -62,5 +62,6 @@
     <string name="nb_bathroom">Nb de SdB</string>
     <string name="add_picture">Ajouter Photo</string>
     <string name="take_picture">Prendre Photo</string>
+    <string name="ref">Ref:</string>
 
 </resources>
