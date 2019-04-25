@@ -10,4 +10,7 @@
     <!-- ACTIVITY SEARCH PADDING -->
     <dimen name="activity_search_padding_margin">5dp</dimen>
     <dimen name="activity_search_padding_top">8dp</dimen>
+
+    <!-- FRAGMENT LIST-->
+    <dimen name="fragment_empty_recycler_view">15dp</dimen>
 </resources>

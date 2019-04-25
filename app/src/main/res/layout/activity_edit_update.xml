@@ -153,9 +153,10 @@
             <LinearLayout
                     android:layout_height="wrap_content"
                     android:layout_width="match_parent"
-                    android:padding="10dp"
                     android:orientation="vertical"
-                    android:layout_margin="10dp">
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginBottom="10dp">
 
                 <TextView
                         android:layout_width="match_parent"
@@ -262,39 +263,76 @@
                     android:layout_width="match_parent"
                     android:gravity="center"
                     android:layout_marginStart="10dp"
-                    android:layout_marginEnd="10dp">
+                    android:layout_marginEnd="10dp"
+                    android:orientation="vertical">
 
                 <TextView
                         android:text="@string/place"
-                        style="@style/EditUpdateActivityTextTitle"
-                        android:drawableStart="@drawable/ic_location"/>
-                <TableLayout
-                        android:layout_width="0dp"
-                        android:layout_weight="65"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:padding="5dp">
+                        android:drawableTint="@color/colorGrey"
+                        android:drawableStart="@drawable/ic_location"/>
+
+                <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp">
 
                     <EditText
-                            android:hint="Numéro de rue"
-                            style="@style/EditUpdateActivityLocEditText"
-                            android:id="@+id/activity_edit_update_street_nb_edt"/>
+                            android:id="@+id/activity_edit_update_street_nb_edt"
+                            android:hint="@string/street_nb"
+                            android:layout_height="40dp"
+                            android:textSize="@dimen/activity_search_title_txt"
+                            android:layout_width="0dp"
+                            android:layout_weight="35"
+                            android:gravity="center"
+                            android:inputType="number"/>
 
                     <EditText
-                            android:hint="Nom de Rue"
-                            style="@style/EditUpdateActivityLocEditText"
-                            android:id="@+id/activity_edit_update_street_name_edt"/>
+                            android:id="@+id/activity_edit_update_street_name_edt"
+                            android:hint="@string/street_name"
+                            android:layout_height="40dp"
+                            android:textSize="@dimen/activity_search_title_txt"
+                            android:layout_width="0dp"
+                            android:layout_weight="65"
+                            android:gravity="center"/>
+
+                </TableRow>
+
+                <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp">
 
                     <EditText
-                            android:hint="Code Postal"
-                            style="@style/EditUpdateActivityLocEditText"
-                            android:id="@+id/activity_edit_update_zipcode_edt"/>
+                            android:id="@+id/activity_edit_update_zipcode_edt"
+                            android:hint="@string/zipcode"
+                            android:layout_height="40dp"
+                            android:textSize="@dimen/activity_search_title_txt"
+                            android:layout_width="0dp"
+                            android:layout_weight="35"
+                            android:gravity="center"
+                            android:inputType="number"/>
 
                     <EditText
-                            android:hint="Ville"
-                            style="@style/EditUpdateActivityLocEditText"
-                            android:id="@+id/activity_edit_update_city_edt"/>
+                            android:id="@+id/activity_edit_update_city_edt"
+                            android:hint="@string/city"
+                            android:layout_height="40dp"
+                            android:textSize="@dimen/activity_search_title_txt"
+                            android:layout_width="0dp"
+                            android:layout_weight="65"
+                            android:gravity="center"/>
 
-                </TableLayout>
+                </TableRow>
+
+                <EditText
+                        android:id="@+id/activity_edit_update_country_edt"
+                        android:hint="@string/country"
+                        android:layout_height="40dp"
+                        android:textSize="@dimen/activity_search_title_txt"
+                        android:layout_width="wrap_content"
+                        android:gravity="center"
+                        android:inputType="number"/>
 
             </LinearLayout>
 

@@ -1,11 +1,17 @@
 package com.nicolas.duboscq.realestatemanager.utils;
 
 import android.content.Context;
+import android.location.Address;
+import android.location.Geocoder;
 import android.net.wifi.WifiManager;
+import android.widget.FrameLayout;
+import com.google.android.gms.maps.model.LatLng;
 
+import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by Philippe on 21/02/2018.
@@ -48,5 +54,35 @@ public class Utils {
     public static Boolean isInternetAvailable(Context context){
         WifiManager wifi = (WifiManager)context.getSystemService(Context.WIFI_SERVICE);
         return wifi.isWifiEnabled();
+    }
+
+    // GET LAT AND LNG FROM ADDRESS
+    public static LatLng getLocationFromAddress(Context context, String strAddress) {
+        Geocoder coder = new Geocoder(context);
+        List<Address> address;
+        LatLng p1 = null;
+        try {
+            // May throw an IOException
+            address = coder.getFromLocationName(strAddress, 5);
+            if (address == null) {
+                return null;
+            }
+            Address location = address.get(0);
+            p1 = new LatLng(location.getLatitude(), location.getLongitude() );
+
+        } catch (IOException ex) {
+
+            ex.printStackTrace();
+        }
+        System.out.println(p1);
+        return p1;
+    }
+
+    // CHECK MODE CONFIGURATION
+
+    public static String getModeConfiguration(FrameLayout frameLayout){
+        if (frameLayout == null){
+            return "phone";
+        } else return "tablet";
     }
 }

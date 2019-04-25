@@ -15,7 +15,9 @@ import com.nicolas.duboscq.realestatemanager.controllers.fragments.MapFragment
 import com.nicolas.duboscq.realestatemanager.R
 import com.nicolas.duboscq.realestatemanager.controllers.fragments.DetailFragment
 import com.nicolas.duboscq.realestatemanager.controllers.fragments.ListFragment
+import com.nicolas.duboscq.realestatemanager.database.AppDatabase
 import com.nicolas.duboscq.realestatemanager.models.PropertyViewModel
+import com.nicolas.duboscq.realestatemanager.utils.Utils
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -30,12 +32,10 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         propertyViewModel = ViewModelProviders.of(this).get(PropertyViewModel::class.java)
-        propertyViewModel.allProperty.observe(this, Observer { Toast.makeText(this,"ViewModel OK",Toast.LENGTH_SHORT).show() })
+        propertyViewModel.allProperty.observe(this, Observer {  })
 
         Stetho.initializeWithDefaults(this)
-        if (main_activity_frame_layout_detail == null){
-            mode = "phone"
-        } else mode = "tablet"
+        mode = Utils.getModeConfiguration(main_activity_frame_layout_detail)
 
         when (mode){
             "phone"-> configureAndShowPhone()

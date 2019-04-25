@@ -63,5 +63,13 @@
     <string name="add_picture">Ajouter Photo</string>
     <string name="take_picture">Prendre Photo</string>
     <string name="ref">Ref:</string>
+    <string name="street_nb">Numéro de rue</string>
+    <string name="street_name">Nom de Rue</string>
+    <string name="zipcode">Code Postal</string>
+    <string name="city">Ville</string>
+    <string name="country">Pays</string>
+
+    //PROPERTY LIST
+    <string name="no_property_found">Aucun Logement présent</string>
 
 </resources>

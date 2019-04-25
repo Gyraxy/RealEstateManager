@@ -15,7 +15,7 @@ class MapDetailActivity : AppCompatActivity() {
 
     private val mapFragment = MapFragment()
     private val detailFragment = DetailFragment()
-    private lateinit var activity : String
+    private lateinit var activity: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

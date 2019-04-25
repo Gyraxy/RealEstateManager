@@ -4,7 +4,9 @@ import android.arch.persistence.room.Database
 import android.arch.persistence.room.Room
 import android.arch.persistence.room.RoomDatabase
 import android.content.Context
+import com.nicolas.duboscq.realestatemanager.database.dao.AddressDao
 import com.nicolas.duboscq.realestatemanager.database.dao.PropertyDao
+import com.nicolas.duboscq.realestatemanager.models.Address
 import com.nicolas.duboscq.realestatemanager.models.Property
 
 @Database(entities = arrayOf(Property::class), version = 1)

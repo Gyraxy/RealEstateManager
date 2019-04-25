@@ -1,6 +1,5 @@
 package com.nicolas.duboscq.realestatemanager.controllers.fragments
 
-
 import android.content.pm.PackageManager
 import android.location.Location
 import android.os.Bundle
@@ -15,6 +14,10 @@ import com.google.android.gms.maps.*
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
 import com.nicolas.duboscq.realestatemanager.R
+import com.google.android.gms.maps.CameraUpdateFactory
+import android.Manifest.permission.ACCESS_FINE_LOCATION
+import android.support.v4.content.ContextCompat
+import kotlinx.android.synthetic.main.fragment_map.*
 
 class MapFragment : Fragment() , OnMapReadyCallback,GoogleMap.OnMarkerClickListener {
 
@@ -49,6 +52,7 @@ class MapFragment : Fragment() , OnMapReadyCallback,GoogleMap.OnMarkerClickListe
             mMapView.onResume()
             mMapView.getMapAsync(this)
         }
+        fragment_map_view_my_location_floating_btn.setOnClickListener { centerMyLocation() }
     }
 
     private fun setUpMap() {
@@ -72,11 +76,25 @@ class MapFragment : Fragment() , OnMapReadyCallback,GoogleMap.OnMarkerClickListe
 
     override fun onMapReady(p0: GoogleMap) {
         googleMap = p0
-
         p0.uiSettings.isZoomControlsEnabled = true
         p0.setOnMarkerClickListener(this)
         setUpMap()
     }
 
     override fun onMarkerClick(p0: Marker?) = false
+
+    private fun centerMyLocation() {
+        if (ContextCompat.checkSelfPermission(
+                context!!,
+                ACCESS_FINE_LOCATION
+            ) == PackageManager.PERMISSION_GRANTED
+        ) {
+            fusedLocationClient.getLastLocation().addOnSuccessListener { location ->
+                if (location != null) {
+                    val myLatLng = LatLng(location.latitude, location.longitude)
+                    googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(myLatLng, 17f))
+                }
+            }
+        }
+    }
 }
