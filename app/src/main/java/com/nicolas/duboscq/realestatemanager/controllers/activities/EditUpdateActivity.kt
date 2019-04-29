@@ -14,6 +14,7 @@ import kotlinx.android.synthetic.main.activity_edit_update.*
 import kotlinx.android.synthetic.main.activity_edit_update.toolbar
 import kotlinx.android.synthetic.main.simple_spinner_item.view.*
 import com.nicolas.duboscq.realestatemanager.R
+import com.nicolas.duboscq.realestatemanager.models.Address
 
 class EditUpdateActivity : AppCompatActivity() {
 
@@ -48,6 +49,7 @@ class EditUpdateActivity : AppCompatActivity() {
             getAllPropertyInfo()
             dateCreation = Utils.getTodayDate()
             propertyViewModel.insert(Property(status,price,surface,room,bedroom,bathroom,description,type,dateCreation))
+            propertyViewModel.insert(Address(1,40,"Rue du charme",67500,"Haguenau","FRANCE"))
             clearAllEditPropertyInfo()
         }
     }

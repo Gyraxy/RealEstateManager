@@ -4,6 +4,7 @@ import android.app.Application
 import android.arch.lifecycle.AndroidViewModel
 import android.arch.lifecycle.LiveData
 import com.nicolas.duboscq.realestatemanager.database.AppDatabase
+import com.nicolas.duboscq.realestatemanager.repositories.AddressRepository
 import com.nicolas.duboscq.realestatemanager.repositories.PropertyRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -18,22 +19,30 @@ class PropertyViewModel (application: Application) : AndroidViewModel(applicatio
         get() = parentJob + Dispatchers.Main
     private val scope = CoroutineScope(coroutineContext)
 
-    private val repository: PropertyRepository
+    private val propRepository: PropertyRepository
+    private val addRepository: AddressRepository
     val allProperty: LiveData<List<Property>>
+    val allAddress: LiveData<List<Address>>
 
     init {
         val propertyDao = AppDatabase.getDatabase(application).propertyDao()
-        repository = PropertyRepository(propertyDao)
-        allProperty = repository.allProperty
+        val addressDao = AppDatabase.getDatabase(application).addressDao()
+        propRepository = PropertyRepository(propertyDao)
+        addRepository = AddressRepository(addressDao)
+        allProperty = propRepository.allProperty
+        allAddress = addRepository.allAddress
     }
 
     fun insert(property: Property) = scope.launch(Dispatchers.IO) {
-        repository.insertProperty(property)
+        propRepository.insertProperty(property)
+    }
+
+    fun insert(address: Address) = scope.launch(Dispatchers.IO) {
+        addRepository.insertAddress(address)
     }
 
     override fun onCleared() {
         super.onCleared()
         parentJob.cancel()
     }
-
 }

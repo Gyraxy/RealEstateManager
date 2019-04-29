@@ -2,9 +2,9 @@
     <string name="app_name">RealEstateManager</string>
 
     //TOOLBAR
-    <string name="add">Add</string>
+    <string name="add">Ajouter</string>
     <string name="modify">Modify</string>
-    <string name="search">Search</string>
+    <string name="search">Recherche</string>
     <string name="position">Localisation</string>
 
     //BOTTOM NAVIGATION
@@ -31,7 +31,7 @@
     <string name="description">Description :</string>
     <string name="modified">Modifié :</string>
     <string name="created">Mis en ligne:</string>
-    <string name="none">none</string>
+    <string name="none">Aucun</string>
 
     <string-array name="place">
         <item>Aucune</item>
@@ -71,5 +71,13 @@
 
     //PROPERTY LIST
     <string name="no_property_found">Aucun Logement présent</string>
+
+    //PERMISSION POPUP
+    <string name="popup_title_permission_location_access">Cette application a besoin de vous localiser. Acceptez-vous
+        ?
+    </string>
+    <string name="location_access_denied">Location Access denied, please accept it.</string>
+    <string name="popup_message_answer_yes">Oui !</string>
+    <string name="popup_message_answer_no">Non</string>
 
 </resources>

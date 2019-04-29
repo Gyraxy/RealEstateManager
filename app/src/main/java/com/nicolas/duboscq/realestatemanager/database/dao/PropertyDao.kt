@@ -12,7 +12,7 @@ interface PropertyDao {
     fun getAll(): LiveData<List<Property>>
 
     @Insert
-    fun insert(property: Property)
+    fun insert(property: Property) : Long?
 
     @Query("DELETE FROM property")
     fun deleteAll()

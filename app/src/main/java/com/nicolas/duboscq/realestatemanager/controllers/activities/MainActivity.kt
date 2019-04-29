@@ -9,30 +9,42 @@ import android.view.Menu
 import android.support.design.widget.BottomNavigationView
 import android.support.v4.app.Fragment
 import android.view.MenuItem
-import android.widget.Toast
 import com.facebook.stetho.Stetho
 import com.nicolas.duboscq.realestatemanager.controllers.fragments.MapFragment
 import com.nicolas.duboscq.realestatemanager.R
 import com.nicolas.duboscq.realestatemanager.controllers.fragments.DetailFragment
 import com.nicolas.duboscq.realestatemanager.controllers.fragments.ListFragment
-import com.nicolas.duboscq.realestatemanager.database.AppDatabase
 import com.nicolas.duboscq.realestatemanager.models.PropertyViewModel
 import com.nicolas.duboscq.realestatemanager.utils.Utils
 import kotlinx.android.synthetic.main.activity_main.*
+import pub.devrel.easypermissions.EasyPermissions
+import pub.devrel.easypermissions.PermissionRequest
+import android.Manifest.permission.ACCESS_FINE_LOCATION
 
-class MainActivity : AppCompatActivity() {
+
+class MainActivity : AppCompatActivity(), EasyPermissions.PermissionCallbacks{
 
     private val listFragment = ListFragment()
     private val mapFragment = MapFragment()
     private lateinit var mode : String
     private lateinit var propertyViewModel: PropertyViewModel
 
+    companion object {
+        private const val LOCATION_PERMISSION_REQUEST_CODE = 1
+        private val PERMS = ACCESS_FINE_LOCATION
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         propertyViewModel = ViewModelProviders.of(this).get(PropertyViewModel::class.java)
-        propertyViewModel.allProperty.observe(this, Observer {  })
+        propertyViewModel.allProperty.observe(this, Observer {
+            if (it != null) {
+                if (it.isEmpty()) {println ("Property empty")} else {
+                    println("Property not empty")}
+            }
+        })
 
         Stetho.initializeWithDefaults(this)
         mode = Utils.getModeConfiguration(main_activity_frame_layout_detail)
@@ -91,7 +103,7 @@ class MainActivity : AppCompatActivity() {
                 return@OnNavigationItemSelectedListener true
             }
             R.id.navigation_map -> {
-                openFragment(mapFragment)
+                enableLocation()
                 return@OnNavigationItemSelectedListener true
             }
         }
@@ -118,4 +130,29 @@ class MainActivity : AppCompatActivity() {
     private fun configureAndShowPhone(){
         bottom_navigation!!.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
     }
+
+    //PERMISSION
+    private fun enableLocation(){
+        EasyPermissions.requestPermissions(
+            PermissionRequest.Builder(this, LOCATION_PERMISSION_REQUEST_CODE, PERMS)
+                .setRationale(R.string.popup_title_permission_location_access)
+                .setPositiveButtonText(R.string.popup_message_answer_yes)
+                .setNegativeButtonText(R.string.popup_message_answer_no)
+                .build()
+        )
+    }
+
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        EasyPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults, this)
+    }
+
+    override fun onPermissionsDenied(requestCode: Int, perms: MutableList<String>) {
+        bottom_navigation?.selectedItemId = R.id.navigation_list
+    }
+
+    override fun onPermissionsGranted(requestCode: Int, perms: MutableList<String>) {
+        openFragment(mapFragment)
+    }
 }
+

@@ -9,10 +9,11 @@ import com.nicolas.duboscq.realestatemanager.database.dao.PropertyDao
 import com.nicolas.duboscq.realestatemanager.models.Address
 import com.nicolas.duboscq.realestatemanager.models.Property
 
-@Database(entities = arrayOf(Property::class), version = 1)
+@Database(entities = [(Property::class),(Address::class)], version = 1)
 public abstract class AppDatabase : RoomDatabase() {
 
     abstract fun propertyDao(): PropertyDao
+    abstract fun addressDao():AddressDao
 
     companion object {
         @Volatile

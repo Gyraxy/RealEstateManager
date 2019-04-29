@@ -57,9 +57,9 @@ class MapFragment : Fragment() , OnMapReadyCallback,GoogleMap.OnMarkerClickListe
 
     private fun setUpMap() {
         if (ActivityCompat.checkSelfPermission(activity!!.applicationContext,
-                android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(requireActivity(),
-                arrayOf(android.Manifest.permission.ACCESS_FINE_LOCATION),
+                arrayOf(ACCESS_FINE_LOCATION),
                 LOCATION_PERMISSION_REQUEST_CODE
             )
             return
