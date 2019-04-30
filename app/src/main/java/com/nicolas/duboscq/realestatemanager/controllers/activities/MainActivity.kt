@@ -1,7 +1,5 @@
 package com.nicolas.duboscq.realestatemanager.controllers.activities
 
-import android.arch.lifecycle.Observer
-import android.arch.lifecycle.ViewModelProviders
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
@@ -14,30 +12,17 @@ import com.nicolas.duboscq.realestatemanager.controllers.fragments.MapFragment
 import com.nicolas.duboscq.realestatemanager.R
 import com.nicolas.duboscq.realestatemanager.controllers.fragments.DetailFragment
 import com.nicolas.duboscq.realestatemanager.controllers.fragments.ListFragment
-import com.nicolas.duboscq.realestatemanager.models.PropertyViewModel
 import com.nicolas.duboscq.realestatemanager.utils.Utils
 import kotlinx.android.synthetic.main.activity_main.*
 import pub.devrel.easypermissions.EasyPermissions
 import pub.devrel.easypermissions.PermissionRequest
 import android.Manifest.permission.ACCESS_FINE_LOCATION
-import android.support.v7.widget.LinearLayoutManager
-import android.view.View
-import com.nicolas.duboscq.realestatemanager.views.PropertyAdapter
-import com.nicolas.duboscq.realestatemanager.injections.Injection
-import com.nicolas.duboscq.realestatemanager.models.Address
-import com.nicolas.duboscq.realestatemanager.models.Property
-import com.nicolas.duboscq.realestatemanager.utils.DividerItemDecoration
-import kotlinx.android.synthetic.main.fragment_list.*
-
 
 class MainActivity : AppCompatActivity(), EasyPermissions.PermissionCallbacks{
 
     private val listFragment = ListFragment()
     private val mapFragment = MapFragment()
     private lateinit var mode : String
-    private lateinit var propertyViewModel: PropertyViewModel
-    private lateinit var propertyAdapter: PropertyAdapter
-    private lateinit var propertylist : List<Property>
 
     companion object {
         private const val LOCATION_PERMISSION_REQUEST_CODE = 1
@@ -47,12 +32,13 @@ class MainActivity : AppCompatActivity(), EasyPermissions.PermissionCallbacks{
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        this.configureViewModel()
         this.configureStetho()
         this.configureDisplayMode()
         this.configureToolBar()
         this.openFragment(listFragment)
     }
+
+
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         when (mode){
@@ -137,34 +123,6 @@ class MainActivity : AppCompatActivity(), EasyPermissions.PermissionCallbacks{
             "phone"-> configureAndShowPhone()
             "tablet"-> configureAndShowTablet()
         }
-    }
-
-    // VIEW MODEL
-
-    private fun configureViewModel(){
-        val mViewModelFactory = Injection.provideViewModelFactory(this)
-        this.propertyViewModel = ViewModelProviders.of(this, mViewModelFactory).get(PropertyViewModel::class.java!!)
-        this.propertyViewModel.getProperty().observe(this, Observer {
-            if (it != null) {
-                if (it.isEmpty()) {
-                    fragment_list_recycler_view_empty.visibility = View.VISIBLE
-                } else {
-                    fragment_list_recycler_view_empty.visibility = View.GONE
-                    propertylist = it
-                    this.configureRecyclerView()
-                }
-            }
-        })
-    }
-
-    // RECYCLERVIEW
-
-    private fun configureRecyclerView(){
-        propertyAdapter = PropertyAdapter(propertylist)
-        val mDividerItemDecoration = DividerItemDecoration(recyclerView.context, R.drawable.horizontal_divider)
-        recyclerView.adapter = propertyAdapter
-        recyclerView.addItemDecoration(mDividerItemDecoration)
-        recyclerView.layoutManager = LinearLayoutManager(this)
     }
 
 

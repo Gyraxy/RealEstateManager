@@ -10,7 +10,7 @@ class PropertyRepository(private val propertyDao: PropertyDao) {
         return propertyDao.insert(property)
     }
 
-    fun getProperty(): LiveData<List<Property>>{
+    fun getProperty(): LiveData<MutableList<Property>>{
         return propertyDao.getAll()
     }
 }

@@ -9,7 +9,7 @@ import com.nicolas.duboscq.realestatemanager.models.Property
 interface PropertyDao {
 
     @Query("SELECT * from property")
-    fun getAll(): LiveData<List<Property>>
+    fun getAll(): LiveData<MutableList<Property>>
 
     @Insert
     fun insert(property: Property) : Long

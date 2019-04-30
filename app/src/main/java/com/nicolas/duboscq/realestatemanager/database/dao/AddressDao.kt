@@ -10,13 +10,13 @@ import com.nicolas.duboscq.realestatemanager.models.Address
 interface AddressDao {
 
     @Query("SELECT * from address")
-    fun getAll(): LiveData<List<Address>>
+    fun getAll(): LiveData<MutableList<Address>>
 
     @Insert
     fun insert(address: Address)
 
     @Query("SELECT * from address WHERE property_id = :property_id")
-    fun getAddressFromPropId(property_id: Long): LiveData<List<Address>>
+    fun getAddressFromPropId(property_id: Long): LiveData<MutableList<Address>>
 
     @Query("DELETE FROM address")
     fun deleteAll()

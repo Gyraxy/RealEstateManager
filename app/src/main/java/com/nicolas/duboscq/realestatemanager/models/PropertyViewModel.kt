@@ -24,11 +24,11 @@ class PropertyViewModel(
     }
 
     //GET PROPERTY
-    fun getProperty(): LiveData<List<Property>> {
+    fun getProperty(): LiveData<MutableList<Property>> {
         return propertyDataSource.getProperty()
     }
 
-    fun getAddress(): LiveData<List<Address>> {
+    fun getAddress(): LiveData<MutableList<Address>> {
         return addressDataSource.getAddress()
     }
 }

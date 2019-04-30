@@ -10,7 +10,7 @@ class AddressRepository(private val addressDao: AddressDao) {
         addressDao.insert(address)
     }
 
-    fun getAddress(): LiveData<List<Address>> {
+    fun getAddress(): LiveData<MutableList<Address>> {
         return addressDao.getAll()
     }
 }
