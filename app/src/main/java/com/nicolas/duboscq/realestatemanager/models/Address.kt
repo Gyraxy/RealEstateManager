@@ -6,8 +6,8 @@ import android.arch.persistence.room.ForeignKey
 import android.arch.persistence.room.PrimaryKey
 
 @Entity (foreignKeys = [ForeignKey(entity = Property::class,
-parentColumns = ["id"],
-childColumns = ["property_id"])])
+    parentColumns = ["id"],
+    childColumns = ["property_id"])])
 
 data class Address(
     @ColumnInfo(name = "property_id") val propertyId : Long,

@@ -20,6 +20,14 @@ import kotlinx.android.synthetic.main.activity_main.*
 import pub.devrel.easypermissions.EasyPermissions
 import pub.devrel.easypermissions.PermissionRequest
 import android.Manifest.permission.ACCESS_FINE_LOCATION
+import android.support.v7.widget.LinearLayoutManager
+import android.view.View
+import com.nicolas.duboscq.realestatemanager.views.PropertyAdapter
+import com.nicolas.duboscq.realestatemanager.injections.Injection
+import com.nicolas.duboscq.realestatemanager.models.Address
+import com.nicolas.duboscq.realestatemanager.models.Property
+import com.nicolas.duboscq.realestatemanager.utils.DividerItemDecoration
+import kotlinx.android.synthetic.main.fragment_list.*
 
 
 class MainActivity : AppCompatActivity(), EasyPermissions.PermissionCallbacks{
@@ -28,6 +36,8 @@ class MainActivity : AppCompatActivity(), EasyPermissions.PermissionCallbacks{
     private val mapFragment = MapFragment()
     private lateinit var mode : String
     private lateinit var propertyViewModel: PropertyViewModel
+    private lateinit var propertyAdapter: PropertyAdapter
+    private lateinit var propertylist : List<Property>
 
     companion object {
         private const val LOCATION_PERMISSION_REQUEST_CODE = 1
@@ -37,24 +47,11 @@ class MainActivity : AppCompatActivity(), EasyPermissions.PermissionCallbacks{
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
-        propertyViewModel = ViewModelProviders.of(this).get(PropertyViewModel::class.java)
-        propertyViewModel.allProperty.observe(this, Observer {
-            if (it != null) {
-                if (it.isEmpty()) {println ("Property empty")} else {
-                    println("Property not empty")}
-            }
-        })
-
-        Stetho.initializeWithDefaults(this)
-        mode = Utils.getModeConfiguration(main_activity_frame_layout_detail)
-
-        when (mode){
-            "phone"-> configureAndShowPhone()
-            "tablet"-> configureAndShowTablet()
-        }
-        configureToolBar()
-        openFragment(listFragment)
+        this.configureViewModel()
+        this.configureStetho()
+        this.configureDisplayMode()
+        this.configureToolBar()
+        this.openFragment(listFragment)
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -110,6 +107,8 @@ class MainActivity : AppCompatActivity(), EasyPermissions.PermissionCallbacks{
         false
     }
 
+    // UI
+
     private fun openFragment(fragment: Fragment) {
         val fragmentTransaction = supportFragmentManager.beginTransaction()
         fragmentTransaction.replace(R.id.main_activity_frame_layout_list, fragment)
@@ -131,7 +130,51 @@ class MainActivity : AppCompatActivity(), EasyPermissions.PermissionCallbacks{
         bottom_navigation!!.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
     }
 
-    //PERMISSION
+    private fun configureDisplayMode(){
+        mode = Utils.getModeConfiguration(main_activity_frame_layout_detail)
+
+        when (mode){
+            "phone"-> configureAndShowPhone()
+            "tablet"-> configureAndShowTablet()
+        }
+    }
+
+    // VIEW MODEL
+
+    private fun configureViewModel(){
+        val mViewModelFactory = Injection.provideViewModelFactory(this)
+        this.propertyViewModel = ViewModelProviders.of(this, mViewModelFactory).get(PropertyViewModel::class.java!!)
+        this.propertyViewModel.getProperty().observe(this, Observer {
+            if (it != null) {
+                if (it.isEmpty()) {
+                    fragment_list_recycler_view_empty.visibility = View.VISIBLE
+                } else {
+                    fragment_list_recycler_view_empty.visibility = View.GONE
+                    propertylist = it
+                    this.configureRecyclerView()
+                }
+            }
+        })
+    }
+
+    // RECYCLERVIEW
+
+    private fun configureRecyclerView(){
+        propertyAdapter = PropertyAdapter(propertylist)
+        val mDividerItemDecoration = DividerItemDecoration(recyclerView.context, R.drawable.horizontal_divider)
+        recyclerView.adapter = propertyAdapter
+        recyclerView.addItemDecoration(mDividerItemDecoration)
+        recyclerView.layoutManager = LinearLayoutManager(this)
+    }
+
+
+    // STETHOFACEBOOK - To get information of Database
+
+    private fun configureStetho(){
+        Stetho.initializeWithDefaults(this)
+    }
+
+    // PERMISSION
     private fun enableLocation(){
         EasyPermissions.requestPermissions(
             PermissionRequest.Builder(this, LOCATION_PERMISSION_REQUEST_CODE, PERMS)
