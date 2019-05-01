@@ -15,7 +15,7 @@
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"/>
 
     <android.support.design.widget.FloatingActionButton
-            android:id="@+id/activity_search_fl_btn"
+            android:id="@+id/activity_edit_update_fl_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
@@ -55,14 +55,14 @@
                                 android:layout_height="wrap_content"
                                 android:gravity="end"
                                 android:text="@string/created"
-                                android:textSize="12sp"/>
+                                android:textSize="@dimen/activity_edit_update_status_txt"/>
 
                         <TextView
                                 android:id="@+id/activity_edit_update_create_status_txtv"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:gravity="end"
-                                android:textSize="12sp"/>
+                                android:textSize="@dimen/activity_edit_update_status_txt"/>
 
                     </TableRow>
 
@@ -74,14 +74,14 @@
                                 android:layout_height="wrap_content"
                                 android:gravity="end"
                                 android:text="@string/modified"
-                                android:textSize="12sp"/>
+                                android:textSize="@dimen/activity_edit_update_status_txt"/>
 
                         <TextView
                                 android:id="@+id/activity_edit_update_update_status_txtv"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:gravity="end"
-                                android:textSize="12sp"/>
+                                android:textSize="@dimen/activity_edit_update_status_txt"/>
 
                     </TableRow>
 
@@ -120,7 +120,7 @@
                         android:gravity="center"
                         android:layout_width="0dp"
                         android:layout_height="40dp"
-                        android:textSize="14sp"
+                        android:textSize="@dimen/activity_edit_update_txt"
                         android:layout_weight="65"
                         android:background="@drawable/search_bg_transp"
                         android:inputType="number"/>
@@ -162,14 +162,14 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/description"
-                        android:textSize="@dimen/activity_search_title_txt"/>
+                        android:textSize="@dimen/activity_edit_update_txt"/>
 
                 <EditText
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:id="@+id/activity_edit_update_description_edt"
                         android:lines="2"
-                        android:textSize="12sp"
+                        android:textSize="@dimen/activity_edit_update_txt"
                         android:hint="@string/put_description"
                         android:inputType="textMultiLine"/>
 
@@ -271,7 +271,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:drawableTint="@color/colorGrey"
-                        android:drawableStart="@drawable/ic_location"/>
+                        android:drawableStart="@drawable/ic_location"
+                        android:textSize="@dimen/activity_edit_update_txt"/>
 
                 <TableRow
                         android:layout_width="match_parent"
@@ -282,7 +283,7 @@
                             android:id="@+id/activity_edit_update_street_nb_edt"
                             android:hint="@string/street_nb"
                             android:layout_height="40dp"
-                            android:textSize="@dimen/activity_search_title_txt"
+                            android:textSize="@dimen/activity_edit_update_txt"
                             android:layout_width="0dp"
                             android:layout_weight="35"
                             android:gravity="center"
@@ -292,7 +293,7 @@
                             android:id="@+id/activity_edit_update_street_name_edt"
                             android:hint="@string/street_name"
                             android:layout_height="40dp"
-                            android:textSize="@dimen/activity_search_title_txt"
+                            android:textSize="@dimen/activity_edit_update_txt"
                             android:layout_width="0dp"
                             android:layout_weight="65"
                             android:gravity="center"/>
@@ -308,7 +309,7 @@
                             android:id="@+id/activity_edit_update_zipcode_edt"
                             android:hint="@string/zipcode"
                             android:layout_height="40dp"
-                            android:textSize="@dimen/activity_search_title_txt"
+                            android:textSize="@dimen/activity_edit_update_txt"
                             android:layout_width="0dp"
                             android:layout_weight="35"
                             android:gravity="center"
@@ -318,7 +319,7 @@
                             android:id="@+id/activity_edit_update_city_edt"
                             android:hint="@string/city"
                             android:layout_height="40dp"
-                            android:textSize="@dimen/activity_search_title_txt"
+                            android:textSize="@dimen/activity_edit_update_txt"
                             android:layout_width="0dp"
                             android:layout_weight="65"
                             android:gravity="center"/>
@@ -329,7 +330,7 @@
                         android:id="@+id/activity_edit_update_country_edt"
                         android:hint="@string/country"
                         android:layout_height="40dp"
-                        android:textSize="@dimen/activity_search_title_txt"
+                        android:textSize="@dimen/activity_edit_update_txt"
                         android:layout_width="wrap_content"
                         android:gravity="center"
                         android:inputType="textCapWords"/>
@@ -349,14 +350,16 @@
                     android:gravity="center">
 
                 <Button
-                        android:layout_width="160dp"
+                        android:id="@+id/activity_edit_update_add_picture_btn"
                         android:text="@string/add_picture"
-                        android:drawableStart="@drawable/ic_photo"/>
+                        android:drawableStart="@drawable/ic_photo"
+                        style="@style/EditUpdateActivityBtn"/>
 
                 <Button
-                        android:layout_width="160dp"
+                        android:id="@+id/activity_edit_update_take_picture_btn"
                         android:text="@string/take_picture"
-                        android:drawableStart="@drawable/ic_camera"/>
+                        android:drawableStart="@drawable/ic_camera"
+                        style="@style/EditUpdateActivityBtn"/>
 
             </TableRow>
 

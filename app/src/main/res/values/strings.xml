@@ -73,10 +73,10 @@
     <string name="no_property_found">Aucun Logement présent</string>
 
     //PERMISSION POPUP
-    <string name="popup_title_permission_location_access">Cette application a besoin de vous localiser. Acceptez-vous
-        ?
-    </string>
-    <string name="location_access_denied">Location Access denied, please accept it.</string>
+    <string name="popup_title_permission_location_access">Cette application a besoin de vous localiser. Acceptez-vous ?</string>
+    <string name="popup_title_permission_camera_access">Cette application a besoin d\'accéder à la caméra. Acceptez-vous ?</string>
+    <string name="location_access_denied">Geolocalisation refusée, veuillez l\'accepter.</string>
+    <string name="camera_access_denied">Accès à l\'appareil photo refusé, veuillez l\'accepter.</string>
     <string name="popup_message_answer_yes">Oui !</string>
     <string name="popup_message_answer_no">Non</string>
 

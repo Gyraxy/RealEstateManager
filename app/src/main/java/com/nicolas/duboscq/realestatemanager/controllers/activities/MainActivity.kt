@@ -38,8 +38,6 @@ class MainActivity : AppCompatActivity(), EasyPermissions.PermissionCallbacks{
         this.openFragment(listFragment)
     }
 
-
-
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         when (mode){
             "phone"-> {

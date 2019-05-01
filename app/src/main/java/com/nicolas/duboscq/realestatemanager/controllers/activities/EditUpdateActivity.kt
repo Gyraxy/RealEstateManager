@@ -1,9 +1,11 @@
 package com.nicolas.duboscq.realestatemanager.controllers.activities
 
+import android.Manifest
 import android.arch.lifecycle.ViewModelProviders
+import android.content.Intent
 import android.os.Bundle
+import android.provider.MediaStore
 import android.support.v7.app.AppCompatActivity
-import android.util.Log
 import android.widget.ArrayAdapter
 import android.widget.Spinner
 import com.nicolas.duboscq.realestatemanager.models.Property
@@ -12,12 +14,13 @@ import com.nicolas.duboscq.realestatemanager.utils.Utils
 
 import kotlinx.android.synthetic.main.activity_edit_update.*
 import kotlinx.android.synthetic.main.activity_edit_update.toolbar
-import kotlinx.android.synthetic.main.simple_spinner_item.view.*
 import com.nicolas.duboscq.realestatemanager.R
 import com.nicolas.duboscq.realestatemanager.injections.Injection
-import com.nicolas.duboscq.realestatemanager.models.Address
+import pub.devrel.easypermissions.EasyPermissions
+import android.widget.Toast
+import pub.devrel.easypermissions.AfterPermissionGranted
 
-class EditUpdateActivity : AppCompatActivity() {
+class EditUpdateActivity : AppCompatActivity(){
 
     private val editType = arrayOf(" ", "Appartement", "Maison", "Duplex", "Penthouse")
     private val editStatus = arrayOf(" ", "A Vendre", "Vendu")
@@ -39,17 +42,25 @@ class EditUpdateActivity : AppCompatActivity() {
     private var country:String =" "
     private lateinit var dateCreation : String
 
+    companion object {
+        private const val CAMERA_PERMISSION_REQUEST_CODE = 1
+        private val PERMS = Manifest.permission.CAMERA
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_edit_update)
         this.configureToolBar()
         this.configureAllSpinner()
         this.configureViewModel()
-        activity_search_fl_btn.setOnClickListener {
+        activity_edit_update_fl_btn.setOnClickListener {
             this.getAllPropertyInfo()
             this.createProperty()
             this.clearAllEditPropertyInfo()
             this.initData()
+        }
+        activity_edit_update_take_picture_btn.setOnClickListener{
+            this.onAccessCamera()
         }
     }
 
@@ -127,5 +138,35 @@ class EditUpdateActivity : AppCompatActivity() {
     private fun createProperty() {
         val property = Property(status,price,surface,room,bedroom,bathroom,description,type,dateCreation)
         this.propertyViewModel.createPropertyandAddress(property,streetNumber,streetName,zipcode,city,country)
+    }
+
+    // CAMERA
+
+    private fun openCamera(){
+        val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+        if (intent.resolveActivity(packageManager) != null)
+            startActivityForResult(intent, CAMERA_PERMISSION_REQUEST_CODE)
+    }
+
+    //----------
+    //PERMISSION
+    //----------
+
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        EasyPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults, this)
+    }
+
+    @AfterPermissionGranted(CAMERA_PERMISSION_REQUEST_CODE)
+    fun onAccessCamera() {
+        if (!EasyPermissions.hasPermissions(this, PERMS)) {
+            EasyPermissions.requestPermissions(
+                this,getString(R.string.popup_title_permission_camera_access),
+                CAMERA_PERMISSION_REQUEST_CODE,
+                PERMS
+            )
+            return
+        }
+        this.openCamera()
     }
 }

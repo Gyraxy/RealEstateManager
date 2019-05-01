@@ -53,7 +53,7 @@
 
     <!-- EDIT/UPDATE ACTIVITY -->
     <style name="EditUpdateActivityTextTitle">
-        <item name="android:textSize">@dimen/activity_search_title_txt</item>
+        <item name="android:textSize">@dimen/activity_edit_update_txt</item>
         <item name="android:drawableTint">@color/colorGrey</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_width">0dp</item>
@@ -78,6 +78,14 @@
         <item name="android:textSize">@dimen/activity_search_title_txt</item>
         <item name="android:inputType">number</item>
         <item name="android:gravity">center</item>
+    </style>
+
+    <style name="EditUpdateActivityBtn">
+        <item name="android:layout_width">@dimen/activity_edit_update_btn_width</item>
+        <item name="android:layout_height">@dimen/activity_edit_update_btn_height</item>
+        <item name="android:textSize">@dimen/activity_edit_update_picture_btn</item>
+        <item name="android:background">@drawable/button_bg_rounded_corners</item>
+        <item name="android:layout_margin">5dp</item>
     </style>
 
 </resources>
