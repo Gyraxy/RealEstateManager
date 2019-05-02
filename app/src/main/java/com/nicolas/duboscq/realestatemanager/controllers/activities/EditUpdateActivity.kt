@@ -1,24 +1,36 @@
 package com.nicolas.duboscq.realestatemanager.controllers.activities
 
 import android.Manifest
+import android.app.Activity
 import android.arch.lifecycle.ViewModelProviders
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
+import android.os.Environment
 import android.provider.MediaStore
+import android.support.v4.content.FileProvider
 import android.support.v7.app.AppCompatActivity
+import android.support.v7.widget.GridLayoutManager
+import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.Spinner
+import android.widget.Toast
+import com.bumptech.glide.Glide
 import com.nicolas.duboscq.realestatemanager.models.Property
 import com.nicolas.duboscq.realestatemanager.models.PropertyViewModel
 import com.nicolas.duboscq.realestatemanager.utils.Utils
-
 import kotlinx.android.synthetic.main.activity_edit_update.*
 import kotlinx.android.synthetic.main.activity_edit_update.toolbar
 import com.nicolas.duboscq.realestatemanager.R
 import com.nicolas.duboscq.realestatemanager.injections.Injection
 import pub.devrel.easypermissions.EasyPermissions
-import android.widget.Toast
+import com.nicolas.duboscq.realestatemanager.adapters.PictureAdapter
 import pub.devrel.easypermissions.AfterPermissionGranted
+import java.io.File
+import java.io.IOException
+import java.text.SimpleDateFormat
+import java.util.*
+
 
 class EditUpdateActivity : AppCompatActivity(){
 
@@ -42,9 +54,17 @@ class EditUpdateActivity : AppCompatActivity(){
     private var country:String =" "
     private lateinit var dateCreation : String
 
+    private var currentPhotoPath: String = ""
+    private lateinit var pictureAdapter: PictureAdapter
+    private lateinit var picturePathList : MutableList<String>
+    private val AUTHORITY: String ="com.nicolas.duboscq.realestatemanager.fileprovider"
+
     companion object {
         private const val CAMERA_PERMISSION_REQUEST_CODE = 1
-        private val PERMS = Manifest.permission.CAMERA
+        private const val WRITE_PERMISSION_REQUEST_CODE = 2
+        private val REQUEST_IMAGE_CAPTURE = 101
+        private val CAMERA_PERM = Manifest.permission.CAMERA
+        private val WRITE_PERM = Manifest.permission.WRITE_EXTERNAL_STORAGE
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -53,6 +73,7 @@ class EditUpdateActivity : AppCompatActivity(){
         this.configureToolBar()
         this.configureAllSpinner()
         this.configureViewModel()
+        this.configureRecyclerView()
         activity_edit_update_fl_btn.setOnClickListener {
             this.getAllPropertyInfo()
             this.createProperty()
@@ -62,6 +83,12 @@ class EditUpdateActivity : AppCompatActivity(){
         activity_edit_update_take_picture_btn.setOnClickListener{
             this.onAccessCamera()
         }
+    }
+
+    override fun onResume() {
+        if (picturePathList.isNullOrEmpty()){picture_layout.visibility=View.INVISIBLE}
+        else picture_layout.visibility=View.VISIBLE
+        super.onResume()
     }
 
     //TOOLBAR CONFIGURATION
@@ -141,11 +168,43 @@ class EditUpdateActivity : AppCompatActivity(){
     }
 
     // CAMERA
+    private fun takePictureIntent() {
+        Intent(MediaStore.ACTION_IMAGE_CAPTURE).also { takePictureIntent ->
+            // Ensure that there's a camera activity to handle the intent
+            takePictureIntent.resolveActivity(packageManager)?.also {
+                // Create the File where the photo should go
+                val photoFile: File? = try {
+                    createImageFile()
+                } catch (ex: IOException) {
+                    null
+                }
+                // Continue only if the File was successfully created
+                photoFile?.also {
+                    val photoURI: Uri = FileProvider.getUriForFile(
+                        this,
+                        AUTHORITY,
+                        it
+                    )
+                    takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI)
+                    startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE)
+                }
+            }
+        }
+    }
 
-    private fun openCamera(){
-        val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-        if (intent.resolveActivity(packageManager) != null)
-            startActivityForResult(intent, CAMERA_PERMISSION_REQUEST_CODE)
+    @Throws(IOException::class)
+    private fun createImageFile(): File {
+        // Create an image file name
+        val timeStamp: String = SimpleDateFormat("yyyyMMdd_HHmmss").format(Date())
+        val storageDir: File = getExternalFilesDir(Environment.DIRECTORY_PICTURES)
+        return File.createTempFile(
+            "JPEG_${timeStamp}_", /* prefix */
+            ".jpg", /* suffix */
+            storageDir /* directory */
+        ).apply {
+            // Save a file: path for use with ACTION_VIEW intents
+            currentPhotoPath = absolutePath
+        }
     }
 
     //----------
@@ -159,14 +218,45 @@ class EditUpdateActivity : AppCompatActivity(){
 
     @AfterPermissionGranted(CAMERA_PERMISSION_REQUEST_CODE)
     fun onAccessCamera() {
-        if (!EasyPermissions.hasPermissions(this, PERMS)) {
+        if (!EasyPermissions.hasPermissions(this, CAMERA_PERM)) {
             EasyPermissions.requestPermissions(
                 this,getString(R.string.popup_title_permission_camera_access),
                 CAMERA_PERMISSION_REQUEST_CODE,
-                PERMS
+                CAMERA_PERM
             )
             return
         }
-        this.openCamera()
+        this.onWriteAccessStorage()
+    }
+
+    @AfterPermissionGranted(WRITE_PERMISSION_REQUEST_CODE)
+    fun onWriteAccessStorage() {
+        if (!EasyPermissions.hasPermissions(this, WRITE_PERM)) {
+            EasyPermissions.requestPermissions(
+                this,getString(R.string.popup_title_permission_write_access),
+                WRITE_PERMISSION_REQUEST_CODE,
+                WRITE_PERM
+            )
+            return
+        }
+        this.takePictureIntent()
+    }
+
+    // RECYCLERVIEW
+
+    private fun configureRecyclerView(){
+        picturePathList = mutableListOf()
+        pictureAdapter = PictureAdapter(picturePathList,Glide.with(this@EditUpdateActivity))
+        activity_edit_update_recyclerView.layoutManager = GridLayoutManager(this,2)
+        activity_edit_update_recyclerView.adapter = pictureAdapter
+    }
+
+    // RESULT FROM REQUEST
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        if (resultCode == Activity.RESULT_OK
+            && requestCode == REQUEST_IMAGE_CAPTURE) {
+            picturePathList.add(currentPhotoPath)
+            pictureAdapter.notifyDataSetChanged()
+        }
     }
 }

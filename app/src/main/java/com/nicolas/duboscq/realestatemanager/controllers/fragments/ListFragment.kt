@@ -13,7 +13,7 @@ import com.nicolas.duboscq.realestatemanager.injections.Injection
 import com.nicolas.duboscq.realestatemanager.models.Address
 import com.nicolas.duboscq.realestatemanager.models.Property
 import com.nicolas.duboscq.realestatemanager.models.PropertyViewModel
-import com.nicolas.duboscq.realestatemanager.views.PropertyAdapter
+import com.nicolas.duboscq.realestatemanager.adapters.PropertyAdapter
 import kotlinx.android.synthetic.main.fragment_list.*
 
 
@@ -68,7 +68,7 @@ class ListFragment : Fragment() {
     private fun configureRecyclerView(){
         propertylist = mutableListOf()
         addresslist = mutableListOf()
-        propertyAdapter = PropertyAdapter(propertylist,addresslist)
+        propertyAdapter = PropertyAdapter(propertylist, addresslist)
         fragment_list_recyclerView.layoutManager = LinearLayoutManager(activity)
         fragment_list_recyclerView.adapter = propertyAdapter
     }

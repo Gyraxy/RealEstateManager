@@ -272,6 +272,7 @@
                         android:layout_height="wrap_content"
                         android:drawableTint="@color/colorGrey"
                         android:drawableStart="@drawable/ic_location"
+                        android:gravity="center_vertical"
                         android:textSize="@dimen/activity_edit_update_txt"/>
 
                 <TableRow
@@ -362,6 +363,43 @@
                         style="@style/EditUpdateActivityBtn"/>
 
             </TableRow>
+
+            <ImageView
+                    android:id="@+id/picture_test"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+            <LinearLayout
+                    android:id="@+id/picture_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/colorAccent"
+                        android:layout_margin="10dp"/>
+
+                <TextView
+                        android:text="@string/picture"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:drawableTint="@color/colorGrey"
+                        android:drawableStart="@drawable/ic_photo"
+                        android:gravity="center_vertical"
+                        android:textSize="@dimen/activity_edit_update_txt"/>
+
+                <android.support.v7.widget.RecyclerView
+                        android:id="@+id/activity_edit_update_recyclerView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="5dp"
+                        android:scrollbars="horizontal"
+                        android:layout_gravity="center"/>
+
+            </LinearLayout>
+
 
         </LinearLayout>
 

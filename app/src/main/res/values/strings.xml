@@ -75,9 +75,13 @@
     //PERMISSION POPUP
     <string name="popup_title_permission_location_access">Cette application a besoin de vous localiser. Acceptez-vous ?</string>
     <string name="popup_title_permission_camera_access">Cette application a besoin d\'accéder à la caméra. Acceptez-vous ?</string>
+    <string name="popup_title_permission_read_access">Cette application a besoin d\'accéder à votre stockage. Acceptez vous ?</string>
+    <string name="popup_title_permission_write_access">Cette application a besoin d\'enregistrer des données sur votre stockage. Acceptez vous ?</string>
     <string name="location_access_denied">Geolocalisation refusée, veuillez l\'accepter.</string>
     <string name="camera_access_denied">Accès à l\'appareil photo refusé, veuillez l\'accepter.</string>
-    <string name="popup_message_answer_yes">Oui !</string>
+    <string name="read_access_denied">Accès au stockage refusé, veuillez l\'accepter.</string>
+    <string name="write_access_denied">Accès en écriture stockage refusé, veuillez l\'accepter.</string>
+    <string name="popup_message_answer_yes">Oui</string>
     <string name="popup_message_answer_no">Non</string>
 
 </resources>

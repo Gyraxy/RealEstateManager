@@ -1,4 +1,4 @@
-package com.nicolas.duboscq.realestatemanager.views
+package com.nicolas.duboscq.realestatemanager.adapters
 
 import android.support.v7.widget.RecyclerView
 import android.view.ViewGroup
@@ -6,7 +6,7 @@ import com.nicolas.duboscq.realestatemanager.models.Property
 import android.view.LayoutInflater
 import com.nicolas.duboscq.realestatemanager.R
 import com.nicolas.duboscq.realestatemanager.models.Address
-import com.nicolas.duboscq.realestatemanager.models.PropertyViewHolder
+import com.nicolas.duboscq.realestatemanager.adapters.viewholders.PropertyViewHolder
 
 
 class PropertyAdapter (private var listProperty : MutableList<Property>,private var listAddress : MutableList<Address>) : RecyclerView.Adapter<PropertyViewHolder>() {
