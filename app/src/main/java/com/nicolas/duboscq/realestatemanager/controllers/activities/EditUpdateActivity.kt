@@ -2,7 +2,9 @@ package com.nicolas.duboscq.realestatemanager.controllers.activities
 
 import android.Manifest
 import android.app.Activity
+import android.app.AlertDialog
 import android.arch.lifecycle.ViewModelProviders
+import android.content.DialogInterface
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -11,6 +13,7 @@ import android.provider.MediaStore
 import android.support.v4.content.FileProvider
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.GridLayoutManager
+import android.util.Log
 import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.Spinner
@@ -25,18 +28,17 @@ import com.nicolas.duboscq.realestatemanager.R
 import com.nicolas.duboscq.realestatemanager.injections.Injection
 import pub.devrel.easypermissions.EasyPermissions
 import com.nicolas.duboscq.realestatemanager.adapters.PictureAdapter
+import kotlinx.android.synthetic.main.diag_description.view.*
 import pub.devrel.easypermissions.AfterPermissionGranted
 import java.io.File
 import java.io.IOException
-import java.text.SimpleDateFormat
-import java.util.*
 
 
 class EditUpdateActivity : AppCompatActivity(){
 
+    //UI SPINNER
     private val editType = arrayOf(" ", "Appartement", "Maison", "Duplex", "Penthouse")
     private val editStatus = arrayOf(" ", "A Vendre", "Vendu")
-    private lateinit var propertyViewModel: PropertyViewModel
 
     // PROPERTY INFORMATION
     private var status :String = " "
@@ -54,26 +56,35 @@ class EditUpdateActivity : AppCompatActivity(){
     private var country:String =" "
     private lateinit var dateCreation : String
 
-    private var currentPhotoPath: String = ""
-    private lateinit var pictureAdapter: PictureAdapter
+    //PROPERTY PICTURE
+    private var picturePath: String = ""
     private lateinit var picturePathList : MutableList<String>
+    private lateinit var pictureDescriptionList : MutableList<String>
+
+    //DATA
+    private lateinit var propertyViewModel: PropertyViewModel
+    private lateinit var pictureAdapter: PictureAdapter
     private val AUTHORITY: String ="com.nicolas.duboscq.realestatemanager.fileprovider"
 
     companion object {
         private const val CAMERA_PERMISSION_REQUEST_CODE = 1
         private const val WRITE_PERMISSION_REQUEST_CODE = 2
+        private const val READ_PERMISSION_REQUEST_CODE = 3
+        private val REQUEST_CHOOSE_PHOTO = 4
         private val REQUEST_IMAGE_CAPTURE = 101
         private val CAMERA_PERM = Manifest.permission.CAMERA
         private val WRITE_PERM = Manifest.permission.WRITE_EXTERNAL_STORAGE
+        private val READ_PERM = Manifest.permission.READ_EXTERNAL_STORAGE
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_edit_update)
+        picture_layout.visibility = View.INVISIBLE
         this.configureToolBar()
         this.configureAllSpinner()
-        this.configureViewModel()
         this.configureRecyclerView()
+        this.configureViewModel()
         activity_edit_update_fl_btn.setOnClickListener {
             this.getAllPropertyInfo()
             this.createProperty()
@@ -83,13 +94,14 @@ class EditUpdateActivity : AppCompatActivity(){
         activity_edit_update_take_picture_btn.setOnClickListener{
             this.onAccessCamera()
         }
+        activity_edit_update_add_picture_btn.setOnClickListener{
+            this.onClickAddFile()
+        }
     }
 
-    override fun onResume() {
-        if (picturePathList.isNullOrEmpty()){picture_layout.visibility=View.INVISIBLE}
-        else picture_layout.visibility=View.VISIBLE
-        super.onResume()
-    }
+    // ---
+    // UI
+    // ---
 
     //TOOLBAR CONFIGURATION
     private fun configureToolBar() {
@@ -115,7 +127,30 @@ class EditUpdateActivity : AppCompatActivity(){
         this.configureSpinner(editStatus, activity_edit_update_status_sp)
     }
 
+    private fun createAlertDiagDescription(){
+        val builder = AlertDialog.Builder(this)
+        val inflater = this.layoutInflater
+        val view = inflater.inflate(R.layout.diag_description,null)
+        builder.setView(view)
+        builder.setCancelable(false)
+        val ad = builder.show()
+        view.diag_description_btn.setOnClickListener{
+            val description = view.diag_description_edt.text.toString()
+            if (description.isNullOrEmpty()){
+                Toast.makeText(this,getString(R.string.no_description),Toast.LENGTH_SHORT).show()
+            } else {
+                picture_layout.visibility = View.VISIBLE
+                this.pictureDescriptionList.add(description)
+                this.picturePathList.add(picturePath)
+                pictureAdapter.notifyDataSetChanged()
+                ad.dismiss()
+            }
+        }
+    }
+
+    // ----
     // DATA
+    // ----
     private fun initData(){
         status =" "; description =" "; type=" "; streetName=" "; city=" "; country=" "
         surface =0; price=0 ; room=0 ; bedroom=0 ; bathroom=0 ; zipcode=0
@@ -167,7 +202,9 @@ class EditUpdateActivity : AppCompatActivity(){
         this.propertyViewModel.createPropertyandAddress(property,streetNumber,streetName,zipcode,city,country)
     }
 
+    // ------
     // CAMERA
+    // ------
     private fun takePictureIntent() {
         Intent(MediaStore.ACTION_IMAGE_CAPTURE).also { takePictureIntent ->
             // Ensure that there's a camera activity to handle the intent
@@ -195,21 +232,20 @@ class EditUpdateActivity : AppCompatActivity(){
     @Throws(IOException::class)
     private fun createImageFile(): File {
         // Create an image file name
-        val timeStamp: String = SimpleDateFormat("yyyyMMdd_HHmmss").format(Date())
         val storageDir: File = getExternalFilesDir(Environment.DIRECTORY_PICTURES)
         return File.createTempFile(
-            "JPEG_${timeStamp}_", /* prefix */
+            "JPEG_", /* prefix */
             ".jpg", /* suffix */
             storageDir /* directory */
         ).apply {
             // Save a file: path for use with ACTION_VIEW intents
-            currentPhotoPath = absolutePath
+            picturePath = absolutePath
         }
     }
 
-    //----------
-    //PERMISSION
-    //----------
+    // ----------
+    // PERMISSION
+    // ----------
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
@@ -242,21 +278,42 @@ class EditUpdateActivity : AppCompatActivity(){
         this.takePictureIntent()
     }
 
+    @AfterPermissionGranted(READ_PERMISSION_REQUEST_CODE)
+    fun onClickAddFile() {
+        this.chooseImageFromPhone()
+    }
+
+    // --------------------
+    // FILE MANAGEMENT
+    // --------------------
+
+    private fun chooseImageFromPhone(){
+        if (!EasyPermissions.hasPermissions(this, READ_PERM )) {
+            EasyPermissions.requestPermissions(this, getString(R.string.popup_title_permission_read_access), READ_PERMISSION_REQUEST_CODE, READ_PERM)
+            return
+        }
+        val i =  Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
+        startActivityForResult(i, REQUEST_CHOOSE_PHOTO)
+    }
+
     // RECYCLERVIEW
 
     private fun configureRecyclerView(){
         picturePathList = mutableListOf()
-        pictureAdapter = PictureAdapter(picturePathList,Glide.with(this@EditUpdateActivity))
+        pictureDescriptionList = mutableListOf()
+        pictureAdapter = PictureAdapter(picturePathList,pictureDescriptionList,Glide.with(this@EditUpdateActivity))
         activity_edit_update_recyclerView.layoutManager = GridLayoutManager(this,2)
         activity_edit_update_recyclerView.adapter = pictureAdapter
     }
 
     // RESULT FROM REQUEST
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        if (resultCode == Activity.RESULT_OK
-            && requestCode == REQUEST_IMAGE_CAPTURE) {
-            picturePathList.add(currentPhotoPath)
-            pictureAdapter.notifyDataSetChanged()
+        if (resultCode == Activity.RESULT_OK && requestCode == REQUEST_IMAGE_CAPTURE) {
+            createAlertDiagDescription()
+        }
+
+        if (resultCode == Activity.RESULT_OK && requestCode == REQUEST_CHOOSE_PHOTO){
+            this.picturePath = data?.data.toString()
         }
     }
 }

@@ -56,7 +56,7 @@
     <string name="picture_max">Nbre Photos Max</string>
     <string name="begin_date">Date début</string>
     <string name="end_date">Date Fin</string>
-    <string name="put_description">Renseigner la description</string>
+    <string name="put_description">Veuillez Saisir une description</string>
     <string name="nb_room">Nb de pièces</string>
     <string name="nb_bedroom">Nb de chambres</string>
     <string name="nb_bathroom">Nb de SdB</string>
@@ -83,5 +83,13 @@
     <string name="write_access_denied">Accès en écriture stockage refusé, veuillez l\'accepter.</string>
     <string name="popup_message_answer_yes">Oui</string>
     <string name="popup_message_answer_no">Non</string>
+    <string name="title_activity_preview">PreviewActivity</string>
+
+    //EDIT-UPDATE ACTIVITY
+    <string name="ok">Ok</string>
+    <string name="cancel">Annuler</string>
+
+    //PREVIEW ACTIVITY
+    <string name="no_description">Veuillez renseigner une description</string>
 
 </resources>

@@ -9,7 +9,7 @@ import com.nicolas.duboscq.realestatemanager.adapters.viewholders.PictureViewHol
 import android.view.View
 
 
-class PictureAdapter (private var listPicturePath : MutableList<String>,private var glide: RequestManager) : RecyclerView.Adapter<PictureViewHolder>() {
+class PictureAdapter (private var listPicturePath : MutableList<String>,private var listPictureDescription : MutableList<String>,private var glide: RequestManager) : RecyclerView.Adapter<PictureViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PictureViewHolder {
         val inflater = LayoutInflater.from(parent.context)
@@ -23,6 +23,6 @@ class PictureAdapter (private var listPicturePath : MutableList<String>,private 
     }
 
     override fun onBindViewHolder(pictureviewholder: PictureViewHolder, position: Int) {
-        pictureviewholder.updateWithPicture(this.listPicturePath[position],this.glide)
+        pictureviewholder.updateWithPicture(this.listPicturePath[position],this.listPictureDescription[position],this.glide)
     }
 }

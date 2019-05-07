@@ -9,7 +9,8 @@ import kotlinx.android.synthetic.main.picture_main_item.view.*
 
 class PictureViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
 
-    fun updateWithPicture(picturePath : String,glide :RequestManager) {
-        glide.load(picturePath).into(itemView.activity_edit_update_item_picture)
+    fun updateWithPicture(picturePath : String, pictureDescription : String, glide :RequestManager) {
+        glide.load(picturePath).into(itemView.picture_main_item_image_imv)
+        itemView.picture_main_item_description_txt.text = pictureDescription
     }
 }
