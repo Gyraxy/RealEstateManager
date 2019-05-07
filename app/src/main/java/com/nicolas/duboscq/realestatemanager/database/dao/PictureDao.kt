@@ -10,7 +10,7 @@ import com.nicolas.duboscq.realestatemanager.models.Picture
 interface PictureDao {
 
     @Query("SELECT * from picture")
-    fun getAll(): LiveData<List<Picture>>
+    fun getAll(): LiveData<MutableList<Picture>>
 
     @Insert
     fun insert(picture: Picture)

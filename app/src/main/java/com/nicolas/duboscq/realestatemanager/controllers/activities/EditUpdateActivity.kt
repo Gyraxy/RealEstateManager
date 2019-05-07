@@ -100,10 +100,6 @@ class EditUpdateActivity : AppCompatActivity(){
         }
     }
 
-    override fun onResume() {
-        super.onResume()
-    }
-
     // ---
     // UI
     // ---
@@ -222,7 +218,7 @@ class EditUpdateActivity : AppCompatActivity(){
 
     private fun createProperty() {
         val property = Property(status,price,surface,room,bedroom,bathroom,description,type,dateCreation)
-        this.propertyViewModel.createPropertyandAddress(property,streetNumber,streetName,zipcode,city,country)
+        this.propertyViewModel.createPropertyandAddress(property,streetNumber,streetName,zipcode,city,country,picturePathList,pictureDescriptionList)
     }
 
     // ------

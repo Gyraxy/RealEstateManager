@@ -7,10 +7,11 @@ import com.nicolas.duboscq.realestatemanager.models.Picture
 
 class PictureRepository(private val pictureDao: PictureDao) {
 
-    val allPicture : LiveData<List<Picture>> = pictureDao.getAll()
-
-    @WorkerThread
-    suspend fun insertPicture(picture: Picture){
+    fun createPicture(picture: Picture) {
         pictureDao.insert(picture)
+    }
+
+    fun getPicture(): LiveData<MutableList<Picture>> {
+        return pictureDao.getAll()
     }
 }

@@ -5,15 +5,18 @@ import android.arch.persistence.room.Room
 import android.arch.persistence.room.RoomDatabase
 import android.content.Context
 import com.nicolas.duboscq.realestatemanager.database.dao.AddressDao
+import com.nicolas.duboscq.realestatemanager.database.dao.PictureDao
 import com.nicolas.duboscq.realestatemanager.database.dao.PropertyDao
 import com.nicolas.duboscq.realestatemanager.models.Address
+import com.nicolas.duboscq.realestatemanager.models.Picture
 import com.nicolas.duboscq.realestatemanager.models.Property
 
-@Database(entities = [(Property::class),(Address::class)], version = 1)
+@Database(entities = [(Property::class),(Address::class),(Picture::class)], version = 1)
 public abstract class AppDatabase : RoomDatabase() {
 
     abstract fun propertyDao(): PropertyDao
     abstract fun addressDao():AddressDao
+    abstract fun pictureDao():PictureDao
 
     companion object {
         @Volatile

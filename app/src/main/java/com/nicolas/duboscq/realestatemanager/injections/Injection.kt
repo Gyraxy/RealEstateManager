@@ -3,6 +3,7 @@ package com.nicolas.duboscq.realestatemanager.injections
 import android.content.Context
 import com.nicolas.duboscq.realestatemanager.database.AppDatabase
 import com.nicolas.duboscq.realestatemanager.repositories.AddressRepository
+import com.nicolas.duboscq.realestatemanager.repositories.PictureRepository
 import com.nicolas.duboscq.realestatemanager.repositories.PropertyRepository
 import java.util.concurrent.Executor
 import java.util.concurrent.Executors
@@ -19,6 +20,11 @@ object Injection {
         return AddressRepository(database.addressDao())
     }
 
+    fun providePictureDataSource(context: Context): PictureRepository {
+        val database = AppDatabase.getDatabase(context)
+        return PictureRepository(database.pictureDao())
+    }
+
     fun provideExecutor(): Executor {
         return Executors.newSingleThreadExecutor()
     }
@@ -26,7 +32,8 @@ object Injection {
     fun provideViewModelFactory(context: Context): ViewModelFactory {
         val dataSourceProperty = providePropertyDataSource(context)
         val dataSourceAddress = provideAddressDataSource(context)
+        val dataSourcePicture = providePictureDataSource(context)
         val executor = provideExecutor()
-        return ViewModelFactory(dataSourceProperty,dataSourceAddress,executor)
+        return ViewModelFactory(dataSourceProperty,dataSourceAddress,dataSourcePicture,executor)
     }
 }
