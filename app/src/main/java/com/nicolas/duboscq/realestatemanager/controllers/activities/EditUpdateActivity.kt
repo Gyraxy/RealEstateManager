@@ -28,6 +28,7 @@ import com.nicolas.duboscq.realestatemanager.R
 import com.nicolas.duboscq.realestatemanager.injections.Injection
 import pub.devrel.easypermissions.EasyPermissions
 import com.nicolas.duboscq.realestatemanager.adapters.PictureAdapter
+import com.nicolas.duboscq.realestatemanager.utils.ItemClickSupport
 import kotlinx.android.synthetic.main.diag_description.view.*
 import pub.devrel.easypermissions.AfterPermissionGranted
 import java.io.File
@@ -80,10 +81,10 @@ class EditUpdateActivity : AppCompatActivity(){
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_edit_update)
-        picture_layout.visibility = View.INVISIBLE
         this.configureToolBar()
         this.configureAllSpinner()
         this.configureRecyclerView()
+        this.configureOnClickRecyclerView()
         this.configureViewModel()
         activity_edit_update_fl_btn.setOnClickListener {
             this.getAllPropertyInfo()
@@ -97,6 +98,10 @@ class EditUpdateActivity : AppCompatActivity(){
         activity_edit_update_add_picture_btn.setOnClickListener{
             this.onClickAddFile()
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
     }
 
     // ---
@@ -139,12 +144,30 @@ class EditUpdateActivity : AppCompatActivity(){
             if (description.isNullOrEmpty()){
                 Toast.makeText(this,getString(R.string.no_description),Toast.LENGTH_SHORT).show()
             } else {
-                picture_layout.visibility = View.VISIBLE
                 this.pictureDescriptionList.add(description)
                 this.picturePathList.add(picturePath)
                 pictureAdapter.notifyDataSetChanged()
                 ad.dismiss()
             }
+        }
+    }
+
+    private fun createAlertDiagDelPicture(position: Int){
+        val alertDialog: AlertDialog? = this.let {
+            val builder = AlertDialog.Builder(it)
+            builder.apply {
+                setTitle("Suppression Image")
+                setMessage("Voulez vous vraiment supprimer cette image ?")
+                setPositiveButton(R.string.ok, DialogInterface.OnClickListener {
+                        dialog, id ->
+                    pictureDescriptionList.removeAt(position)
+                    picturePathList.removeAt(position)
+                    pictureAdapter.notifyDataSetChanged()
+                })
+                setNegativeButton(R.string.cancel, DialogInterface.OnClickListener { dialog, id -> })
+            }
+            builder.create()
+            builder.show()
         }
     }
 
@@ -306,6 +329,14 @@ class EditUpdateActivity : AppCompatActivity(){
         activity_edit_update_recyclerView.adapter = pictureAdapter
     }
 
+    private fun configureOnClickRecyclerView(){
+        ItemClickSupport.addTo(activity_edit_update_recyclerView, R.layout.picture_main_item)
+            .setOnItemClickListener{recyclerView, position, v ->
+                createAlertDiagDelPicture(position)
+            }
+    }
+
+
     // RESULT FROM REQUEST
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (resultCode == Activity.RESULT_OK && requestCode == REQUEST_IMAGE_CAPTURE) {
@@ -314,6 +345,8 @@ class EditUpdateActivity : AppCompatActivity(){
 
         if (resultCode == Activity.RESULT_OK && requestCode == REQUEST_CHOOSE_PHOTO){
             this.picturePath = data?.data.toString()
+            Log.i("Pictures",picturePath)
+            createAlertDiagDescription()
         }
     }
 }

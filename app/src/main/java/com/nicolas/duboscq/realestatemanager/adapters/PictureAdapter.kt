@@ -6,7 +6,6 @@ import android.view.ViewGroup
 import com.bumptech.glide.RequestManager
 import com.nicolas.duboscq.realestatemanager.R
 import com.nicolas.duboscq.realestatemanager.adapters.viewholders.PictureViewHolder
-import android.view.View
 
 
 class PictureAdapter (private var listPicturePath : MutableList<String>,private var listPictureDescription : MutableList<String>,private var glide: RequestManager) : RecyclerView.Adapter<PictureViewHolder>() {
