@@ -11,7 +11,7 @@ class PictureRepository(private val pictureDao: PictureDao) {
         pictureDao.insert(picture)
     }
 
-    fun getPicture(): LiveData<MutableList<Picture>> {
-        return pictureDao.getAll()
+    fun getFirstPicture(): LiveData<MutableList<Picture>> {
+        return pictureDao.getFirstPicture()
     }
 }

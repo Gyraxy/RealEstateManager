@@ -4,12 +4,14 @@ import android.support.v7.widget.RecyclerView
 import android.view.ViewGroup
 import com.nicolas.duboscq.realestatemanager.models.Property
 import android.view.LayoutInflater
+import com.bumptech.glide.RequestManager
 import com.nicolas.duboscq.realestatemanager.R
 import com.nicolas.duboscq.realestatemanager.models.Address
 import com.nicolas.duboscq.realestatemanager.adapters.viewholders.PropertyViewHolder
+import com.nicolas.duboscq.realestatemanager.models.Picture
 
 
-class PropertyAdapter (private var listProperty : MutableList<Property>,private var listAddress : MutableList<Address>) : RecyclerView.Adapter<PropertyViewHolder>() {
+class PropertyAdapter (private var listProperty : MutableList<Property>,private var listAddress : MutableList<Address>, private var listPicture:MutableList<Picture>,private var glide: RequestManager) : RecyclerView.Adapter<PropertyViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PropertyViewHolder {
         val inflater = LayoutInflater.from(parent.context)
@@ -23,6 +25,6 @@ class PropertyAdapter (private var listProperty : MutableList<Property>,private 
     }
 
     override fun onBindViewHolder(propertyviewholder: PropertyViewHolder, position: Int) {
-        propertyviewholder.updateWithProperty(this.listProperty[position],this.listAddress[position])
+        propertyviewholder.updateWithProperty(this.listProperty[position],this.listPicture[position],this.listAddress[position],glide)
     }
 }

@@ -28,7 +28,7 @@
     <string name="from">Du</string>
     <string name="to">Au</string>
     <string name="square_meters">m2</string>
-    <string name="description">Description :</string>
+    <string name="description">Description</string>
     <string name="modified">Modifié :</string>
     <string name="created">Mis en ligne:</string>
     <string name="none">Aucun</string>
@@ -86,7 +86,7 @@
     <string name="title_activity_preview">PreviewActivity</string>
 
     //EDIT-UPDATE ACTIVITY
-    <string name="ok">Ok</string>
+    <string name="ok">ok</string>
     <string name="cancel">Annuler</string>
 
     //PREVIEW ACTIVITY

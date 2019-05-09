@@ -12,6 +12,9 @@ interface PictureDao {
     @Query("SELECT * from picture")
     fun getAll(): LiveData<MutableList<Picture>>
 
+    @Query("SELECT * from picture WHERE picture.picture_property_number=0")
+    fun getFirstPicture(): LiveData<MutableList<Picture>>
+
     @Insert
     fun insert(picture: Picture)
 

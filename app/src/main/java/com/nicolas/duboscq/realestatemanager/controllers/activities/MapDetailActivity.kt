@@ -9,13 +9,18 @@ import android.view.MenuItem
 import com.nicolas.duboscq.realestatemanager.controllers.fragments.MapFragment
 import com.nicolas.duboscq.realestatemanager.R
 import com.nicolas.duboscq.realestatemanager.controllers.fragments.DetailFragment
+import com.nicolas.duboscq.realestatemanager.database.AppDatabase
+import com.nicolas.duboscq.realestatemanager.models.Address
+import com.nicolas.duboscq.realestatemanager.models.Property
 import kotlinx.android.synthetic.main.activity_map_detail.*
+import kotlinx.android.synthetic.main.fragment_detail.*
 
 class MapDetailActivity : AppCompatActivity() {
 
     private val mapFragment = MapFragment()
     private val detailFragment = DetailFragment()
     private lateinit var activity: String
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,7 +34,9 @@ class MapDetailActivity : AppCompatActivity() {
     private fun configFragment(){
         when (activity){
             "location" -> openFragment(mapFragment)
-            "detail" -> openFragment(detailFragment)
+            "detail" -> {
+                openFragment(detailFragment)
+            }
         }
     }
 
@@ -78,5 +85,4 @@ class MapDetailActivity : AppCompatActivity() {
         }
         return super.onOptionsItemSelected(item)
     }
-
 }

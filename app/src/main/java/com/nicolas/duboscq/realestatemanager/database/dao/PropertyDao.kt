@@ -11,6 +11,9 @@ interface PropertyDao {
     @Query("SELECT * from property")
     fun getAll(): LiveData<MutableList<Property>>
 
+    @Query("SELECT * from property WHERE property.id = :prop_id")
+    fun getPropertyById(prop_id:Int) : Property
+
     @Insert
     fun insert(property: Property) : Long
 

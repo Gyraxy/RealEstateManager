@@ -207,6 +207,9 @@ class EditUpdateActivity : AppCompatActivity(){
         activity_edit_update_country_edt.editableText.clear()
         activity_edit_update_type_sp.setSelection(0)
         activity_edit_update_status_sp.setSelection(0)
+        picturePathList.clear()
+        pictureDescriptionList.clear()
+        pictureAdapter.notifyDataSetChanged()
     }
 
     // VIEW MODEL

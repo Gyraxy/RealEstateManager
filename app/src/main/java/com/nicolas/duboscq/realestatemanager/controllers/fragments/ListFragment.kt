@@ -2,18 +2,24 @@ package com.nicolas.duboscq.realestatemanager.controllers.fragments
 
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
+import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.bumptech.glide.Glide
 import com.nicolas.duboscq.realestatemanager.R
 import com.nicolas.duboscq.realestatemanager.injections.Injection
 import com.nicolas.duboscq.realestatemanager.models.Address
 import com.nicolas.duboscq.realestatemanager.models.Property
 import com.nicolas.duboscq.realestatemanager.models.PropertyViewModel
 import com.nicolas.duboscq.realestatemanager.adapters.PropertyAdapter
+import com.nicolas.duboscq.realestatemanager.controllers.activities.MapDetailActivity
+import com.nicolas.duboscq.realestatemanager.models.Picture
+import com.nicolas.duboscq.realestatemanager.utils.ItemClickSupport
 import kotlinx.android.synthetic.main.fragment_list.*
 
 
@@ -23,6 +29,8 @@ class ListFragment : Fragment() {
     private lateinit var propertyAdapter: PropertyAdapter
     private lateinit var propertylist : MutableList<Property>
     private lateinit var addresslist : MutableList<Address>
+    private lateinit var picturelist : MutableList<Picture>
+    private var property_id:Int = 0
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -35,6 +43,7 @@ class ListFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         this.configureRecyclerView()
+        this.configureOnClickRecyclerView()
         this.configureViewModel()
     }
 
@@ -61,6 +70,14 @@ class ListFragment : Fragment() {
                 }
             }
         })
+        this.propertyViewModel.getFirstPicture().observe(this, Observer {
+            if (it != null) {
+                if (it.isEmpty()) {
+                } else {
+                    updatePicture(it)
+                }
+            }
+        })
     }
 
     // RECYCLERVIEW
@@ -68,9 +85,20 @@ class ListFragment : Fragment() {
     private fun configureRecyclerView(){
         propertylist = mutableListOf()
         addresslist = mutableListOf()
-        propertyAdapter = PropertyAdapter(propertylist, addresslist)
+        picturelist = mutableListOf()
+        propertyAdapter = PropertyAdapter(propertylist, addresslist,picturelist,Glide.with(this))
         fragment_list_recyclerView.layoutManager = LinearLayoutManager(activity)
         fragment_list_recyclerView.adapter = propertyAdapter
+    }
+
+    private fun configureOnClickRecyclerView(){
+        ItemClickSupport.addTo(fragment_list_recyclerView, R.layout.property_list_view)
+            .setOnItemClickListener{recyclerView, position, v ->
+                val intentDetail = Intent(activity,MapDetailActivity::class.java)
+                intentDetail.putExtra("activity","detail")
+                intentDetail.putExtra("id",property_id)
+                startActivity(intentDetail)
+            }
     }
 
     private fun updateProperty(proplist: MutableList<Property>) {
@@ -82,6 +110,12 @@ class ListFragment : Fragment() {
     private fun updateAddress(addlist: MutableList<Address>) {
         addresslist.clear()
         addresslist.addAll(addlist)
+        propertyAdapter.notifyDataSetChanged()
+    }
+
+    private fun updatePicture(piclist: MutableList<Picture>) {
+        picturelist.clear()
+        picturelist.addAll(piclist)
         propertyAdapter.notifyDataSetChanged()
     }
 }

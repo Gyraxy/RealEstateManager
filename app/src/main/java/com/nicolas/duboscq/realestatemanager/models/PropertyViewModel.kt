@@ -23,9 +23,10 @@ class PropertyViewModel(
             val address = Address(id,street_number,street_name,zipcode,city,country)
             addressDataSource.createAddress(address)
             for (i in 0..(picturePathList.size-1)){
-                val picture = Picture(id,picturePathList[i],descriptionList[i])
+                val picture = Picture(id,picturePathList[i],descriptionList[i],i)
                 pictureDataSource.createPicture(picture)
             }
+
         }
     }
 
@@ -38,7 +39,7 @@ class PropertyViewModel(
         return addressDataSource.getAddress()
     }
 
-    fun getPicture(): LiveData<MutableList<Picture>>{
-        return pictureDataSource.getPicture()
+    fun getFirstPicture(): LiveData<MutableList<Picture>>{
+        return pictureDataSource.getFirstPicture()
     }
 }
