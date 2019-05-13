@@ -19,10 +19,10 @@ class PropertyViewModel(
 
     //CREATE PROPERTY AND ADDRESS
 
-    fun createPropertyandAddress(property: Property,street_number:Int,street_name:String,zipcode:Int,city:String,country:String,picturePathList:MutableList<String>,descriptionList:MutableList<String>,context:Context){
+    fun createPropertyandAddress(property: Property,street_number:Int,street_name:String,zipcode:Int,city:String,country:String,lat: Double, lng: Double,picturePathList:MutableList<String>,descriptionList:MutableList<String>,context:Context){
         executor.execute {
             val id = propertyDataSource.createProperty(property)
-            val address = Address(id,street_number,street_name,zipcode,city,country)
+            val address = Address(id,street_number,street_name,zipcode,city,country,lat,lng)
             addressDataSource.createAddress(address)
             for (i in 0..(picturePathList.size-1)){
                 val picture = Picture(id,picturePathList[i],descriptionList[i],i)

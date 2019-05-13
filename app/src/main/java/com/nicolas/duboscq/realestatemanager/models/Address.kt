@@ -15,7 +15,9 @@ data class Address(
     @ColumnInfo(name = "street_name") val street_name: String,
     @ColumnInfo(name = "zipcode") val zipcode: Int,
     @ColumnInfo(name = "city") val city: String,
-    @ColumnInfo(name = "country") val country: String
+    @ColumnInfo(name = "country") val country: String,
+    @ColumnInfo(name = "Lat") val lat: Double,
+    @ColumnInfo(name= "Lng") val lng: Double
 )
 {
     @PrimaryKey(autoGenerate = true) var id: Long = 0

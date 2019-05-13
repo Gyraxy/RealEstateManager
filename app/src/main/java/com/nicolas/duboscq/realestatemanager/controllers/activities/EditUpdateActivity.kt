@@ -29,7 +29,9 @@ import com.nicolas.duboscq.realestatemanager.injections.Injection
 import pub.devrel.easypermissions.EasyPermissions
 import com.nicolas.duboscq.realestatemanager.adapters.PictureAdapter
 import com.nicolas.duboscq.realestatemanager.utils.ItemClickSupport
+import kotlinx.android.synthetic.main.activity_search.*
 import kotlinx.android.synthetic.main.diag_description.view.*
+import kotlinx.android.synthetic.main.simple_spinner_item.view.*
 import pub.devrel.easypermissions.AfterPermissionGranted
 import java.io.File
 import java.io.IOException
@@ -37,7 +39,7 @@ import java.io.IOException
 
 class EditUpdateActivity : AppCompatActivity(){
 
-    //UI SPINNER
+    // UI SPINNER
     private val editType = arrayOf(" ", "Appartement", "Maison", "Duplex", "Penthouse")
     private val editStatus = arrayOf(" ", "A Vendre", "Vendu")
 
@@ -57,15 +59,16 @@ class EditUpdateActivity : AppCompatActivity(){
     private var country:String =" "
     private lateinit var dateCreation : String
 
-    //PROPERTY PICTURE
+    // PROPERTY PICTURE
     private var picturePath: String = ""
     private lateinit var picturePathList : MutableList<String>
     private lateinit var pictureDescriptionList : MutableList<String>
 
-    //DATA
+    // DATA
     private lateinit var propertyViewModel: PropertyViewModel
     private lateinit var pictureAdapter: PictureAdapter
     private val AUTHORITY: String ="com.nicolas.duboscq.realestatemanager.fileprovider"
+    private var canSaveProperty: Boolean = false
 
     companion object {
         private const val CAMERA_PERMISSION_REQUEST_CODE = 1
@@ -81,30 +84,33 @@ class EditUpdateActivity : AppCompatActivity(){
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_edit_update)
+
+        propertyViewModel = ViewModelProviders.of(this, Injection.provideViewModelFactory(this)).get(PropertyViewModel::class.java!!)
+
         this.configureToolBar()
         this.configureAllSpinner()
         this.configureRecyclerView()
         this.configureOnClickRecyclerView()
-        this.configureViewModel()
-        activity_edit_update_fl_btn.setOnClickListener {
-            this.getAllPropertyInfo()
-            this.createProperty()
-            this.clearAllEditPropertyInfo()
-            this.initData()
-        }
-        activity_edit_update_take_picture_btn.setOnClickListener{
-            this.onAccessCamera()
-        }
-        activity_edit_update_add_picture_btn.setOnClickListener{
-            this.onClickAddFile()
-        }
+        this.onClick()
     }
+
+    override fun onSaveInstanceState(savedInstanceState: Bundle?) {
+        savedInstanceState?.putString("status",status)
+        super.onSaveInstanceState(savedInstanceState)
+    }
+
+    override fun onRestoreInstanceState(savedInstanceState: Bundle?) {
+        savedInstanceState?.getString("status"," ")
+        super.onRestoreInstanceState(savedInstanceState)
+        this.updateUI()
+    }
+
 
     // ---
     // UI
     // ---
 
-    //TOOLBAR CONFIGURATION
+    // TOOLBAR CONFIGURATION
     private fun configureToolBar() {
         setSupportActionBar(toolbar)
         val ab = supportActionBar
@@ -127,6 +133,12 @@ class EditUpdateActivity : AppCompatActivity(){
         this.configureSpinner(editType, activity_edit_update_type_sp)
         this.configureSpinner(editStatus, activity_edit_update_status_sp)
     }
+
+    private fun updateUI(){
+        activity_search_status_sp.spinner_text.text = status
+    }
+
+    // ALERTDIALOG
 
     private fun createAlertDiagDescription(){
         val builder = AlertDialog.Builder(this)
@@ -152,8 +164,8 @@ class EditUpdateActivity : AppCompatActivity(){
         val alertDialog: AlertDialog? = this.let {
             val builder = AlertDialog.Builder(it)
             builder.apply {
-                setTitle("Suppression Image")
-                setMessage("Voulez vous vraiment supprimer cette image ?")
+                setTitle(getString(R.string.diag_del_picture_title))
+                setMessage(getString(R.string.diag_del_picture_message))
                 setPositiveButton(R.string.ok, DialogInterface.OnClickListener {
                         dialog, id ->
                     pictureDescriptionList.removeAt(position)
@@ -165,6 +177,35 @@ class EditUpdateActivity : AppCompatActivity(){
             builder.create()
             builder.show()
         }
+    }
+
+    // ------
+    // ACTION
+    // ------
+
+    private fun onClick(){
+        activity_edit_update_fl_btn.setOnClickListener {
+            this.getAllPropertyInfo()
+            canSaveProperty = this.checkInfoFilled()
+            if (canSaveProperty){
+                this.savePropertyToDataBase()
+                this.clearAllEditPropertyInfo()
+                this.initData()
+            } else {
+             Toast.makeText(this,getString(R.string.activity_edit_not_enough_info),Toast.LENGTH_LONG).show()
+            }
+        }
+        activity_edit_update_take_picture_btn.setOnClickListener{
+            this.onAccessCamera()
+        }
+        activity_edit_update_add_picture_btn.setOnClickListener{
+            this.onClickAddFile()
+        }
+    }
+
+    @AfterPermissionGranted(READ_PERMISSION_REQUEST_CODE)
+    fun onClickAddFile() {
+        this.chooseImageFromPhone()
     }
 
     // ----
@@ -212,16 +253,23 @@ class EditUpdateActivity : AppCompatActivity(){
         pictureAdapter.notifyDataSetChanged()
     }
 
-    // VIEW MODEL
-
-    private fun configureViewModel(){
-        val mViewModelFactory = Injection.provideViewModelFactory(this)
-        this.propertyViewModel = ViewModelProviders.of(this, mViewModelFactory).get(PropertyViewModel::class.java!!)
+    // SAVE PROPERTY TO DATABASE
+    private fun savePropertyToDataBase() {
+        val property = Property(status,price,surface,room,bedroom,bathroom,description,type,dateCreation)
+        val propertyAdress = "$streetNumber $streetName $zipcode $city $country"
+        val propertyLatLng = Utils.getLocationFromAddress(this,propertyAdress)
+        this.propertyViewModel.createPropertyandAddress(property,streetNumber,streetName,zipcode,city,country,propertyLatLng.latitude,propertyLatLng.longitude,picturePathList,pictureDescriptionList,this)
     }
 
-    private fun createProperty() {
-        val property = Property(status,price,surface,room,bedroom,bathroom,description,type,dateCreation)
-        this.propertyViewModel.createPropertyandAddress(property,streetNumber,streetName,zipcode,city,country,picturePathList,pictureDescriptionList,this)
+    // CHECK IF ALL INFO FILLED
+
+    private fun checkInfoFilled(): Boolean{
+        if(!status.equals(" ") && !description.equals(" ") && !type.equals(" ") && !streetName.equals(" ") && !city.equals(" ") && !country.equals(" ") && !surface.equals(0)
+            && !price.equals(0) && !room.equals(0) && !bedroom.equals(0) && !bathroom.equals(0) && !zipcode.equals(0) && !picturePathList.size.equals(0)){
+            return true
+        } else {
+            return false
+        }
     }
 
     // ------
@@ -300,11 +348,6 @@ class EditUpdateActivity : AppCompatActivity(){
         this.takePictureIntent()
     }
 
-    @AfterPermissionGranted(READ_PERMISSION_REQUEST_CODE)
-    fun onClickAddFile() {
-        this.chooseImageFromPhone()
-    }
-
     // --------------------
     // FILE MANAGEMENT
     // --------------------
@@ -334,7 +377,6 @@ class EditUpdateActivity : AppCompatActivity(){
                 createAlertDiagDelPicture(position)
             }
     }
-
 
     // RESULT FROM REQUEST
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

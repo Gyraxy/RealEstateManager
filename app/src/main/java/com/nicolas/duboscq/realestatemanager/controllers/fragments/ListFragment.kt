@@ -103,6 +103,8 @@ class ListFragment : Fragment() {
             }
     }
 
+    // UPDATE UI
+
     private fun updateProperty(proplist: MutableList<Property>) {
         propertylist.clear()
         propertylist.addAll(proplist)

@@ -87,11 +87,14 @@
     <string name="no_description">Veuillez renseigner une description</string>
 
     //EDIT-UPDATE ACTIVITY
+    <string name="diag_del_picture_title">Suppression Image</string>
+    <string name="diag_del_picture_message">Voulez vous vraiment supprimer cette image ?</string>
     <string name="ok">ok</string>
     <string name="cancel">Annuler</string>
+    <string name="activity_edit_not_enough_info">Des informations sont manquqntes. Merci de vérifier de renseigner les informations manquantes et d\'insérer au moins une photo.</string>
 
     //NOTIFICATION
-    <string name="notification_property_created">"La création de la propriété a bien été réalisée"</string>
-    <string name="notification_property_updated">"La mise a jour de l'annonce a bien été réalisée"</string>
+    <string name="notification_property_created">"La création de la propriété a bien été réalisée."</string>
+    <string name="notification_property_updated">"La mise a jour de l'annonce a bien été réalisée."</string>
 
 </resources>
