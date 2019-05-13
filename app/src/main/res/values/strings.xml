@@ -84,12 +84,14 @@
     <string name="popup_message_answer_yes">Oui</string>
     <string name="popup_message_answer_no">Non</string>
     <string name="title_activity_preview">PreviewActivity</string>
+    <string name="no_description">Veuillez renseigner une description</string>
 
     //EDIT-UPDATE ACTIVITY
     <string name="ok">ok</string>
     <string name="cancel">Annuler</string>
 
-    //PREVIEW ACTIVITY
-    <string name="no_description">Veuillez renseigner une description</string>
+    //NOTIFICATION
+    <string name="notification_property_created">"La création de la propriété a bien été réalisée"</string>
+    <string name="notification_property_updated">"La mise a jour de l'annonce a bien été réalisée"</string>
 
 </resources>

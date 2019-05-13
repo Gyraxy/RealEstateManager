@@ -6,7 +6,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -19,6 +18,7 @@ import com.nicolas.duboscq.realestatemanager.models.PropertyViewModel
 import com.nicolas.duboscq.realestatemanager.adapters.PropertyAdapter
 import com.nicolas.duboscq.realestatemanager.controllers.activities.MapDetailActivity
 import com.nicolas.duboscq.realestatemanager.models.Picture
+import com.nicolas.duboscq.realestatemanager.utils.DividerItemDecoration
 import com.nicolas.duboscq.realestatemanager.utils.ItemClickSupport
 import kotlinx.android.synthetic.main.fragment_list.*
 
@@ -89,6 +89,8 @@ class ListFragment : Fragment() {
         propertyAdapter = PropertyAdapter(propertylist, addresslist,picturelist,Glide.with(this))
         fragment_list_recyclerView.layoutManager = LinearLayoutManager(activity)
         fragment_list_recyclerView.adapter = propertyAdapter
+        val mDividerItemDecoration = DividerItemDecoration(fragment_list_recyclerView.getContext(), R.drawable.horizontal_divider)
+        fragment_list_recyclerView.addItemDecoration(mDividerItemDecoration)
     }
 
     private fun configureOnClickRecyclerView(){

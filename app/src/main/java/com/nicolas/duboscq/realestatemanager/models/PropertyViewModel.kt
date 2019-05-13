@@ -3,9 +3,11 @@ package com.nicolas.duboscq.realestatemanager.models
 
 import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.ViewModel
+import android.content.Context
 import com.nicolas.duboscq.realestatemanager.repositories.AddressRepository
 import com.nicolas.duboscq.realestatemanager.repositories.PictureRepository
 import com.nicolas.duboscq.realestatemanager.repositories.PropertyRepository
+import com.nicolas.duboscq.realestatemanager.utils.Notifications
 import java.util.concurrent.Executor
 
 class PropertyViewModel(
@@ -17,7 +19,7 @@ class PropertyViewModel(
 
     //CREATE PROPERTY AND ADDRESS
 
-    fun createPropertyandAddress(property: Property,street_number:Int,street_name:String,zipcode:Int,city:String,country:String,picturePathList:MutableList<String>,descriptionList:MutableList<String>){
+    fun createPropertyandAddress(property: Property,street_number:Int,street_name:String,zipcode:Int,city:String,country:String,picturePathList:MutableList<String>,descriptionList:MutableList<String>,context:Context){
         executor.execute {
             val id = propertyDataSource.createProperty(property)
             val address = Address(id,street_number,street_name,zipcode,city,country)
@@ -26,8 +28,8 @@ class PropertyViewModel(
                 val picture = Picture(id,picturePathList[i],descriptionList[i],i)
                 pictureDataSource.createPicture(picture)
             }
-
         }
+        Notifications().sendNotification(context,"create")
     }
 
     //GET PROPERTY

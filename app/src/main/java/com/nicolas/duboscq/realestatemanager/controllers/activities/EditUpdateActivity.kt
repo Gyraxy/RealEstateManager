@@ -221,7 +221,7 @@ class EditUpdateActivity : AppCompatActivity(){
 
     private fun createProperty() {
         val property = Property(status,price,surface,room,bedroom,bathroom,description,type,dateCreation)
-        this.propertyViewModel.createPropertyandAddress(property,streetNumber,streetName,zipcode,city,country,picturePathList,pictureDescriptionList)
+        this.propertyViewModel.createPropertyandAddress(property,streetNumber,streetName,zipcode,city,country,picturePathList,pictureDescriptionList,this)
     }
 
     // ------
