@@ -13,4 +13,8 @@ class AddressRepository(private val addressDao: AddressDao) {
     fun getAddress(): LiveData<MutableList<Address>> {
         return addressDao.getAll()
     }
+
+    fun getAddressByPropId(prop_id: Int): LiveData<Address>{
+        return addressDao.getAddressFromPropId(prop_id)
+    }
 }

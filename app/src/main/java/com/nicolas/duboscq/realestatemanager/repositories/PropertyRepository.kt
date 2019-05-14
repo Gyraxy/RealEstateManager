@@ -13,4 +13,8 @@ class PropertyRepository(private val propertyDao: PropertyDao) {
     fun getProperty(): LiveData<MutableList<Property>>{
         return propertyDao.getAll()
     }
+
+    fun getPropertyById(prop_id: Int): LiveData<Property>{
+        return propertyDao.getPropertyById(prop_id)
+    }
 }

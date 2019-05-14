@@ -12,7 +12,7 @@ interface PropertyDao {
     fun getAll(): LiveData<MutableList<Property>>
 
     @Query("SELECT * from property WHERE property.id = :prop_id")
-    fun getPropertyById(prop_id:Int) : Property
+    fun getPropertyById(prop_id:Int) : LiveData<Property>
 
     @Insert
     fun insert(property: Property) : Long

@@ -16,7 +16,7 @@ interface AddressDao {
     fun insert(address: Address)
 
     @Query("SELECT * from address WHERE property_id = :property_id")
-    fun getAddressFromPropId(property_id: Long): LiveData<MutableList<Address>>
+    fun getAddressFromPropId(property_id: Int): LiveData<Address>
 
     @Query("DELETE FROM address")
     fun deleteAll()

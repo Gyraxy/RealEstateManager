@@ -36,10 +36,6 @@ class MapDetailActivity : AppCompatActivity() {
             "location" -> openFragment(mapFragment)
             "detail" -> {
                 openFragment(detailFragment)
-                val database = AppDatabase.getDatabase(this)
-                val propertyList = database.propertyDao().getAll()
-                val status = propertyList.value?.get(0)?.price
-                println(status)
             }
         }
     }

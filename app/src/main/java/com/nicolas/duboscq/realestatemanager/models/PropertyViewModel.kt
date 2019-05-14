@@ -37,8 +37,16 @@ class PropertyViewModel(
         return propertyDataSource.getProperty()
     }
 
+    fun getPropertyById(prop_id : Int): LiveData<Property>{
+        return propertyDataSource.getPropertyById(prop_id)
+    }
+
     fun getAddress(): LiveData<MutableList<Address>> {
         return addressDataSource.getAddress()
+    }
+
+    fun getAddressById(prop_id: Int): LiveData<Address>{
+        return addressDataSource.getAddressByPropId(prop_id)
     }
 
     fun getFirstPicture(): LiveData<MutableList<Picture>>{
