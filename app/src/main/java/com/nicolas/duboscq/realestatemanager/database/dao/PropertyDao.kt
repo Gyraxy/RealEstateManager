@@ -1,7 +1,7 @@
 package com.nicolas.duboscq.realestatemanager.database.dao
 
-import android.arch.lifecycle.LiveData
-import android.arch.persistence.room.*
+import androidx.lifecycle.LiveData
+import androidx.room.*
 import com.nicolas.duboscq.realestatemanager.models.Property
 
 

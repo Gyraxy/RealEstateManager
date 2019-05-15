@@ -1,11 +1,10 @@
 package com.nicolas.duboscq.realestatemanager.controllers.activities
 
 import android.content.Intent
-import android.support.v7.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
-import android.support.design.widget.BottomNavigationView
-import android.support.v4.app.Fragment
+import androidx.fragment.app.Fragment
 import android.view.MenuItem
 import com.facebook.stetho.Stetho
 import com.nicolas.duboscq.realestatemanager.controllers.fragments.MapFragment
@@ -17,6 +16,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 import pub.devrel.easypermissions.EasyPermissions
 import pub.devrel.easypermissions.PermissionRequest
 import android.Manifest.permission.ACCESS_FINE_LOCATION
+import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity : AppCompatActivity(), EasyPermissions.PermissionCallbacks{
 
@@ -93,7 +93,7 @@ class MainActivity : AppCompatActivity(), EasyPermissions.PermissionCallbacks{
 
     // UI
 
-    private fun openFragment(fragment: Fragment) {
+    private fun openFragment(fragment: androidx.fragment.app.Fragment) {
         val fragmentTransaction = supportFragmentManager.beginTransaction()
         fragmentTransaction.replace(R.id.main_activity_frame_layout_list, fragment)
         fragmentTransaction.addToBackStack(null)

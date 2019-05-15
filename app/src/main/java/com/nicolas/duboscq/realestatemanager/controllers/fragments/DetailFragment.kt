@@ -1,8 +1,8 @@
 package com.nicolas.duboscq.realestatemanager.controllers.fragments
 
-import android.arch.lifecycle.Observer
+import androidx.lifecycle.Observer
 import android.os.Bundle
-import android.support.v4.app.Fragment
+import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,16 +15,17 @@ import kotlinx.android.synthetic.main.fragment_detail.*
 import android.content.Intent
 import android.net.Uri
 import android.os.Handler
-import android.support.v4.view.ViewPager
+import androidx.viewpager.widget.ViewPager
 import com.nicolas.duboscq.realestatemanager.adapters.PropertyAdapter
 import com.nicolas.duboscq.realestatemanager.adapters.SlidingPictureAdapter
+import com.nicolas.duboscq.realestatemanager.utils.GOOGLE_KEY
 import com.viewpagerindicator.CirclePageIndicator
 import java.util.*
 
-class DetailFragment : Fragment() {
+class DetailFragment : androidx.fragment.app.Fragment() {
 
     private lateinit var addressLatLng : String
-    private lateinit var slidingViewPager : ViewPager
+    private lateinit var slidingViewPager : androidx.viewpager.widget.ViewPager
     private lateinit var slidingPictureAdapter: SlidingPictureAdapter
     private lateinit var pictureList: MutableList<String>
     private lateinit var pictDescList : MutableList<String>
@@ -123,7 +124,7 @@ class DetailFragment : Fragment() {
             }
         }, 5000, 5000)
 
-        indicator.setOnPageChangeListener(object : ViewPager.OnPageChangeListener {
+        indicator.setOnPageChangeListener(object : androidx.viewpager.widget.ViewPager.OnPageChangeListener {
             override fun onPageSelected(position: Int) { currentPage = position }
 
             override fun onPageScrolled(pos: Int, arg1: Float, arg2: Int) {}
@@ -138,7 +139,7 @@ class DetailFragment : Fragment() {
 
     // GOOGLE MAP URL FOR STATIC MAP
     private fun googleStaticMapURL(address_lat_lng:String) : String{
-        return "https://maps.googleapis.com/maps/api/staticmap?center=$address_lat_lng&markers=$address_lat_lng&zoom=17&size=600x300&maptype=roadmap&key=AIzaSyDE8xBMmrWat5ugUmWhLANHGDui3ngNJjI"
+        return "https://maps.googleapis.com/maps/api/staticmap?center=$address_lat_lng&markers=$address_lat_lng&zoom=17&size=600x300&maptype=roadmap&key=$GOOGLE_KEY"
     }
 
     // GOOGLE MAP ROUTE TO GO TO PROPERTY WHEN CLICKED ON PROPERTY MAP

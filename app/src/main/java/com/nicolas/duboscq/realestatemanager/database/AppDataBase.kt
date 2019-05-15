@@ -1,8 +1,8 @@
 package com.nicolas.duboscq.realestatemanager.database
 
-import android.arch.persistence.room.Database
-import android.arch.persistence.room.Room
-import android.arch.persistence.room.RoomDatabase
+import androidx.room.Database
+import androidx.room.Room
+import androidx.room.RoomDatabase
 import android.content.Context
 import com.nicolas.duboscq.realestatemanager.database.dao.AddressDao
 import com.nicolas.duboscq.realestatemanager.database.dao.PictureDao
@@ -10,24 +10,25 @@ import com.nicolas.duboscq.realestatemanager.database.dao.PropertyDao
 import com.nicolas.duboscq.realestatemanager.models.Address
 import com.nicolas.duboscq.realestatemanager.models.Picture
 import com.nicolas.duboscq.realestatemanager.models.Property
+import com.nicolas.duboscq.realestatemanager.utils.DATABASE_NAME
 
 @Database(entities = [(Property::class),(Address::class),(Picture::class)], version = 1)
-public abstract class AppDatabase : RoomDatabase() {
+abstract class AppDatabase : RoomDatabase() {
 
     abstract fun propertyDao(): PropertyDao
     abstract fun addressDao():AddressDao
     abstract fun pictureDao():PictureDao
 
     companion object {
-        @Volatile
-        private var INSTANCE: AppDatabase? = null
+
+        @Volatile private var INSTANCE: AppDatabase? = null
 
         fun getDatabase(context: Context): AppDatabase {
             return INSTANCE ?: synchronized(this){
                 val instance = Room.databaseBuilder(
                     context.applicationContext,
                     AppDatabase::class.java,
-                    "realestate_database"
+                    DATABASE_NAME
                 )
                     .fallbackToDestructiveMigration()
                     .build()

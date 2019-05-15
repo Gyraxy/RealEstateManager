@@ -1,6 +1,6 @@
 package com.nicolas.duboscq.realestatemanager.adapters
 
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView
 import android.view.ViewGroup
 import com.nicolas.duboscq.realestatemanager.models.Property
 import android.view.LayoutInflater
@@ -11,7 +11,7 @@ import com.nicolas.duboscq.realestatemanager.adapters.viewholders.PropertyViewHo
 import com.nicolas.duboscq.realestatemanager.models.Picture
 
 
-class PropertyAdapter (private var listProperty : MutableList<Property>,private var listAddress : MutableList<Address>, private var listPicture:MutableList<Picture>,private var glide: RequestManager) : RecyclerView.Adapter<PropertyViewHolder>() {
+class PropertyAdapter (private var listProperty : MutableList<Property>,private var listAddress : MutableList<Address>, private var listPicture:MutableList<Picture>,private var glide: RequestManager) : androidx.recyclerview.widget.RecyclerView.Adapter<PropertyViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PropertyViewHolder {
         val inflater = LayoutInflater.from(parent.context)

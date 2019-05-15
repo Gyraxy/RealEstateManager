@@ -1,6 +1,6 @@
 package com.nicolas.duboscq.realestatemanager.utils;
 
-import android.support.v7.widget.RecyclerView;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.View;
 
 public class ItemClickSupport {

@@ -2,7 +2,7 @@ package com.nicolas.duboscq.realestatemanager.controllers.activities
 
 import android.app.DatePickerDialog
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatActivity
 import android.view.Menu
 import android.widget.*
 import kotlinx.android.synthetic.main.activity_search.*

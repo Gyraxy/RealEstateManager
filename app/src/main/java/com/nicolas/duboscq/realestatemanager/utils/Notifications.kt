@@ -8,7 +8,7 @@ import com.nicolas.duboscq.realestatemanager.controllers.activities.MainActivity
 import android.app.NotificationManager
 import android.app.PendingIntent
 import android.app.NotificationChannel
-import android.support.v4.app.NotificationCompat
+import androidx.core.app.NotificationCompat
 import android.util.Log
 
 class Notifications {

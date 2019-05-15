@@ -1,6 +1,6 @@
 package com.nicolas.duboscq.realestatemanager.repositories
 
-import android.arch.lifecycle.LiveData
+import androidx.lifecycle.LiveData
 import com.nicolas.duboscq.realestatemanager.database.dao.PropertyDao
 import com.nicolas.duboscq.realestatemanager.models.Property
 

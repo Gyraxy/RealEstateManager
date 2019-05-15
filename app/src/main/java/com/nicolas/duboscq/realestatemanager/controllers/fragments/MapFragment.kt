@@ -3,8 +3,8 @@ package com.nicolas.duboscq.realestatemanager.controllers.fragments
 import android.content.pm.PackageManager
 import android.location.Location
 import android.os.Bundle
-import android.support.v4.app.ActivityCompat
-import android.support.v4.app.Fragment
+import androidx.core.app.ActivityCompat
+import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,10 +16,10 @@ import com.google.android.gms.maps.model.Marker
 import com.nicolas.duboscq.realestatemanager.R
 import com.google.android.gms.maps.CameraUpdateFactory
 import android.Manifest.permission.ACCESS_FINE_LOCATION
-import android.support.v4.content.ContextCompat
+import androidx.core.content.ContextCompat
 import kotlinx.android.synthetic.main.fragment_map.*
 
-class MapFragment : Fragment() , OnMapReadyCallback,GoogleMap.OnMarkerClickListener {
+class MapFragment : androidx.fragment.app.Fragment() , OnMapReadyCallback,GoogleMap.OnMarkerClickListener {
 
 
     private lateinit var googleMap :GoogleMap

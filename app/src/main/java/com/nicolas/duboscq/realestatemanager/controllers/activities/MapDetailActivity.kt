@@ -2,8 +2,8 @@ package com.nicolas.duboscq.realestatemanager.controllers.activities
 
 import android.content.Intent
 import android.os.Bundle
-import android.support.v4.app.Fragment
-import android.support.v7.app.AppCompatActivity
+import androidx.fragment.app.Fragment
+import androidx.appcompat.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
 import com.nicolas.duboscq.realestatemanager.controllers.fragments.MapFragment
@@ -40,7 +40,7 @@ class MapDetailActivity : AppCompatActivity() {
         }
     }
 
-    private fun openFragment(fragment: Fragment) {
+    private fun openFragment(fragment: androidx.fragment.app.Fragment) {
         val fragmentTransaction = supportFragmentManager.beginTransaction()
         fragmentTransaction.replace(R.id.main_activity_frame_layout_list, fragment)
         fragmentTransaction.addToBackStack(null)

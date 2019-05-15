@@ -12,7 +12,7 @@ import com.nicolas.duboscq.realestatemanager.R;
 /**
  * Inspired by: http://stackoverflow.com/a/6022474/1521064
  */
-public class MultiSpinner extends android.support.v7.widget.AppCompatSpinner {
+public class MultiSpinner extends androidx.appcompat.widget.AppCompatSpinner {
 
     private CharSequence[] entries;
     private boolean[] selected;

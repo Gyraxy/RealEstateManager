@@ -1,11 +1,9 @@
 package com.nicolas.duboscq.realestatemanager.controllers.fragments
 
-import android.arch.lifecycle.Observer
-import android.arch.lifecycle.ViewModelProviders
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 import android.content.Intent
 import android.os.Bundle
-import android.support.v4.app.Fragment
-import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -20,10 +18,10 @@ import com.nicolas.duboscq.realestatemanager.controllers.activities.MapDetailAct
 import com.nicolas.duboscq.realestatemanager.models.Picture
 import com.nicolas.duboscq.realestatemanager.utils.DividerItemDecoration
 import com.nicolas.duboscq.realestatemanager.utils.ItemClickSupport
-import kotlinx.android.synthetic.main.fragment_list.*
+import kotlinx.android.synthetic.main.fragment_property_list.*
 
 
-class ListFragment : Fragment() {
+class ListFragment : androidx.fragment.app.Fragment() {
 
     private lateinit var propertyViewModel: PropertyViewModel
     private lateinit var propertyAdapter: PropertyAdapter
@@ -37,7 +35,7 @@ class ListFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_list, container, false)
+        return inflater.inflate(R.layout.fragment_property_list, container, false)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -87,7 +85,6 @@ class ListFragment : Fragment() {
         addresslist = mutableListOf()
         picturelist = mutableListOf()
         propertyAdapter = PropertyAdapter(propertylist, addresslist,picturelist,Glide.with(this))
-        fragment_list_recyclerView.layoutManager = LinearLayoutManager(activity)
         fragment_list_recyclerView.adapter = propertyAdapter
         val mDividerItemDecoration = DividerItemDecoration(fragment_list_recyclerView.getContext(), R.drawable.horizontal_divider)
         fragment_list_recyclerView.addItemDecoration(mDividerItemDecoration)

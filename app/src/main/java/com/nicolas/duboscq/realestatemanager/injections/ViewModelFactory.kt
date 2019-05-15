@@ -1,7 +1,7 @@
 package com.nicolas.duboscq.realestatemanager.injections
 
-import android.arch.lifecycle.ViewModel
-import android.arch.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import com.nicolas.duboscq.realestatemanager.models.PropertyViewModel
 import com.nicolas.duboscq.realestatemanager.repositories.AddressRepository
 import com.nicolas.duboscq.realestatemanager.repositories.PictureRepository

@@ -3,16 +3,16 @@ package com.nicolas.duboscq.realestatemanager.controllers.activities
 import android.Manifest
 import android.app.Activity
 import android.app.AlertDialog
-import android.arch.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProviders
 import android.content.DialogInterface
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.os.Environment
 import android.provider.MediaStore
-import android.support.v4.content.FileProvider
-import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.GridLayoutManager
+import androidx.core.content.FileProvider
+import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.GridLayoutManager
 import android.util.Log
 import android.view.View
 import android.widget.ArrayAdapter
@@ -367,7 +367,6 @@ class EditUpdateActivity : AppCompatActivity(){
         picturePathList = mutableListOf()
         pictureDescriptionList = mutableListOf()
         pictureAdapter = PictureAdapter(picturePathList,pictureDescriptionList,Glide.with(this@EditUpdateActivity))
-        activity_edit_update_recyclerView.layoutManager = GridLayoutManager(this,2)
         activity_edit_update_recyclerView.adapter = pictureAdapter
     }
 

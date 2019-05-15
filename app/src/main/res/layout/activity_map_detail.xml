@@ -7,7 +7,7 @@
         android:layout_height="match_parent"
         tools:context=".controllers.activities.MapDetailActivity">
 
-    <android.support.v7.widget.Toolbar
+    <androidx.appcompat.widget.Toolbar
             android:id="@+id/activity_map_detail_toolbar"
             android:minHeight="?attr/actionBarSize"
             android:layout_width="match_parent"

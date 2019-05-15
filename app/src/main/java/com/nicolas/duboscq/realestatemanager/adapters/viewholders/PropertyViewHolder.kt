@@ -1,6 +1,6 @@
 package com.nicolas.duboscq.realestatemanager.adapters.viewholders
 
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView
 import android.util.Log
 import android.view.View
 import com.bumptech.glide.RequestManager
@@ -11,7 +11,7 @@ import kotlinx.android.synthetic.main.picture_main_item.view.*
 import kotlinx.android.synthetic.main.property_list_view.view.*
 
 
-class PropertyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
+class PropertyViewHolder(itemView: View) : androidx.recyclerview.widget.RecyclerView.ViewHolder(itemView){
 
     fun updateWithProperty(property: Property,picture:Picture,address: Address,glide:RequestManager) {
         itemView.property_listview_type_txt.text = property.type

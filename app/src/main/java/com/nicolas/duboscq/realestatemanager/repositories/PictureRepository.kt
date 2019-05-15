@@ -1,7 +1,7 @@
 package com.nicolas.duboscq.realestatemanager.repositories
 
-import android.arch.lifecycle.LiveData
-import android.support.annotation.WorkerThread
+import androidx.lifecycle.LiveData
+import androidx.annotation.WorkerThread
 import com.nicolas.duboscq.realestatemanager.database.dao.PictureDao
 import com.nicolas.duboscq.realestatemanager.models.Picture
 
