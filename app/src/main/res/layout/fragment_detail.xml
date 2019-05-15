@@ -4,17 +4,35 @@
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context=".controllers.fragments.DetailFragment"
-        android:orientation="vertical">
+        android:layout_height="match_parent" xmlns:app="http://schemas.android.com/apk/res-auto"
+        tools:context=".controllers.fragments.DetailFragment">
 
-    <ImageView
-            android:id="@+id/fragment_detail_picture_imv"
+    <RelativeLayout
+            android:id="@+id/picture_slider_ly"
             android:layout_width="match_parent"
             android:layout_height="200dp"
-            android:scaleType="centerCrop"
-            android:layout_margin="5dp"
-            android:contentDescription="@string/none"/>
+            android:layout_margin="5dp">
+
+        <android.support.v4.view.ViewPager
+                android:id="@+id/picture_viewpager"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_alignParentTop="true" />
+
+        <com.viewpagerindicator.CirclePageIndicator
+                android:id="@+id/indicator"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:gravity="bottom"
+                android:padding="10dip"
+                app:centered="true"
+                app:fillColor="@color/colorAccent"
+                app:pageColor="@color/colorWhite"
+                app:snap="false" />
+
+    </RelativeLayout>
 
     <TextView
             android:id="@+id/fragment_detail_price_txtv"
@@ -26,14 +44,14 @@
             android:textColor="#F0000B"
             android:background="@drawable/price_bg_rounded_corners"
             android:padding="5dp"
-            android:layout_alignBottom="@+id/fragment_detail_picture_imv"
-            android:layout_alignStart="@+id/fragment_detail_picture_imv"/>
+            android:layout_alignBottom="@+id/picture_slider_ly"
+            android:layout_alignStart="@+id/picture_slider_ly"/>
 
     <TableLayout
             android:id="@+id/fragment_detail_status_ly"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/fragment_detail_picture_imv"
+            android:layout_below="@+id/picture_slider_ly"
             android:layout_margin="5dp">
 
         <TableRow>
@@ -131,8 +149,7 @@
                     android:id="@+id/fragment_detail_compo_ly"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    android:layout_below="@+id/fragment_detail_description_ly">
+                    android:layout_margin="5dp">
 
                 <TableRow>
 
@@ -193,7 +210,6 @@
                     android:id="@+id/fragment_detail_location_ly"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/fragment_detail_compo_ly"
                     android:layout_margin="5dp">
 
                 <TextView
@@ -218,8 +234,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="200dp"
                     android:scaleType="centerCrop"
-                    android:layout_margin="20dp"
-                    android:layout_below="@+id/fragment_detail_location_ly"/>
+                    android:layout_margin="20dp"/>
 
         </LinearLayout>
 

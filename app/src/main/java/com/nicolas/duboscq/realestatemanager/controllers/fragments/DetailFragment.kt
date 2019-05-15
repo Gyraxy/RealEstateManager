@@ -14,10 +14,22 @@ import com.nicolas.duboscq.realestatemanager.models.Property
 import kotlinx.android.synthetic.main.fragment_detail.*
 import android.content.Intent
 import android.net.Uri
+import android.os.Handler
+import android.support.v4.view.ViewPager
+import com.nicolas.duboscq.realestatemanager.adapters.PropertyAdapter
+import com.nicolas.duboscq.realestatemanager.adapters.SlidingPictureAdapter
+import com.viewpagerindicator.CirclePageIndicator
+import java.util.*
 
 class DetailFragment : Fragment() {
 
-    lateinit var address_lat_lng : String
+    private lateinit var addressLatLng : String
+    private lateinit var slidingViewPager : ViewPager
+    private lateinit var slidingPictureAdapter: SlidingPictureAdapter
+    private lateinit var pictureList: MutableList<String>
+    private lateinit var pictDescList : MutableList<String>
+    private var currentPage = 0
+    private var numPage = 0
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -28,6 +40,7 @@ class DetailFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+        this.configViewPager()
         val database = AppDatabase.getDatabase(activity!!.applicationContext)
         val propertyList = database.propertyDao().getPropertyById(1)
         propertyList.observe(this, Observer {
@@ -46,6 +59,10 @@ class DetailFragment : Fragment() {
         }
     }
 
+    // ---
+    // UI
+    // ---
+
     private fun updateUIProp(property: Property) {
         if (property.status.equals("Vendu")){
             fragment_detail_status_txtv.setTextColor(resources.getColor(R.color.colorAccent))
@@ -58,25 +75,75 @@ class DetailFragment : Fragment() {
         fragment_detail_room_txtv.text = property.room.toString()
 
         fragment_detail_description_txtv.text = property.description
-
+        fragment_detail_price_txtv.text = property.price.toString()
         fragment_detail_create_status_txtv.text = property.dateCreation
     }
 
     private fun updateUIAddress(address: Address) {
-        val address_txt = address.street_number.toString()+" "+address.street_name+" "+address.zipcode.toString()+" "+address.city+" "+address.country
-        fragment_detail_adress_txtv.text = address_txt
-        address_lat_lng = address.lat.toString()+","+address.lng.toString()
-        Glide.with(this).load(googleStaticMapURL(address_lat_lng)).into(fragment_detail_adress_imv)
+        val addressTxt = address.street_number.toString()+" "+address.street_name+" "+address.zipcode.toString()+" "+address.city+" "+address.country
+        fragment_detail_adress_txtv.text = addressTxt
+        addressLatLng = address.lat.toString()+","+address.lng.toString()
+        Glide.with(this).load(googleStaticMapURL(addressLatLng)).into(fragment_detail_adress_imv)
     }
+
+    // VIEWPAGER
+
+    private fun configViewPager(){
+
+        pictureList = mutableListOf()
+        pictDescList = mutableListOf()
+        pictureList.add(0,"https://helpx.adobe.com/content/dam/help/en/stock/how-to/visual-reverse-image-search/_jcr_content/main-pars/image/visual-reverse-image-search-v2_1000x560.jpg")
+        pictureList.add(1,"https://cdn.pixabay.com/photo/2017/09/03/17/19/beach-2711264_960_720.jpg")
+        pictDescList.add(0,"Papillon")
+        pictDescList.add(1,"Plage")
+        slidingViewPager = picture_viewpager
+        slidingPictureAdapter = SlidingPictureAdapter(activity!!.applicationContext, this.pictureList, this.pictDescList)
+        slidingViewPager.adapter = slidingPictureAdapter
+
+        val indicator = indicator
+        indicator.setViewPager(slidingViewPager)
+        val density = resources.displayMetrics.density
+
+        //Set circle indicator radius
+        indicator.setRadius(5*density)
+        numPage = pictureList.size
+
+        // Auto start of viewpager
+        val handler = Handler()
+        val Update = Runnable {
+            if (currentPage == numPage) {
+                currentPage = 0
+                }
+            slidingViewPager.setCurrentItem(currentPage++, true)
+        }
+        val swipeTimer = Timer()
+        swipeTimer.schedule(object : TimerTask() {
+            override fun run() {
+                handler.post(Update)
+            }
+        }, 5000, 5000)
+
+        indicator.setOnPageChangeListener(object : ViewPager.OnPageChangeListener {
+            override fun onPageSelected(position: Int) { currentPage = position }
+
+            override fun onPageScrolled(pos: Int, arg1: Float, arg2: Int) {}
+
+            override fun onPageScrollStateChanged(pos: Int) {}
+        })
+    }
+
+    // ----------
+    // GOOGLE MAP
+    // ----------
 
     // GOOGLE MAP URL FOR STATIC MAP
     private fun googleStaticMapURL(address_lat_lng:String) : String{
-        return "https://maps.googleapis.com/maps/api/staticmap?center="+address_lat_lng+"&markers="+address_lat_lng+"&zoom=17&size=600x300&maptype=roadmap&key=AIzaSyDE8xBMmrWat5ugUmWhLANHGDui3ngNJjI"
+        return "https://maps.googleapis.com/maps/api/staticmap?center=$address_lat_lng&markers=$address_lat_lng&zoom=17&size=600x300&maptype=roadmap&key=AIzaSyDE8xBMmrWat5ugUmWhLANHGDui3ngNJjI"
     }
 
     // GOOGLE MAP ROUTE TO GO TO PROPERTY WHEN CLICKED ON PROPERTY MAP
     private fun launchGoogleMapsRoute(){
-        val gmmIntentUri = Uri.parse("google.navigation:q="+address_lat_lng+"&mode=w")
+        val gmmIntentUri = Uri.parse("google.navigation:q=$addressLatLng&mode=w")
         val mapIntent = Intent(Intent.ACTION_VIEW, gmmIntentUri)
         mapIntent.setPackage("com.google.android.apps.maps")
         startActivity(mapIntent)
