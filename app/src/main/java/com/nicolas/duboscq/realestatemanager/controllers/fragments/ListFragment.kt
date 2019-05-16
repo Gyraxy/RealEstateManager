@@ -4,15 +4,16 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.bumptech.glide.Glide
 import com.nicolas.duboscq.realestatemanager.R
-import com.nicolas.duboscq.realestatemanager.injections.Injection
+import com.nicolas.duboscq.realestatemanager.utils.Injection
 import com.nicolas.duboscq.realestatemanager.models.Address
 import com.nicolas.duboscq.realestatemanager.models.Property
-import com.nicolas.duboscq.realestatemanager.models.PropertyViewModel
+import com.nicolas.duboscq.realestatemanager.viewmodels.PropertyViewModel
 import com.nicolas.duboscq.realestatemanager.adapters.PropertyAdapter
 import com.nicolas.duboscq.realestatemanager.controllers.activities.MapDetailActivity
 import com.nicolas.duboscq.realestatemanager.models.Picture
@@ -95,6 +96,8 @@ class ListFragment : androidx.fragment.app.Fragment() {
             .setOnItemClickListener{recyclerView, position, v ->
                 val intentDetail = Intent(activity,MapDetailActivity::class.java)
                 intentDetail.putExtra("activity","detail")
+                property_id = propertylist[position].id
+                Log.i("Property",property_id.toString())
                 intentDetail.putExtra("id",property_id)
                 startActivity(intentDetail)
             }

@@ -8,7 +8,7 @@ import android.content.ContentValues
 
 @Entity
 data class Property(
-    @ColumnInfo(name = "status") val status: String,
+    @ColumnInfo(name = "status") var status: String,
     @ColumnInfo(name = "price") val price: Int,
     @ColumnInfo(name = "surface") val surface: Int,
     @ColumnInfo(name = "room") val room: Int,
@@ -19,5 +19,5 @@ data class Property(
     @ColumnInfo(name = "date_creation") val dateCreation: String
 )
 {
-    @PrimaryKey(autoGenerate = true) var id: Long = 0
+    @PrimaryKey(autoGenerate = true) var id: Int = 0
 }

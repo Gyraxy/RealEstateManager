@@ -1,6 +1,5 @@
 package com.nicolas.duboscq.realestatemanager.adapters
 
-import androidx.recyclerview.widget.RecyclerView
 import android.view.ViewGroup
 import com.nicolas.duboscq.realestatemanager.models.Property
 import android.view.LayoutInflater

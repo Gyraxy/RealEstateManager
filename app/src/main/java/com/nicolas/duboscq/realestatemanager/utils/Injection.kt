@@ -1,7 +1,9 @@
-package com.nicolas.duboscq.realestatemanager.injections
+package com.nicolas.duboscq.realestatemanager.utils
 
 import android.content.Context
 import com.nicolas.duboscq.realestatemanager.database.AppDatabase
+import com.nicolas.duboscq.realestatemanager.viewmodels.PropertyDetailViewModelFactory
+import com.nicolas.duboscq.realestatemanager.viewmodels.ViewModelFactory
 import com.nicolas.duboscq.realestatemanager.repositories.AddressRepository
 import com.nicolas.duboscq.realestatemanager.repositories.PictureRepository
 import com.nicolas.duboscq.realestatemanager.repositories.PropertyRepository
@@ -30,10 +32,31 @@ object Injection {
     }
 
     fun provideViewModelFactory(context: Context): ViewModelFactory {
-        val dataSourceProperty = providePropertyDataSource(context)
+        val dataSourceProperty =
+            providePropertyDataSource(context)
         val dataSourceAddress = provideAddressDataSource(context)
         val dataSourcePicture = providePictureDataSource(context)
         val executor = provideExecutor()
-        return ViewModelFactory(dataSourceProperty,dataSourceAddress,dataSourcePicture,executor)
+        return ViewModelFactory(
+            dataSourceProperty,
+            dataSourceAddress,
+            dataSourcePicture,
+            executor
+        )
     }
+
+    fun provideDetailViewModelFactory(context: Context, property_id : Int): PropertyDetailViewModelFactory {
+        val dataSourceProperty = providePropertyDataSource(context)
+        val dataSourceAddress = provideAddressDataSource(context)
+        val dataSourcePictures = providePictureDataSource(context)
+        val executor = provideExecutor()
+        return PropertyDetailViewModelFactory(
+            dataSourceProperty,
+            dataSourceAddress,
+            dataSourcePictures,
+            property_id,
+            executor
+        )
+    }
+
 }

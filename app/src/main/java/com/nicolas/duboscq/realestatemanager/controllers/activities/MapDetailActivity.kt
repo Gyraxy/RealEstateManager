@@ -20,12 +20,14 @@ class MapDetailActivity : AppCompatActivity() {
     private val mapFragment = MapFragment()
     private val detailFragment = DetailFragment()
     private lateinit var activity: String
+    private var property_id = 0
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_map_detail)
         activity = intent.extras.getString("activity")
+        property_id = intent.extras.getInt("id")
         configFragment()
         configureToolBar()
     }
@@ -35,12 +37,15 @@ class MapDetailActivity : AppCompatActivity() {
         when (activity){
             "location" -> openFragment(mapFragment)
             "detail" -> {
+                val args = Bundle()
+                args.putInt("property_id",property_id)
+                detailFragment.arguments = args
                 openFragment(detailFragment)
             }
         }
     }
 
-    private fun openFragment(fragment: androidx.fragment.app.Fragment) {
+    private fun openFragment(fragment: Fragment) {
         val fragmentTransaction = supportFragmentManager.beginTransaction()
         fragmentTransaction.replace(R.id.main_activity_frame_layout_list, fragment)
         fragmentTransaction.addToBackStack(null)

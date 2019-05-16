@@ -1,31 +1,36 @@
 package com.nicolas.duboscq.realestatemanager.controllers.fragments
 
-import androidx.lifecycle.Observer
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.bumptech.glide.Glide
 import com.nicolas.duboscq.realestatemanager.R
-import com.nicolas.duboscq.realestatemanager.database.AppDatabase
-import com.nicolas.duboscq.realestatemanager.models.Address
-import com.nicolas.duboscq.realestatemanager.models.Property
 import kotlinx.android.synthetic.main.fragment_detail.*
 import android.content.Intent
 import android.net.Uri
 import android.os.Handler
+import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.ViewModelProviders
 import androidx.viewpager.widget.ViewPager
-import com.nicolas.duboscq.realestatemanager.adapters.PropertyAdapter
+import com.bumptech.glide.Glide
 import com.nicolas.duboscq.realestatemanager.adapters.SlidingPictureAdapter
+import com.nicolas.duboscq.realestatemanager.databinding.FragmentDetailBinding
+import com.nicolas.duboscq.realestatemanager.models.Address
+import com.nicolas.duboscq.realestatemanager.models.Picture
+import com.nicolas.duboscq.realestatemanager.utils.Injection
+import com.nicolas.duboscq.realestatemanager.viewmodels.PropertyDetailViewModel
 import com.nicolas.duboscq.realestatemanager.utils.GOOGLE_KEY
-import com.viewpagerindicator.CirclePageIndicator
 import java.util.*
+
+
 
 class DetailFragment : androidx.fragment.app.Fragment() {
 
+    private lateinit var viewModel: PropertyDetailViewModel
+
     private lateinit var addressLatLng : String
-    private lateinit var slidingViewPager : androidx.viewpager.widget.ViewPager
+    private lateinit var binding: FragmentDetailBinding
+    private lateinit var slidingViewPager : ViewPager
     private lateinit var slidingPictureAdapter: SlidingPictureAdapter
     private lateinit var pictureList: MutableList<String>
     private lateinit var pictDescList : MutableList<String>
@@ -36,67 +41,39 @@ class DetailFragment : androidx.fragment.app.Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_detail, container, false)
+        val propertyId = arguments?.getInt("property_id",0)
+        val factory = propertyId?.let { Injection.provideDetailViewModelFactory(activity!!.applicationContext, it) }
+        viewModel = ViewModelProviders.of(this,factory).get(PropertyDetailViewModel::class.java)
+        binding = DataBindingUtil.inflate<FragmentDetailBinding>(inflater, R.layout.fragment_detail, container,false).apply {
+            setLifecycleOwner (this@DetailFragment)
+        }
+        setHasOptionsMenu(true)
+        return binding.root
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        this.configViewPager()
-        val database = AppDatabase.getDatabase(activity!!.applicationContext)
-        val propertyList = database.propertyDao().getPropertyById(1)
-        propertyList.observe(this, Observer {
-            if (it != null) {
-                updateUIProp(it)
-            }
+        viewModel.getPropertyById().observe(this,androidx.lifecycle.Observer { binding.propertyDetail = it })
+        viewModel.getAddressByPropId().observe(this,androidx.lifecycle.Observer {
+            binding.addressDetail = it
+            updateUIAddress(it)
         })
-        val addressList = database.addressDao().getAddressFromPropId(1)
-        addressList.observe(this, Observer {
-            if (it != null) {
-                updateUIAddress(it)
-        } })
-
-        fragment_detail_adress_imv.setOnClickListener {
-            launchGoogleMapsRoute()
-        }
-    }
-
-    // ---
-    // UI
-    // ---
-
-    private fun updateUIProp(property: Property) {
-        if (property.status.equals("Vendu")){
-            fragment_detail_status_txtv.setTextColor(resources.getColor(R.color.colorAccent))
-        }
-        fragment_detail_status_txtv.text = property.status
-
-        fragment_detail_surface_txtv.text = property.surface.toString()
-        fragment_detail_bathroom_txt.text = property.bathroom.toString()
-        fragment_detail_bedroom_txtv.text = property.bedroom.toString()
-        fragment_detail_room_txtv.text = property.room.toString()
-
-        fragment_detail_description_txtv.text = property.description
-        fragment_detail_price_txtv.text = property.price.toString()
-        fragment_detail_create_status_txtv.text = property.dateCreation
-    }
-
-    private fun updateUIAddress(address: Address) {
-        val addressTxt = address.street_number.toString()+" "+address.street_name+" "+address.zipcode.toString()+" "+address.city+" "+address.country
-        fragment_detail_adress_txtv.text = addressTxt
-        addressLatLng = address.lat.toString()+","+address.lng.toString()
-        Glide.with(this).load(googleStaticMapURL(addressLatLng)).into(fragment_detail_adress_imv)
+        viewModel.getPictureByPropId().observe(this,androidx.lifecycle.Observer { this.configViewPager(it) })
+        binding.clickListener = View.OnClickListener { launchGoogleMapsRoute() }
     }
 
     // VIEWPAGER
 
-    private fun configViewPager(){
+    private fun configViewPager(pictureL: MutableList<Picture>){
 
         pictureList = mutableListOf()
         pictDescList = mutableListOf()
-        pictureList.add(0,"https://helpx.adobe.com/content/dam/help/en/stock/how-to/visual-reverse-image-search/_jcr_content/main-pars/image/visual-reverse-image-search-v2_1000x560.jpg")
-        pictureList.add(1,"https://cdn.pixabay.com/photo/2017/09/03/17/19/beach-2711264_960_720.jpg")
-        pictDescList.add(0,"Papillon")
-        pictDescList.add(1,"Plage")
+        for (i in 0..pictureL.size-1){
+            pictDescList.add(i,pictureL[i].description)
+        }
+        for (i in 0..pictureL.size-1){
+            pictureList.add(i,pictureL[i].picture_link)
+        }
         slidingViewPager = picture_viewpager
         slidingPictureAdapter = SlidingPictureAdapter(activity!!.applicationContext, this.pictureList, this.pictDescList)
         slidingViewPager.adapter = slidingPictureAdapter
@@ -124,13 +101,20 @@ class DetailFragment : androidx.fragment.app.Fragment() {
             }
         }, 5000, 5000)
 
-        indicator.setOnPageChangeListener(object : androidx.viewpager.widget.ViewPager.OnPageChangeListener {
+        indicator.setOnPageChangeListener(object : ViewPager.OnPageChangeListener {
             override fun onPageSelected(position: Int) { currentPage = position }
 
             override fun onPageScrolled(pos: Int, arg1: Float, arg2: Int) {}
 
             override fun onPageScrollStateChanged(pos: Int) {}
         })
+    }
+
+    private fun updateUIAddress(address: Address) {
+        val addressTxt = address.street_number.toString()+" "+address.street_name+" "+address.zipcode.toString()+" "+address.city+" "+address.country
+        fragment_detail_adress_txtv.text = addressTxt
+        addressLatLng = address.lat.toString()+","+address.lng.toString()
+        Glide.with(this).load(googleStaticMapURL(addressLatLng)).into(fragment_detail_adress_imv)
     }
 
     // ----------
