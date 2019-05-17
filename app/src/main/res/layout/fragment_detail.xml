@@ -1,140 +1,136 @@
-<?xml version="1.0" encoding="utf-8"?>
-
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
         <variable
-                name="propertyDetail"
-                type="com.nicolas.duboscq.realestatemanager.models.Property"/>
-        <variable
-                name="addressDetail"
-                type="com.nicolas.duboscq.realestatemanager.models.Address"/>
+                name="viewmodel"
+                type="com.nicolas.duboscq.realestatemanager.viewmodels.PropertyDetailViewModel"/>
         <variable
                 name="clickListener"
                 type="android.view.View.OnClickListener"/>
     </data>
 
-    <RelativeLayout
+    <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            tools:context=".controllers.fragments.DetailFragment">
+            android:layout_height="wrap_content">
 
-        <RelativeLayout
-                android:id="@+id/picture_slider_ly"
-                android:layout_width="match_parent"
-                android:layout_height="200dp"
-                android:layout_margin="5dp">
-
-            <androidx.viewpager.widget.ViewPager
-                    android:id="@+id/picture_viewpager"
-                    android:layout_width="fill_parent"
-                    android:layout_height="fill_parent"
-                    android:layout_alignParentTop="true"/>
-
-            <com.viewpagerindicator.CirclePageIndicator
-                    android:id="@+id/indicator"
-                    android:layout_width="200dp"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentBottom="true"
-                    android:layout_centerHorizontal="true"
-                    android:gravity="bottom"
-                    android:padding="10dip"
-                    app:centered="true"
-                    app:fillColor="@color/colorAccent"
-                    app:pageColor="@color/colorWhite"
-                    app:snap="false"/>
-
-        </RelativeLayout>
-
-        <TextView
-                android:id="@+id/fragment_detail_price_txtv"
-                android:text="@{Integer.toString(propertyDetail.price)}"
-                android:gravity="center"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                android:textColor="#F0000B"
-                android:background="@drawable/price_bg_rounded_corners"
-                android:padding="5dp"
-                android:layout_alignBottom="@+id/picture_slider_ly"
-                android:layout_alignStart="@+id/picture_slider_ly"/>
-
-        <TableLayout
-                android:id="@+id/fragment_detail_status_ly"
+        <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/picture_slider_ly"
-                android:layout_margin="5dp">
+                tools:context=".controllers.fragments.DetailFragment"
+                android:orientation="vertical">
 
-            <TableRow>
+            <RelativeLayout
+                    android:id="@+id/picture_slider_ly"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:layout_margin="5dp">
 
-                <TextView
-                        android:id="@+id/fragment_detail_type_txtv"
-                        android:text="@{propertyDetail.type}"
-                        android:layout_width="0dp"
-                        android:layout_weight="50"
+                <androidx.viewpager.widget.ViewPager
+                        android:id="@+id/picture_viewpager"
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:layout_alignParentTop="true"/>
+
+                <com.viewpagerindicator.CirclePageIndicator
+                        android:id="@+id/indicator"
+                        android:layout_width="200dp"
                         android:layout_height="wrap_content"
-                        android:textSize="16sp"
-                        android:textColor="@color/colorBlack"
-                        android:textStyle="bold"/>
+                        android:layout_alignParentBottom="true"
+                        android:layout_centerHorizontal="true"
+                        android:gravity="bottom"
+                        android:padding="10dip"
+                        app:centered="true"
+                        app:fillColor="@color/colorAccent"
+                        app:pageColor="@color/colorWhite"
+                        app:snap="false"/>
 
                 <TextView
-                        android:layout_width="0dp"
-                        android:layout_weight="50"
-                        android:layout_height="wrap_content"
-                        android:gravity="end"
-                        android:text="@string/created"
-                        android:textSize="12sp"/>
-
-                <TextView
-                        android:id="@+id/fragment_detail_create_status_txtv"
-                        android:text="@{propertyDetail.dateCreation}"
+                        android:id="@+id/fragment_detail_price_txtv"
+                        android:text="@{Integer.toString(viewmodel.property.price)}"
+                        android:gravity="center"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:gravity="end"
-                        android:textSize="12sp"/>
-
-            </TableRow>
-
-
-            <TableRow
-                    android:paddingTop="5dp">
-
-                <TextView
-                        android:id="@+id/fragment_detail_status_txtv"
-                        android:text="@{propertyDetail.status}"
-                        android:layout_width="0dp"
-                        android:layout_weight="50"
-                        android:layout_height="wrap_content"
+                        android:textSize="16sp"
                         android:textStyle="bold"
-                        android:textSize="16sp"
-                        android:textColor="@color/colorPrimary"/>
+                        android:textColor="#F0000B"
+                        android:background="@drawable/price_bg_rounded_corners"
+                        android:padding="5dp"
+                        android:layout_alignBottom="@+id/picture_viewpager"/>
 
-                <TextView
-                        android:layout_width="0dp"
-                        android:layout_weight="50"
-                        android:layout_height="wrap_content"
-                        android:gravity="end"
-                        android:text="@string/modified"
-                        android:textSize="12sp"/>
+            </RelativeLayout>
 
-                <TextView
-                        android:id="@+id/fragment_detail_modify_status_txtv"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:gravity="end"
-                        android:textSize="12sp"/>
-            </TableRow>
 
-        </TableLayout>
 
-        <ScrollView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/fragment_detail_status_ly">
+            <TableLayout
+                    android:id="@+id/fragment_detail_status_ly"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/picture_slider_ly"
+                    android:layout_margin="5dp">
+
+                <TableRow>
+
+                    <TextView
+                            android:id="@+id/fragment_detail_type_txtv"
+                            android:text="@{viewmodel.property.type}"
+                            android:layout_width="0dp"
+                            android:layout_weight="50"
+                            android:layout_height="wrap_content"
+                            android:textSize="16sp"
+                            android:textColor="@color/colorBlack"
+                            android:textStyle="bold"/>
+
+                    <TextView
+                            android:layout_width="0dp"
+                            android:layout_weight="50"
+                            android:layout_height="wrap_content"
+                            android:gravity="end"
+                            android:text="@string/created"
+                            android:textSize="12sp"/>
+
+                    <TextView
+                            android:id="@+id/fragment_detail_create_status_txtv"
+                            android:text="@{viewmodel.property.dateCreation}"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="end"
+                            android:textSize="12sp"/>
+
+                </TableRow>
+
+
+                <TableRow
+                        android:paddingTop="5dp">
+
+                    <TextView
+                            android:id="@+id/fragment_detail_status_txtv"
+                            android:text="@{viewmodel.property.status}"
+                            android:layout_width="0dp"
+                            android:layout_weight="50"
+                            android:layout_height="wrap_content"
+                            android:textStyle="bold"
+                            android:textSize="16sp"
+                            android:textColor="@color/colorPrimary"/>
+
+                    <TextView
+                            android:layout_width="0dp"
+                            android:layout_weight="50"
+                            android:layout_height="wrap_content"
+                            android:gravity="end"
+                            android:text="@string/modified"
+                            android:textSize="12sp"/>
+
+                    <TextView
+                            android:id="@+id/fragment_detail_modify_status_txtv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="end"
+                            android:textSize="12sp"/>
+                </TableRow>
+
+            </TableLayout>
 
             <LinearLayout
                     android:layout_width="match_parent"
@@ -156,7 +152,7 @@
 
                     <TextView
                             android:id="@+id/fragment_detail_description_txtv"
-                            android:text="@{propertyDetail.description}"
+                            android:text="@{viewmodel.property.description}"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textColor="@color/colorBlack"
@@ -182,7 +178,7 @@
                         <TextView
                                 android:id="@+id/fragment_detail_surface_txtv"
                                 style="@style/FragmentDetailTextIco"
-                                android:text="@{Integer.toString(propertyDetail.surface)}"/>
+                                android:text="@{Integer.toString(viewmodel.property.surface)}"/>
 
                         <ImageView
                                 android:layout_width="wrap_content"
@@ -194,7 +190,7 @@
                         <TextView
                                 android:id="@+id/fragment_detail_room_txtv"
                                 style="@style/FragmentDetailTextIco"
-                                android:text="@{Integer.toString(propertyDetail.room)}"/>
+                                android:text="@{Integer.toString(viewmodel.property.room)}"/>
 
                         <ImageView
                                 android:layout_width="wrap_content"
@@ -206,7 +202,7 @@
                         <TextView
                                 android:id="@+id/fragment_detail_bedroom_txtv"
                                 style="@style/FragmentDetailTextIco"
-                                android:text="@{Integer.toString(propertyDetail.bedroom)}"/>
+                                android:text="@{Integer.toString(viewmodel.property.bedroom)}"/>
 
                         <ImageView
                                 android:layout_width="wrap_content"
@@ -217,7 +213,7 @@
 
                         <TextView
                                 android:id="@+id/fragment_detail_bathroom_txt"
-                                android:text="@{Integer.toString(propertyDetail.bathroom)}"
+                                android:text="@{Integer.toString(viewmodel.property.bathroom)}"
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
                                 android:textStyle="bold"
@@ -248,13 +244,15 @@
                             android:padding="5dp"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textColor="@color/colorBlack"/>
+                            android:textColor="@color/colorBlack"
+                            app:propertyAddress="@{viewmodel.address}"/>
 
                 </TableLayout>
 
                 <ImageView
                         android:id="@+id/fragment_detail_adress_imv"
                         android:onClick="@{clickListener}"
+                        app:googleStaticMap="@{viewmodel.address}"
                         android:layout_width="match_parent"
                         android:layout_height="200dp"
                         android:scaleType="centerCrop"
@@ -262,7 +260,9 @@
 
             </LinearLayout>
 
-        </ScrollView>
 
-    </RelativeLayout>
+        </LinearLayout>
+
+    </ScrollView>
+
 </layout>

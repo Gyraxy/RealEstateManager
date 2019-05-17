@@ -20,8 +20,8 @@ import com.bumptech.glide.Glide
 import com.nicolas.duboscq.realestatemanager.models.Property
 import com.nicolas.duboscq.realestatemanager.viewmodels.PropertyViewModel
 import com.nicolas.duboscq.realestatemanager.utils.Utils
-import kotlinx.android.synthetic.main.activity_edit_update.*
-import kotlinx.android.synthetic.main.activity_edit_update.toolbar
+import kotlinx.android.synthetic.main.activity_add_update.*
+import kotlinx.android.synthetic.main.activity_add_update.toolbar
 import com.nicolas.duboscq.realestatemanager.R
 import com.nicolas.duboscq.realestatemanager.utils.Injection
 import pub.devrel.easypermissions.EasyPermissions
@@ -35,7 +35,7 @@ import java.io.File
 import java.io.IOException
 
 
-class EditUpdateActivity : AppCompatActivity(){
+class AddUpdateActivity : AppCompatActivity(){
 
     // UI SPINNER
     private val editType = arrayOf(" ", "Appartement", "Maison", "Duplex", "Penthouse")
@@ -81,7 +81,7 @@ class EditUpdateActivity : AppCompatActivity(){
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_edit_update)
+        setContentView(R.layout.activity_add_update)
 
         propertyViewModel = ViewModelProviders.of(this, Injection.provideViewModelFactory(this)).get(PropertyViewModel::class.java!!)
 
@@ -190,7 +190,7 @@ class EditUpdateActivity : AppCompatActivity(){
                 this.clearAllEditPropertyInfo()
                 this.initData()
             } else {
-             Toast.makeText(this,getString(R.string.activity_edit_not_enough_info),Toast.LENGTH_LONG).show()
+                Toast.makeText(this,getString(R.string.activity_edit_not_enough_info),Toast.LENGTH_LONG).show()
             }
         }
         activity_edit_update_take_picture_btn.setOnClickListener{
@@ -364,7 +364,7 @@ class EditUpdateActivity : AppCompatActivity(){
     private fun configureRecyclerView(){
         picturePathList = mutableListOf()
         pictureDescriptionList = mutableListOf()
-        pictureAdapter = PictureAdapter(picturePathList,pictureDescriptionList,Glide.with(this@EditUpdateActivity))
+        pictureAdapter = PictureAdapter(picturePathList,pictureDescriptionList,Glide.with(this@AddUpdateActivity))
         activity_edit_update_recyclerView.adapter = pictureAdapter
     }
 

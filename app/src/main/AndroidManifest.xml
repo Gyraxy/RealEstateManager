@@ -20,7 +20,7 @@
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
         <activity
-                android:name=".controllers.activities.EditUpdateActivity"
+                android:name=".controllers.activities.AddUpdateActivity"
                 android:label="@string/title_activity_edit_update">
             <meta-data
                     android:name="android.support.PARENT_ACTIVITY"

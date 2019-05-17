@@ -9,11 +9,7 @@ import android.view.MenuItem
 import com.nicolas.duboscq.realestatemanager.controllers.fragments.MapFragment
 import com.nicolas.duboscq.realestatemanager.R
 import com.nicolas.duboscq.realestatemanager.controllers.fragments.DetailFragment
-import com.nicolas.duboscq.realestatemanager.database.AppDatabase
-import com.nicolas.duboscq.realestatemanager.models.Address
-import com.nicolas.duboscq.realestatemanager.models.Property
 import kotlinx.android.synthetic.main.activity_map_detail.*
-import kotlinx.android.synthetic.main.fragment_detail.*
 
 class MapDetailActivity : AppCompatActivity() {
 
@@ -82,7 +78,7 @@ class MapDetailActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.menu_activity_main_modify -> {
-                val editIntent = Intent(this, EditUpdateActivity::class.java)
+                val editIntent = Intent(this, AddUpdateActivity::class.java)
                 startActivity(editIntent)
             }
             else -> {

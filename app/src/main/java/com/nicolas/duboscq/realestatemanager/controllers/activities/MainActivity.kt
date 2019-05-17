@@ -4,7 +4,6 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
-import androidx.fragment.app.Fragment
 import android.view.MenuItem
 import com.facebook.stetho.Stetho
 import com.nicolas.duboscq.realestatemanager.controllers.fragments.MapFragment
@@ -68,7 +67,8 @@ class MainActivity : AppCompatActivity(), EasyPermissions.PermissionCallbacks{
                 startActivity(positionIntent)
             }
             R.id.menu_activity_main_add -> {
-                val addIntent = Intent(this, EditUpdateActivity::class.java)
+                val addIntent = Intent(this, AddUpdateActivity::class.java)
+                addIntent.putExtra("activity","add")
                 startActivity(addIntent)
             }
             else -> {

@@ -1,0 +1,423 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+                name="property"
+                type="String"/>
+    </data>
+
+    <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:minHeight="?attr/actionBarSize"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:titleTextColor="@android:color/white"
+                android:background="?attr/colorPrimary"
+                android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"/>
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/activity_edit_update_fl_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentEnd="true"
+                android:layout_margin="@dimen/floating_btn_margin"
+                android:src="@drawable/ic_edit"
+                app:backgroundTint="@color/colorAccent"/>
+
+        <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/toolbar">
+
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:gravity="center_horizontal">
+
+                <LinearLayout
+                        style="@style/EditUpdateActivityLayout">
+
+                    <TextView
+                            android:text="@string/ref"
+                            style="@style/EditUpdateActivityTextTitle"/>
+
+                    <TableLayout
+                            android:layout_width="0dp"
+                            android:layout_height="30dp"
+                            android:layout_weight="65">
+
+                        <TableRow>
+
+                            <TextView
+                                    android:layout_width="0dp"
+                                    android:layout_weight="50"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="end"
+                                    android:text="@string/created"
+                                    android:textSize="@dimen/activity_edit_update_status_txt"/>
+
+                            <TextView
+                                    android:id="@+id/activity_edit_update_create_status_txtv"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="end"
+                                    android:textSize="@dimen/activity_edit_update_status_txt"/>
+
+                        </TableRow>
+
+                        <TableRow>
+
+                            <TextView
+                                    android:layout_width="0dp"
+                                    android:layout_weight="50"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="end"
+                                    android:text="@string/modified"
+                                    android:textSize="@dimen/activity_edit_update_status_txt"/>
+
+                            <TextView
+                                    android:id="@+id/activity_edit_update_update_status_txtv"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="end"
+                                    android:textSize="@dimen/activity_edit_update_status_txt"/>
+
+                        </TableRow>
+
+
+                    </TableLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                        style="@style/EditUpdateActivityLayout">
+
+                    <TextView
+                            android:text="@string/type"
+                            style="@style/EditUpdateActivityTextTitle"
+                            android:drawableStart="@drawable/ic_home"/>
+
+                    <Spinner
+                            android:id="@+id/activity_edit_update_type_sp"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="65"
+                            android:background="@drawable/search_bg_transp"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                        style="@style/EditUpdateActivityLayout">
+
+                    <TextView
+                            android:text="@string/price"
+                            style="@style/EditUpdateActivityTextTitle"
+                            android:drawableStart="@drawable/ic_money"/>
+
+                    <EditText
+                            android:id="@+id/activity_edit_update_price_edt"
+                            android:gravity="center"
+                            android:layout_width="0dp"
+                            android:layout_height="40dp"
+                            android:textSize="@dimen/activity_edit_update_txt"
+                            android:layout_weight="65"
+                            android:background="@drawable/search_bg_transp"
+                            android:inputType="number"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                        style="@style/EditUpdateActivityLayout">
+
+                    <TextView
+                            android:text="@string/status"
+                            style="@style/EditUpdateActivityTextTitle"
+                            android:drawableStart="@drawable/ic_status"/>
+
+                    <Spinner
+                            android:id="@+id/activity_edit_update_status_sp"
+                            android:layout_width="0dp"
+                            android:layout_height="40dp"
+                            android:layout_weight="65"
+                            android:background="@drawable/search_bg_transp"/>
+
+                </LinearLayout>
+
+                <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/colorAccent"
+                        android:layout_margin="10dp"/>
+
+                <LinearLayout
+                        android:layout_height="wrap_content"
+                        android:layout_width="match_parent"
+                        android:orientation="vertical"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:layout_marginBottom="10dp">
+
+                    <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/description"
+                            android:textSize="@dimen/activity_edit_update_txt"/>
+
+                    <EditText
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/activity_edit_update_description_edt"
+                            android:lines="2"
+                            android:textSize="@dimen/activity_edit_update_txt"
+                            android:hint="@string/put_description"
+                            android:text="@{property}"
+                            android:inputType="textMultiLine"/>
+
+
+                </LinearLayout>
+
+                <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="10dp">
+
+                    <TableRow
+                            android:layout_height="wrap_content"
+                            android:layout_width="0dp"
+                            android:layout_weight="50">
+
+                        <ImageView
+                                style="@style/SearchActivityIcon"
+                                android:src="@drawable/ic_surface"/>
+
+                        <EditText
+                                android:hint="@string/surface"
+                                style="@style/EditUpdateActivityEditText"
+                                android:id="@+id/activity_edit_update_surface_edt"/>
+
+                    </TableRow>
+
+                    <TableRow
+                            android:layout_height="wrap_content"
+                            android:layout_width="0dp"
+                            android:layout_weight="50">
+
+                        <ImageView
+                                style="@style/SearchActivityIcon"
+                                android:src="@drawable/ic_home"/>
+
+                        <EditText
+                                android:hint="@string/nb_room"
+                                android:id="@+id/activity_edit_update_room_edt"
+                                style="@style/EditUpdateActivityEditText"/>
+                    </TableRow>
+
+                </TableRow>
+
+                <TableRow
+                        android:layout_height="wrap_content"
+                        android:layout_width="match_parent"
+                        android:padding="10dp"
+                        android:gravity="center_horizontal">
+
+                    <TableRow
+                            android:layout_height="wrap_content"
+                            android:layout_width="0dp"
+                            android:layout_weight="50">
+
+                        <ImageView
+                                style="@style/SearchActivityIcon"
+                                android:src="@drawable/ic_room"/>
+
+                        <EditText
+                                android:hint="@string/nb_bedroom"
+                                style="@style/EditUpdateActivityEditText"
+                                android:id="@+id/activity_edit_update_bedroom_edt"/>
+                    </TableRow>
+
+                    <TableRow
+                            android:layout_height="wrap_content"
+                            android:layout_width="0dp"
+                            android:layout_weight="50">
+
+                        <ImageView
+                                style="@style/SearchActivityIcon"
+                                android:src="@drawable/ic_bathroom"/>
+
+                        <EditText
+                                android:hint="@string/nb_bathroom"
+                                style="@style/EditUpdateActivityEditText"
+                                android:id="@+id/activity_edit_update_bathroom_edt"/>
+                    </TableRow>
+
+                </TableRow>
+
+                <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/colorAccent"
+                        android:layout_margin="10dp"/>
+
+                <LinearLayout
+                        android:layout_height="wrap_content"
+                        android:layout_width="match_parent"
+                        android:gravity="center"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:orientation="vertical">
+
+                    <TextView
+                            android:text="@string/place"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:drawableTint="@color/colorGrey"
+                            android:drawableStart="@drawable/ic_location"
+                            android:gravity="center_vertical"
+                            android:textSize="@dimen/activity_edit_update_txt"/>
+
+                    <TableRow
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp">
+
+                        <EditText
+                                android:id="@+id/activity_edit_update_street_nb_edt"
+                                android:hint="@string/street_nb"
+                                android:layout_height="40dp"
+                                android:textSize="@dimen/activity_edit_update_txt"
+                                android:layout_width="0dp"
+                                android:layout_weight="35"
+                                android:gravity="center"
+                                android:inputType="number"/>
+
+                        <EditText
+                                android:id="@+id/activity_edit_update_street_name_edt"
+                                android:hint="@string/street_name"
+                                android:layout_height="40dp"
+                                android:textSize="@dimen/activity_edit_update_txt"
+                                android:layout_width="0dp"
+                                android:layout_weight="65"
+                                android:gravity="center"/>
+
+                    </TableRow>
+
+                    <TableRow
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp">
+
+                        <EditText
+                                android:id="@+id/activity_edit_update_zipcode_edt"
+                                android:hint="@string/zipcode"
+                                android:layout_height="40dp"
+                                android:textSize="@dimen/activity_edit_update_txt"
+                                android:layout_width="0dp"
+                                android:layout_weight="35"
+                                android:gravity="center"
+                                android:inputType="number"/>
+
+                        <EditText
+                                android:id="@+id/activity_edit_update_city_edt"
+                                android:hint="@string/city"
+                                android:layout_height="40dp"
+                                android:textSize="@dimen/activity_edit_update_txt"
+                                android:layout_width="0dp"
+                                android:layout_weight="65"
+                                android:gravity="center"/>
+
+                    </TableRow>
+
+                    <EditText
+                            android:id="@+id/activity_edit_update_country_edt"
+                            android:hint="@string/country"
+                            android:layout_height="40dp"
+                            android:textSize="@dimen/activity_edit_update_txt"
+                            android:layout_width="wrap_content"
+                            android:gravity="center"
+                            android:inputType="textCapWords"/>
+
+                </LinearLayout>
+
+                <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/colorAccent"
+                        android:layout_margin="10dp"/>
+
+                <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="5dp"
+                        android:gravity="center">
+
+                    <Button
+                            android:id="@+id/activity_edit_update_add_picture_btn"
+                            android:text="@string/add_picture"
+                            android:drawableStart="@drawable/ic_photo"
+                            style="@style/EditUpdateActivityBtn"/>
+
+                    <Button
+                            android:id="@+id/activity_edit_update_take_picture_btn"
+                            android:text="@string/take_picture"
+                            android:drawableStart="@drawable/ic_camera"
+                            style="@style/EditUpdateActivityBtn"/>
+
+                </TableRow>
+
+                <ImageView
+                        android:id="@+id/picture_test"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                <LinearLayout
+                        android:id="@+id/picture_layout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                    <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:background="@color/colorAccent"
+                            android:layout_margin="10dp"/>
+
+                    <TextView
+                            android:text="@string/picture"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:drawableTint="@color/colorGrey"
+                            android:drawableStart="@drawable/ic_photo"
+                            android:gravity="center_vertical"
+                            android:textSize="@dimen/activity_edit_update_txt"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginEnd="10dp"/>
+
+                    <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/activity_edit_update_recyclerView"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:padding="5dp"
+                            android:scrollbars="horizontal"
+                            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                            app:spanCount="2"
+                            tools:listitem="@layout/picture_main_item"
+                            android:layout_gravity="center"/>
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+        </ScrollView>
+
+    </RelativeLayout>
+</layout>

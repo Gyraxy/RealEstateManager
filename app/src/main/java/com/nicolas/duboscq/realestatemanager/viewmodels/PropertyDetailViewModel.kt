@@ -18,15 +18,19 @@ class PropertyDetailViewModel (
     private val executor: Executor
     ): ViewModel() {
 
-    fun getPropertyById(): LiveData<Property>{
-        return propertyDataSource.getPropertyById(property_id)
-    }
+    val property: LiveData<Property>
+    val address: LiveData<Address>
+    val picture: LiveData<MutableList<Picture>>
 
+    init {
+        property = propertyDataSource.getPropertyById(property_id)
+        address = addressDataSource.getAddressByPropId(property_id)
+        picture = pictureDataSource.getPictureByPropId(property_id)
+    }
     fun getAddressByPropId(): LiveData<Address>{
         return addressDataSource.getAddressByPropId(property_id)
     }
-
-    fun getPictureByPropId(): LiveData<MutableList<Picture>>{
+    fun getPictureByPropId():LiveData<MutableList<Picture>>{
         return pictureDataSource.getPictureByPropId(property_id)
     }
 }
