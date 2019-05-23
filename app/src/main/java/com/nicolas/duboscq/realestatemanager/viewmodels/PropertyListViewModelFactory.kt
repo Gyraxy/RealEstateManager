@@ -7,7 +7,7 @@ import com.nicolas.duboscq.realestatemanager.repositories.PictureRepository
 import com.nicolas.duboscq.realestatemanager.repositories.PropertyRepository
 import java.util.concurrent.Executor
 
-class ViewModelFactory(
+class PropertyListViewModelFactory(
     private val propertyDataSource: PropertyRepository,
     private val addressDataSource: AddressRepository,
     private val pictureDataSource: PictureRepository,
@@ -16,8 +16,8 @@ class ViewModelFactory(
     ViewModelProvider.Factory {
 
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
-        if (modelClass.isAssignableFrom(PropertyViewModel::class.java!!)) {
-            return PropertyViewModel(
+        if (modelClass.isAssignableFrom(PropertyListViewModel::class.java!!)) {
+            return PropertyListViewModel(
                 propertyDataSource,
                 addressDataSource,
                 pictureDataSource,

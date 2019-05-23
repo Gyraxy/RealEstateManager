@@ -14,8 +14,7 @@ class PropertyDetailViewModel (
     private val propertyDataSource: PropertyRepository,
     private val addressDataSource : AddressRepository,
     private val pictureDataSource: PictureRepository,
-    private val property_id : Int,
-    private val executor: Executor
+    private val property_id : Int
     ): ViewModel() {
 
     val property: LiveData<Property>
@@ -27,9 +26,14 @@ class PropertyDetailViewModel (
         address = addressDataSource.getAddressByPropId(property_id)
         picture = pictureDataSource.getPictureByPropId(property_id)
     }
-    fun getAddressByPropId(): LiveData<Address>{
+    fun getPropertyByPropId():LiveData<Property>{
+        return propertyDataSource.getPropertyById(property_id)
+    }
+
+    fun getAddressPropId():LiveData<Address>{
         return addressDataSource.getAddressByPropId(property_id)
     }
+
     fun getPictureByPropId():LiveData<MutableList<Picture>>{
         return pictureDataSource.getPictureByPropId(property_id)
     }

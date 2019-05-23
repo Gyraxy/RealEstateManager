@@ -13,7 +13,7 @@ import com.nicolas.duboscq.realestatemanager.R
 import com.nicolas.duboscq.realestatemanager.utils.Injection
 import com.nicolas.duboscq.realestatemanager.models.Address
 import com.nicolas.duboscq.realestatemanager.models.Property
-import com.nicolas.duboscq.realestatemanager.viewmodels.PropertyViewModel
+import com.nicolas.duboscq.realestatemanager.viewmodels.PropertyListViewModel
 import com.nicolas.duboscq.realestatemanager.adapters.PropertyAdapter
 import com.nicolas.duboscq.realestatemanager.controllers.activities.MapDetailActivity
 import com.nicolas.duboscq.realestatemanager.models.Picture
@@ -24,7 +24,7 @@ import kotlinx.android.synthetic.main.fragment_property_list.*
 
 class ListFragment : androidx.fragment.app.Fragment() {
 
-    private lateinit var propertyViewModel: PropertyViewModel
+    private lateinit var propertyListViewModel: PropertyListViewModel
     private lateinit var propertyAdapter: PropertyAdapter
     private lateinit var propertylist : MutableList<Property>
     private lateinit var addresslist : MutableList<Address>
@@ -49,9 +49,9 @@ class ListFragment : androidx.fragment.app.Fragment() {
     // VIEW MODEL
 
     private fun configureViewModel(){
-        val mViewModelFactory = Injection.provideViewModelFactory(activity!!.applicationContext)
-        this.propertyViewModel = ViewModelProviders.of(this, mViewModelFactory).get(PropertyViewModel::class.java!!)
-        this.propertyViewModel.getProperty().observe(this, Observer {
+        val mViewModelFactory = Injection.provideListViewModelFactory(activity!!.applicationContext)
+        this.propertyListViewModel = ViewModelProviders.of(this, mViewModelFactory).get(PropertyListViewModel::class.java!!)
+        this.propertyListViewModel.getProperty().observe(this, Observer {
             if (it != null) {
                 if (it.isEmpty()) {
                     fragment_list_recycler_view_empty.visibility = View.VISIBLE
@@ -61,7 +61,7 @@ class ListFragment : androidx.fragment.app.Fragment() {
                 }
             }
         })
-        this.propertyViewModel.getAddress().observe(this, Observer {
+        this.propertyListViewModel.getAddress().observe(this, Observer {
             if (it != null) {
                 if (it.isEmpty()) {
                 } else {
@@ -69,7 +69,7 @@ class ListFragment : androidx.fragment.app.Fragment() {
                 }
             }
         })
-        this.propertyViewModel.getFirstPicture().observe(this, Observer {
+        this.propertyListViewModel.getFirstPicture().observe(this, Observer {
             if (it != null) {
                 if (it.isEmpty()) {
                 } else {

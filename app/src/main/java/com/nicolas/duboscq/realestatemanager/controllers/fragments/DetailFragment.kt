@@ -68,7 +68,7 @@ class DetailFragment : androidx.fragment.app.Fragment() {
             pictDescList.add(i,pictureL[i].description)
         }
         for (i in 0..pictureL.size-1){
-            pictureList.add(i,pictureL[i].picture_link)
+            pictureList.add(i,pictureL[i].pictureLink)
         }
         slidingViewPager = picture_viewpager
         slidingPictureAdapter = SlidingPictureAdapter(activity!!.applicationContext, this.pictureList, this.pictDescList)

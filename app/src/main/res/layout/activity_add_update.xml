@@ -5,8 +5,18 @@
 
     <data>
         <variable
-                name="property"
-                type="String"/>
+                name="viewmodel"
+                type="com.nicolas.duboscq.realestatemanager.viewmodels.PropertyAddUpdateViewModel"/>
+        <variable
+                name="addpictureclicklistener"
+                type="android.view.View.OnClickListener"/>
+        <variable
+                name="takepictureclicklistener"
+                type="android.view.View.OnClickListener"/>
+        <variable
+                name="addpropertyclicklistener"
+                type="android.view.View.OnClickListener"/>
+
     </data>
 
     <RelativeLayout
@@ -29,6 +39,7 @@
                 android:layout_alignParentBottom="true"
                 android:layout_alignParentEnd="true"
                 android:layout_margin="@dimen/floating_btn_margin"
+                android:onClick="@{() -> viewmodel.createPropertyandAddress()}"
                 android:src="@drawable/ic_edit"
                 app:backgroundTint="@color/colorAccent"/>
 
@@ -67,6 +78,7 @@
 
                             <TextView
                                     android:id="@+id/activity_edit_update_create_status_txtv"
+                                    android:text="@{viewmodel.property.dateCreation}"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:gravity="end"
@@ -108,9 +120,11 @@
 
                     <Spinner
                             android:id="@+id/activity_edit_update_type_sp"
+                            android:onItemSelected="@{(parent,view,pos,id)->viewmodel.onTypeSelectItem(parent,view,pos,id)}"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:layout_weight="65"
+                            android:entries="@array/type_spinner"
                             android:background="@drawable/search_bg_transp"/>
 
                 </LinearLayout>
@@ -125,6 +139,7 @@
 
                     <EditText
                             android:id="@+id/activity_edit_update_price_edt"
+                            android:text="@={``+viewmodel.property.price}"
                             android:gravity="center"
                             android:layout_width="0dp"
                             android:layout_height="40dp"
@@ -145,9 +160,11 @@
 
                     <Spinner
                             android:id="@+id/activity_edit_update_status_sp"
+                            android:onItemSelected="@{(parent,view,pos,id)->viewmodel.onStatusSelectItem(parent,view,pos,id)}"
                             android:layout_width="0dp"
                             android:layout_height="40dp"
                             android:layout_weight="65"
+                            android:entries="@array/status_spinner"
                             android:background="@drawable/search_bg_transp"/>
 
                 </LinearLayout>
@@ -175,11 +192,11 @@
                     <EditText
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:text="@={viewmodel.property.description}"
                             android:id="@+id/activity_edit_update_description_edt"
                             android:lines="2"
                             android:textSize="@dimen/activity_edit_update_txt"
                             android:hint="@string/put_description"
-                            android:text="@{property}"
                             android:inputType="textMultiLine"/>
 
 
@@ -188,37 +205,64 @@
                 <TableRow
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:padding="10dp">
+                        android:padding="5dp">
 
                     <TableRow
                             android:layout_height="wrap_content"
                             android:layout_width="0dp"
-                            android:layout_weight="50">
+                            android:layout_weight="50"
+                            android:gravity="center">
 
                         <ImageView
                                 style="@style/SearchActivityIcon"
                                 android:src="@drawable/ic_surface"/>
 
-                        <EditText
+                        <com.google.android.material.textfield.TextInputLayout
+                                android:id="@+id/activity_edit_update_surface_input"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
                                 android:hint="@string/surface"
-                                style="@style/EditUpdateActivityEditText"
-                                android:id="@+id/activity_edit_update_surface_edt"/>
+                                app:errorEnabled="true">
+
+                            <EditText
+                                    android:id="@+id/activity_edit_update_surface_edt"
+                                    android:text="@={``+viewmodel.property.surface}"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    style="@style/EditUpdateActivityEditText"
+                                    android:inputType="number" />
+
+                        </com.google.android.material.textfield.TextInputLayout>
 
                     </TableRow>
 
                     <TableRow
                             android:layout_height="wrap_content"
                             android:layout_width="0dp"
-                            android:layout_weight="50">
+                            android:layout_weight="50"
+                            android:gravity="center">
 
                         <ImageView
                                 style="@style/SearchActivityIcon"
                                 android:src="@drawable/ic_home"/>
 
-                        <EditText
+                        <com.google.android.material.textfield.TextInputLayout
+                                android:id="@+id/activity_edit_update_room_input"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
                                 android:hint="@string/nb_room"
-                                android:id="@+id/activity_edit_update_room_edt"
-                                style="@style/EditUpdateActivityEditText"/>
+                                app:errorEnabled="true">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                    android:id="@+id/activity_edit_update_room_edt"
+                                    android:text="@={``+viewmodel.property.room}"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    style="@style/EditUpdateActivityEditText"
+                                    android:inputType="number" />
+
+                        </com.google.android.material.textfield.TextInputLayout>
+
                     </TableRow>
 
                 </TableRow>
@@ -226,22 +270,36 @@
                 <TableRow
                         android:layout_height="wrap_content"
                         android:layout_width="match_parent"
-                        android:padding="10dp"
-                        android:gravity="center_horizontal">
+                        android:padding="5dp"
+                        android:gravity="center">
 
                     <TableRow
                             android:layout_height="wrap_content"
                             android:layout_width="0dp"
-                            android:layout_weight="50">
+                            android:layout_weight="50"
+                            android:gravity="center">
 
                         <ImageView
                                 style="@style/SearchActivityIcon"
                                 android:src="@drawable/ic_room"/>
 
-                        <EditText
+                        <com.google.android.material.textfield.TextInputLayout
+                                android:id="@+id/activity_edit_update_bedroom_input"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
                                 android:hint="@string/nb_bedroom"
-                                style="@style/EditUpdateActivityEditText"
-                                android:id="@+id/activity_edit_update_bedroom_edt"/>
+                                app:errorEnabled="true">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                    android:id="@+id/activity_edit_update_bedroom_edt"
+                                    android:text="@={``+viewmodel.property.bedroom}"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    style="@style/EditUpdateActivityEditText"
+                                    android:inputType="number"/>
+
+                        </com.google.android.material.textfield.TextInputLayout>
+
                     </TableRow>
 
                     <TableRow
@@ -253,10 +311,22 @@
                                 style="@style/SearchActivityIcon"
                                 android:src="@drawable/ic_bathroom"/>
 
-                        <EditText
+                        <com.google.android.material.textfield.TextInputLayout
+                                android:id="@+id/activity_edit_update_bathroom_input"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
                                 android:hint="@string/nb_bathroom"
-                                style="@style/EditUpdateActivityEditText"
-                                android:id="@+id/activity_edit_update_bathroom_edt"/>
+                                app:errorEnabled="true">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                    android:id="@+id/activity_edit_update_bathroom_edt"
+                                    android:text="@={``+viewmodel.property.bathroom}"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    style="@style/EditUpdateActivityEditText"
+                                    android:inputType="number" />
+
+                        </com.google.android.material.textfield.TextInputLayout>
                     </TableRow>
 
                 </TableRow>
@@ -291,6 +361,7 @@
 
                         <EditText
                                 android:id="@+id/activity_edit_update_street_nb_edt"
+                                android:text="@={viewmodel.address.streetNumber}"
                                 android:hint="@string/street_nb"
                                 android:layout_height="40dp"
                                 android:textSize="@dimen/activity_edit_update_txt"
@@ -301,6 +372,7 @@
 
                         <EditText
                                 android:id="@+id/activity_edit_update_street_name_edt"
+                                android:text="@={viewmodel.address.streetName}"
                                 android:hint="@string/street_name"
                                 android:layout_height="40dp"
                                 android:textSize="@dimen/activity_edit_update_txt"
@@ -317,6 +389,7 @@
 
                         <EditText
                                 android:id="@+id/activity_edit_update_zipcode_edt"
+                                android:text="@={viewmodel.address.zipcode}"
                                 android:hint="@string/zipcode"
                                 android:layout_height="40dp"
                                 android:textSize="@dimen/activity_edit_update_txt"
@@ -327,6 +400,7 @@
 
                         <EditText
                                 android:id="@+id/activity_edit_update_city_edt"
+                                android:text="@={viewmodel.address.city}"
                                 android:hint="@string/city"
                                 android:layout_height="40dp"
                                 android:textSize="@dimen/activity_edit_update_txt"
@@ -338,6 +412,7 @@
 
                     <EditText
                             android:id="@+id/activity_edit_update_country_edt"
+                            android:text="@={viewmodel.address.country}"
                             android:hint="@string/country"
                             android:layout_height="40dp"
                             android:textSize="@dimen/activity_edit_update_txt"
@@ -363,12 +438,14 @@
                             android:id="@+id/activity_edit_update_add_picture_btn"
                             android:text="@string/add_picture"
                             android:drawableStart="@drawable/ic_photo"
+                            android:onClick="@{addpictureclicklistener}"
                             style="@style/EditUpdateActivityBtn"/>
 
                     <Button
                             android:id="@+id/activity_edit_update_take_picture_btn"
                             android:text="@string/take_picture"
                             android:drawableStart="@drawable/ic_camera"
+                            android:onClick="@{takepictureclicklistener}"
                             style="@style/EditUpdateActivityBtn"/>
 
                 </TableRow>
@@ -420,4 +497,5 @@
         </ScrollView>
 
     </RelativeLayout>
+
 </layout>

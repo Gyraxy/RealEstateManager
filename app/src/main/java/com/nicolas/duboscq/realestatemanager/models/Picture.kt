@@ -10,10 +10,10 @@ import androidx.room.PrimaryKey
     childColumns = ["property_id"])])
 
 data class Picture(
-    @ColumnInfo(name = "property_id") val propertyId : Long,
-    @ColumnInfo(name = "picture_link") val picture_link: String,
-    @ColumnInfo(name = "description") val description: String,
-    @ColumnInfo(name = "picture_property_number")val picture_property_description:Int
+    @ColumnInfo(name = "property_id") var propertyId : Long,
+    @ColumnInfo(name = "picture_link") var pictureLink: String,
+    @ColumnInfo(name = "description") var description: String,
+    @ColumnInfo(name = "picture_property_number")var picturePropertyDescription:Int
 )
 {
     @PrimaryKey(autoGenerate = true) var id: Long = 0

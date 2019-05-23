@@ -3,10 +3,11 @@ package com.nicolas.duboscq.realestatemanager.utils
 import android.content.Context
 import com.nicolas.duboscq.realestatemanager.database.AppDatabase
 import com.nicolas.duboscq.realestatemanager.viewmodels.PropertyDetailViewModelFactory
-import com.nicolas.duboscq.realestatemanager.viewmodels.ViewModelFactory
+import com.nicolas.duboscq.realestatemanager.viewmodels.PropertyListViewModelFactory
 import com.nicolas.duboscq.realestatemanager.repositories.AddressRepository
 import com.nicolas.duboscq.realestatemanager.repositories.PictureRepository
 import com.nicolas.duboscq.realestatemanager.repositories.PropertyRepository
+import com.nicolas.duboscq.realestatemanager.viewmodels.PropertyAddUpdateViewModelFactory
 import java.util.concurrent.Executor
 import java.util.concurrent.Executors
 
@@ -31,13 +32,13 @@ object Injection {
         return Executors.newSingleThreadExecutor()
     }
 
-    fun provideViewModelFactory(context: Context): ViewModelFactory {
+    fun provideListViewModelFactory(context: Context): PropertyListViewModelFactory {
         val dataSourceProperty =
             providePropertyDataSource(context)
         val dataSourceAddress = provideAddressDataSource(context)
         val dataSourcePicture = providePictureDataSource(context)
         val executor = provideExecutor()
-        return ViewModelFactory(
+        return PropertyListViewModelFactory(
             dataSourceProperty,
             dataSourceAddress,
             dataSourcePicture,
@@ -49,12 +50,23 @@ object Injection {
         val dataSourceProperty = providePropertyDataSource(context)
         val dataSourceAddress = provideAddressDataSource(context)
         val dataSourcePictures = providePictureDataSource(context)
-        val executor = provideExecutor()
         return PropertyDetailViewModelFactory(
             dataSourceProperty,
             dataSourceAddress,
             dataSourcePictures,
-            property_id,
+            property_id
+        )
+    }
+
+    fun provideAddUpdateViewModelFactory(context: Context): PropertyAddUpdateViewModelFactory {
+        val dataSourceProperty = providePropertyDataSource(context)
+        val dataSourceAddress = provideAddressDataSource(context)
+        val dataSourcePictures = providePictureDataSource(context)
+        val executor = provideExecutor()
+        return PropertyAddUpdateViewModelFactory(
+            dataSourceProperty,
+            dataSourceAddress,
+            dataSourcePictures,
             executor
         )
     }

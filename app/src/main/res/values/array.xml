@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="type_spinner">
+        <item> </item>
+        <item>Appartement</item>
+        <item>Duplex</item>
+        <item>Maison</item>
+    </string-array>
+
+    <string-array name="status_spinner">
+        <item> </item>
+        <item>A Vendre</item>
+        <item>Vendu</item>
+    </string-array>
+</resources>

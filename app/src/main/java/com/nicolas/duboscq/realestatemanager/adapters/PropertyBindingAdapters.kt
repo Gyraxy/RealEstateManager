@@ -21,7 +21,7 @@ fun bindIsGone(view: View, isGone: Boolean) {
 
 @BindingAdapter("app:propertyAddress",requireAll = false)
 fun bindAddress(view: TextView, address : Address? =null){
-    val addressTxt = address?.street_number.toString()+" "+address?.street_name+" "+address?.zipcode.toString()+" "+address?.city+" "+address?.country
+    val addressTxt = address?.streetNumber+" "+address?.streetName+" "+address?.zipcode+" "+address?.city+" "+address?.country
     view.text = addressTxt
 }
 
