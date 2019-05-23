@@ -79,6 +79,8 @@ class MapDetailActivity : AppCompatActivity() {
         when (item.itemId) {
             R.id.menu_activity_main_modify -> {
                 val editIntent = Intent(this, AddUpdateActivity::class.java)
+                editIntent.putExtra("activity","edit")
+                editIntent.putExtra("propertyId",property_id)
                 startActivity(editIntent)
             }
             else -> {

@@ -22,7 +22,9 @@ import androidx.lifecycle.ViewModelProviders
 import com.bumptech.glide.Glide
 import com.nicolas.duboscq.realestatemanager.R
 import com.nicolas.duboscq.realestatemanager.adapters.PictureAdapter
+import com.nicolas.duboscq.realestatemanager.database.AppDatabase
 import com.nicolas.duboscq.realestatemanager.databinding.ActivityAddUpdateBinding
+import com.nicolas.duboscq.realestatemanager.repositories.PropertyRepository
 import com.nicolas.duboscq.realestatemanager.utils.Injection
 import com.nicolas.duboscq.realestatemanager.utils.ItemClickSupport
 import com.nicolas.duboscq.realestatemanager.utils.Notifications
@@ -47,6 +49,8 @@ class AddUpdateActivity : AppCompatActivity() {
     private lateinit var pictureDescriptionList : MutableList<String>
     private lateinit var pictureAdapter: PictureAdapter
     private lateinit var binding: ActivityAddUpdateBinding
+    private var propertyId: Int = 0
+    private lateinit var currentActivity:String
 
 
     companion object {
@@ -74,15 +78,21 @@ class AddUpdateActivity : AppCompatActivity() {
         this.configureAllSpinner()
         this.configureRecyclerView()
         this.configureOnClickRecyclerView()
+
+        propertyId = intent.getIntExtra("propertyId",0)
+        currentActivity = intent.getStringExtra("activity")
+
+        if (currentActivity.equals("edit")){
+            getPropertyInfo(propertyId)
+        }
+
         binding.addpictureclicklistener = View.OnClickListener { this.chooseImageFromPhone() }
         binding.takepictureclicklistener = View.OnClickListener { this.onAccessCamera() }
-        this.viewModel.sendNotif.observe(this, Observer {
-            if (it.equals(true)){
-                Notifications().sendNotification(this,"create")
-                activity_edit_update_type_sp.setSelection(0)
-                activity_edit_update_status_sp.setSelection(0)
-            }
-        })
+        binding.addeditpropertyclicklistener = View.OnClickListener {
+            viewModel.createPropertyandAddress(this)
+            activity_edit_update_type_sp.setSelection(0)
+            activity_edit_update_status_sp.setSelection(0)
+        }
         this.viewModel.toast.observe(this, Observer {
             if (it.equals(true)){
                 Toast.makeText(this,getString(R.string.activity_edit_not_enough_info),Toast.LENGTH_LONG).show()
@@ -290,5 +300,28 @@ class AddUpdateActivity : AppCompatActivity() {
             this.picturePath = data?.data.toString()
             createAlertDiagDescription()
         }
+    }
+
+    // ----
+    // DATA
+    // ----
+
+    fun getPropertyInfo(propertyInfo : Int){
+        AppDatabase.getDatabase(this).propertyDao().getPropertyById(propertyInfo).observe(this, Observer {
+            this.viewModel.property.value = it
+        })
+        AppDatabase.getDatabase(this).addressDao().getAddressFromPropId(propertyInfo).observe(this, Observer {
+            this.viewModel.address.value = it
+        })
+        AppDatabase.getDatabase(this).pictureDao().getPictureFromPropId(propertyInfo).observe(this, Observer {
+            for (i in 0..it.size-1){
+                viewModel._pictureLinkList.add(it[i].pictureLink)
+                viewModel.pictureLinkList.value = viewModel._pictureLinkList
+            }
+            for (i in 0..it.size-1){
+                viewModel._pictureDescriptionList.add(it[i].description)
+                viewModel.pictureDescriptionList.value = viewModel._pictureDescriptionList
+            }
+        })
     }
 }

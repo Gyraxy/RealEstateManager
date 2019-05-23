@@ -1,5 +1,6 @@
 package com.nicolas.duboscq.realestatemanager.viewmodels
 
+import android.content.Context
 import android.util.Log
 import android.view.View
 import androidx.lifecycle.MutableLiveData
@@ -12,6 +13,7 @@ import com.nicolas.duboscq.realestatemanager.repositories.PictureRepository
 import com.nicolas.duboscq.realestatemanager.repositories.PropertyRepository
 import java.util.concurrent.Executor
 import android.widget.AdapterView
+import com.nicolas.duboscq.realestatemanager.utils.Notifications
 import com.nicolas.duboscq.realestatemanager.utils.Utils
 
 class PropertyAddUpdateViewModel (
@@ -31,11 +33,9 @@ class PropertyAddUpdateViewModel (
     var _pictureLinkList: MutableList<String> = mutableListOf()
     var _pictureDescriptionList: MutableList<String> = mutableListOf()
 
-    var sendNotif = MutableLiveData<Boolean>(false)
     var toast = MutableLiveData<Boolean>(false)
 
-
-    fun createPropertyandAddress(){
+    fun createPropertyandAddress(context: Context){
         if (!property.value!!.equals(Property("",0,0,0,0,0,"","", Utils.getTodayDate())) &&
                 !pictureLinkList.value!!.size.equals(0) &&
                 !pictureDescriptionList.value!!.size.equals(0) &&
@@ -49,6 +49,11 @@ class PropertyAddUpdateViewModel (
                 val id = propertyDataSource.createProperty(property.value!!)
 
                 address.value!!.propertyId = id
+
+                val strAddress = "${address.value!!.streetNumber} ${address.value!!.streetName} ${address.value!!.zipcode} ${address.value!!.city} ${address.value!!.country}"
+
+                address.value!!.lat = Utils.getLocationFromAddress(context,strAddress).latitude
+                address.value!!.lng = Utils.getLocationFromAddress(context,strAddress).longitude
                 addressDataSource.createAddress(address.value!!)
 
                 for (i in 0..pictureLinkList.value!!.size-1){
@@ -57,8 +62,7 @@ class PropertyAddUpdateViewModel (
                     pictureDataSource.createPicture(picture)
                 }
             }
-            sendNotif.value = true
-            sendNotif.value = false
+            Notifications().sendNotification(context,"create")
             onClearPropertyAddUpdateViewModel()
         }
         else {

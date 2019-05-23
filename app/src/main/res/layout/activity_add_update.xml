@@ -14,7 +14,7 @@
                 name="takepictureclicklistener"
                 type="android.view.View.OnClickListener"/>
         <variable
-                name="addpropertyclicklistener"
+                name="addeditpropertyclicklistener"
                 type="android.view.View.OnClickListener"/>
 
     </data>
@@ -39,7 +39,7 @@
                 android:layout_alignParentBottom="true"
                 android:layout_alignParentEnd="true"
                 android:layout_margin="@dimen/floating_btn_margin"
-                android:onClick="@{() -> viewmodel.createPropertyandAddress()}"
+                android:onClick="@{addeditpropertyclicklistener}"
                 android:src="@drawable/ic_edit"
                 app:backgroundTint="@color/colorAccent"/>
 
