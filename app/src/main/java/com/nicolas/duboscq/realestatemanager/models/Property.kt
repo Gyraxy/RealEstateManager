@@ -14,7 +14,8 @@ data class Property(
     @ColumnInfo(name = "bathroom") var bathroom: Int,
     @ColumnInfo(name = "description") var description: String,
     @ColumnInfo(name = "type") var type: String,
-    @ColumnInfo(name = "date_creation") var dateCreation: String
+    @ColumnInfo(name = "date_creation") var dateCreation: String,
+    @ColumnInfo(name = "date_modified") var dateModified: String
 )
 {
     @PrimaryKey(autoGenerate = true) var id: Int = 0

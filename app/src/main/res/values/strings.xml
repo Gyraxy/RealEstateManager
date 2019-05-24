@@ -95,6 +95,6 @@
 
     //NOTIFICATION
     <string name="notification_property_created">"La création de la propriété a bien été réalisée."</string>
-    <string name="notification_property_updated">"La mise a jour de l'annonce a bien été réalisée."</string>
+    <string name="notification_property_updated">"L'annonce a bien été mise à jour."</string>
 
 </resources>

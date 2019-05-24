@@ -24,12 +24,3 @@ fun bindAddress(view: TextView, address : Address? =null){
     val addressTxt = address?.streetNumber+" "+address?.streetName+" "+address?.zipcode+" "+address?.city+" "+address?.country
     view.text = addressTxt
 }
-
-@BindingAdapter("app:googleStaticMap",requireAll = false)
-fun bindGoogleStaticMap(view: ImageView, address : Address? =null){
-    val addressLatLng = address?.lat.toString()+","+address?.lng.toString()
-    val googleStaticURL = "https://maps.googleapis.com/maps/api/staticmap?center=$addressLatLng&markers=$addressLatLng&zoom=17&size=600x300&maptype=roadmap&key=$GOOGLE_KEY"
-    Glide.with(view.context)
-            .load(googleStaticURL)
-            .into(view)
-}

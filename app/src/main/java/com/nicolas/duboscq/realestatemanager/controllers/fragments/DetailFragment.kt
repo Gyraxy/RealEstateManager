@@ -13,6 +13,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProviders
 import androidx.viewpager.widget.ViewPager
 import com.bumptech.glide.Glide
+import com.google.android.gms.maps.model.LatLng
 import com.nicolas.duboscq.realestatemanager.adapters.SlidingPictureAdapter
 import com.nicolas.duboscq.realestatemanager.databinding.FragmentDetailBinding
 import com.nicolas.duboscq.realestatemanager.models.Address
@@ -20,6 +21,7 @@ import com.nicolas.duboscq.realestatemanager.models.Picture
 import com.nicolas.duboscq.realestatemanager.utils.Injection
 import com.nicolas.duboscq.realestatemanager.viewmodels.PropertyDetailViewModel
 import com.nicolas.duboscq.realestatemanager.utils.GOOGLE_KEY
+import com.nicolas.duboscq.realestatemanager.utils.Utils
 import java.util.*
 
 
@@ -28,7 +30,9 @@ class DetailFragment : androidx.fragment.app.Fragment() {
 
     // DATA
     private lateinit var viewModel: PropertyDetailViewModel
-    private lateinit var addressLatLng : String
+    private lateinit var addressLatLngTxt : String
+    private lateinit var addressTxt: String
+    private lateinit var addressLatLng : LatLng
     private lateinit var binding: FragmentDetailBinding
     private lateinit var slidingViewPager : ViewPager
     private lateinit var slidingPictureAdapter: SlidingPictureAdapter
@@ -55,6 +59,11 @@ class DetailFragment : androidx.fragment.app.Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel.getPictureByPropId().observe(this,androidx.lifecycle.Observer { configViewPager(it) })
+        viewModel.getAddressPropId().observe(this,androidx.lifecycle.Observer {
+            addressTxt = "${it.streetNumber} ${it.streetName} ${it.zipcode} ${it.city} ${it.country}"
+            this.getLatLngGeoCoder()
+            this.showGoogleStaticMap()
+        })
         binding.clickListener = View.OnClickListener { launchGoogleMapsRoute() }
     }
 
@@ -106,14 +115,27 @@ class DetailFragment : androidx.fragment.app.Fragment() {
         })
     }
 
-    // ----------------
-    // GOOGLE MAP ROUTE
-    // ----------------
+    // ----------
+    // GOOGLE MAP
+    // ----------
+
+    // GET LATLNG WITH GEOCODER
+    private fun getLatLngGeoCoder(){
+        addressLatLng = Utils.getLocationFromAddress(activity!!.applicationContext,addressTxt)
+        addressLatLngTxt = "${addressLatLng.latitude} , ${addressLatLng.longitude}"
+    }
+
+    // GOOGLE STATIC MAP
+    private fun showGoogleStaticMap(){
+        val googleStaticURL = "https://maps.googleapis.com/maps/api/staticmap?center=$addressLatLngTxt&markers=$addressLatLngTxt&zoom=17&size=600x300&maptype=roadmap&key=$GOOGLE_KEY"
+        Glide.with(this)
+            .load(googleStaticURL)
+            .into(fragment_detail_adress_imv)
+    }
 
     // GOOGLE MAP ROUTE TO GO TO PROPERTY WHEN CLICKED ON PROPERTY MAP
     private fun launchGoogleMapsRoute(){
-        addressLatLng = viewModel.address.value?.lat.toString()+","+viewModel.address.value?.lng.toString()
-        val gmmIntentUri = Uri.parse("google.navigation:q=$addressLatLng&mode=w")
+        val gmmIntentUri = Uri.parse("google.navigation:q=$addressLatLngTxt&mode=w")
         val mapIntent = Intent(Intent.ACTION_VIEW, gmmIntentUri)
         mapIntent.setPackage("com.google.android.apps.maps")
         startActivity(mapIntent)

@@ -124,6 +124,7 @@
 
                     <TextView
                             android:id="@+id/fragment_detail_modify_status_txtv"
+                            android:text="@{viewmodel.property.dateModified}"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:gravity="end"
@@ -252,7 +253,6 @@
                 <ImageView
                         android:id="@+id/fragment_detail_adress_imv"
                         android:onClick="@{clickListener}"
-                        app:googleStaticMap="@{viewmodel.address}"
                         android:layout_width="match_parent"
                         android:layout_height="200dp"
                         android:scaleType="centerCrop"

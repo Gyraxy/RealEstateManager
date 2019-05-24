@@ -17,4 +17,8 @@ class PictureRepository(private val pictureDao: PictureDao) {
     fun getPictureByPropId(prop_id: Int): LiveData<MutableList<Picture>> {
         return pictureDao.getPictureFromPropId(prop_id)
     }
+
+    fun delPropertyById(prop_id: Int){
+        return pictureDao.delPictureFromPropId(prop_id)
+    }
 }

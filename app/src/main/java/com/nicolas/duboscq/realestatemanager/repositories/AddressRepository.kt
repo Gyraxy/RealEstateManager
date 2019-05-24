@@ -17,4 +17,8 @@ class AddressRepository(private val addressDao: AddressDao) {
     fun getAddressByPropId(prop_id: Int): LiveData<Address>{
         return addressDao.getAddressFromPropId(prop_id)
     }
+
+    fun updateAddressByPropId(prop_id:Int,streetNumber:String,streetName:String,zipcode:String,city:String,country:String){
+        return addressDao.updateAddressFromPropertyId(prop_id,streetNumber,streetName,zipcode,city,country)
+    }
 }

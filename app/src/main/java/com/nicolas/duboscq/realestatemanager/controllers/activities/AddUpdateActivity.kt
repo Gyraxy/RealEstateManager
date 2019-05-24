@@ -28,6 +28,7 @@ import com.nicolas.duboscq.realestatemanager.repositories.PropertyRepository
 import com.nicolas.duboscq.realestatemanager.utils.Injection
 import com.nicolas.duboscq.realestatemanager.utils.ItemClickSupport
 import com.nicolas.duboscq.realestatemanager.utils.Notifications
+import com.nicolas.duboscq.realestatemanager.utils.Utils
 import com.nicolas.duboscq.realestatemanager.viewmodels.PropertyAddUpdateViewModel
 import kotlinx.android.synthetic.main.activity_add_update.*
 import kotlinx.android.synthetic.main.diag_description.view.*
@@ -83,15 +84,20 @@ class AddUpdateActivity : AppCompatActivity() {
         currentActivity = intent.getStringExtra("activity")
 
         if (currentActivity.equals("edit")){
-            getPropertyInfo(propertyId)
+            getPropertyInfoFromDataBase(propertyId)
         }
 
         binding.addpictureclicklistener = View.OnClickListener { this.chooseImageFromPhone() }
         binding.takepictureclicklistener = View.OnClickListener { this.onAccessCamera() }
         binding.addeditpropertyclicklistener = View.OnClickListener {
-            viewModel.createPropertyandAddress(this)
-            activity_edit_update_type_sp.setSelection(0)
-            activity_edit_update_status_sp.setSelection(0)
+            if (currentActivity.equals("add")){
+                viewModel.createPropertyandAddress(this)
+                activity_edit_update_type_sp.setSelection(0)
+                activity_edit_update_status_sp.setSelection(0)
+            }
+           else if (currentActivity.equals("edit")){
+                viewModel.updatePropertyById(propertyId,this)
+            }
         }
         this.viewModel.toast.observe(this, Observer {
             if (it.equals(true)){
@@ -306,9 +312,10 @@ class AddUpdateActivity : AppCompatActivity() {
     // DATA
     // ----
 
-    fun getPropertyInfo(propertyInfo : Int){
+    fun getPropertyInfoFromDataBase(propertyInfo : Int){
         AppDatabase.getDatabase(this).propertyDao().getPropertyById(propertyInfo).observe(this, Observer {
             this.viewModel.property.value = it
+            this.viewModel.property.value!!.dateModified = Utils.getTodayDate()
         })
         AppDatabase.getDatabase(this).addressDao().getAddressFromPropId(propertyInfo).observe(this, Observer {
             this.viewModel.address.value = it

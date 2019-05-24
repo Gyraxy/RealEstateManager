@@ -17,4 +17,8 @@ class PropertyRepository(private val propertyDao: PropertyDao) {
     fun getPropertyById(prop_id: Int): LiveData<Property>{
         return propertyDao.getPropertyById(prop_id)
     }
+
+    fun updatePropertyById(prop_id:Int,status: String,price: Int, surface:Int,room: Int,bedroom:Int,bathroom: Int,description:String,type:String,dateModified:String){
+        return propertyDao.updatePropertyById(prop_id,status,price,surface,room,bedroom,bathroom,description,type,dateModified)
+    }
 }

@@ -3,11 +3,13 @@ package com.nicolas.duboscq.realestatemanager.models
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.ForeignKey
+import androidx.room.ForeignKey.CASCADE
 import androidx.room.PrimaryKey
 
 @Entity (foreignKeys = [ForeignKey(entity = Property::class,
     parentColumns = ["id"],
-    childColumns = ["property_id"])])
+    childColumns = ["property_id"],
+    onDelete = CASCADE)])
 
 data class Picture(
     @ColumnInfo(name = "property_id") var propertyId : Long,
