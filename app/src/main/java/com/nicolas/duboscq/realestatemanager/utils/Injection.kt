@@ -8,6 +8,7 @@ import com.nicolas.duboscq.realestatemanager.repositories.AddressRepository
 import com.nicolas.duboscq.realestatemanager.repositories.PictureRepository
 import com.nicolas.duboscq.realestatemanager.repositories.PropertyRepository
 import com.nicolas.duboscq.realestatemanager.viewmodels.PropertyAddUpdateViewModelFactory
+import com.nicolas.duboscq.realestatemanager.viewmodels.PropertyMapViewModelFactory
 import java.util.concurrent.Executor
 import java.util.concurrent.Executors
 
@@ -68,6 +69,18 @@ object Injection {
             dataSourceAddress,
             dataSourcePictures,
             executor
+        )
+    }
+
+    fun provideMapViewModelFactory(context: Context): PropertyMapViewModelFactory {
+        val dataSourceProperty = providePropertyDataSource(context)
+        val dataSourceAddress = provideAddressDataSource(context)
+        val dataSourcePictures = providePictureDataSource(context)
+        val executor = provideExecutor()
+        return PropertyMapViewModelFactory(
+            dataSourceProperty,
+            dataSourceAddress,
+            dataSourcePictures
         )
     }
 

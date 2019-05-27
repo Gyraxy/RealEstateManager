@@ -89,7 +89,7 @@ public class Utils {
         LatLng p1 = null;
         try {
             // May throw an IOException
-            address = coder.getFromLocationName(strAddress, 5);
+            address = coder.getFromLocationName(strAddress, 3);
             if (address == null) {
                 return null;
             }
