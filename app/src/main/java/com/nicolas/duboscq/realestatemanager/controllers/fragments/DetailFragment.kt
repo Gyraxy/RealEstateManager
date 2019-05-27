@@ -9,6 +9,7 @@ import kotlinx.android.synthetic.main.fragment_detail.*
 import android.content.Intent
 import android.net.Uri
 import android.os.Handler
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProviders
 import androidx.viewpager.widget.ViewPager
@@ -61,10 +62,23 @@ class DetailFragment : androidx.fragment.app.Fragment() {
         viewModel.getPictureByPropId().observe(this,androidx.lifecycle.Observer { configViewPager(it) })
         viewModel.getAddressPropId().observe(this,androidx.lifecycle.Observer {
             addressTxt = "${it.streetNumber} ${it.streetName} ${it.zipcode} ${it.city} ${it.country}"
-            this.getLatLngGeoCoder()
-            this.showGoogleStaticMap()
+            if (Utils.isInternetAvailable(activity!!.applicationContext)){
+                this.getLatLngGeoCoder()
+                this.showGoogleStaticMap()
+            }
+            else {
+                Glide.with(this)
+                    .load(R.drawable.no_internet)
+                    .into(fragment_detail_adress_imv)
+            }
         })
-        binding.clickListener = View.OnClickListener { launchGoogleMapsRoute() }
+        binding.clickListener = View.OnClickListener {
+            if (Utils.isInternetAvailable(activity!!.applicationContext)){
+                launchGoogleMapsRoute()
+            } else {
+                Toast.makeText(activity!!.applicationContext,getString(R.string.no_internet),Toast.LENGTH_SHORT).show()
+            }
+        }
     }
 
     // VIEWPAGER

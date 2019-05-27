@@ -97,4 +97,7 @@
     <string name="notification_property_created">"La création de la propriété a bien été réalisée."</string>
     <string name="notification_property_updated">"L'annonce a bien été mise à jour."</string>
 
+    //INTERNET
+    <string name="no_internet">"Pas de connexion Internet. Veuillez vérifier votre connexion et relancer."</string>
+
 </resources>

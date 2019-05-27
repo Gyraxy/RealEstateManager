@@ -3,6 +3,8 @@ package com.nicolas.duboscq.realestatemanager.utils;
 import android.content.Context;
 import android.location.Address;
 import android.location.Geocoder;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.wifi.WifiManager;
 import android.widget.FrameLayout;
 import com.google.android.gms.maps.model.LatLng;
@@ -43,6 +45,11 @@ public class Utils {
      *
      * @return
      */
+    public static String getTodayDateOld(){
+        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
+        return dateFormat.format(new Date());
+    }
+
     public static String getTodayDate() {
         DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.FRANCE);
         return dateFormat.format(new Date());
@@ -55,9 +62,24 @@ public class Utils {
      * @param context
      * @return
      */
-    public static Boolean isInternetAvailable(Context context) {
+    public static Boolean isInternetAvailableOld(Context context) {
         WifiManager wifi = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
         return wifi.isWifiEnabled();
+    }
+
+    public static Boolean isInternetAvailable(Context context){
+
+        ConnectivityManager connectivityManager =
+                (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        boolean isConnected = false;
+
+        if (connectivityManager != null) {
+            NetworkInfo activeNetwork = connectivityManager.getActiveNetworkInfo();
+            isConnected = (activeNetwork != null) && (activeNetwork.isConnectedOrConnecting());
+        }
+
+        return isConnected;
     }
 
     // GET LAT AND LNG FROM ADDRESS

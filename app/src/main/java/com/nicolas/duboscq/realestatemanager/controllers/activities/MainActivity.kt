@@ -15,7 +15,11 @@ import kotlinx.android.synthetic.main.activity_main.*
 import pub.devrel.easypermissions.EasyPermissions
 import pub.devrel.easypermissions.PermissionRequest
 import android.Manifest.permission.ACCESS_FINE_LOCATION
+import android.util.Log
+import android.widget.Toast
+import androidx.fragment.app.Fragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import pub.devrel.easypermissions.AfterPermissionGranted
 
 class MainActivity : AppCompatActivity(), EasyPermissions.PermissionCallbacks{
 
@@ -25,7 +29,7 @@ class MainActivity : AppCompatActivity(), EasyPermissions.PermissionCallbacks{
 
     companion object {
         private const val LOCATION_PERMISSION_REQUEST_CODE = 1
-        private val PERMS = ACCESS_FINE_LOCATION
+        private val LOC_PERMS = ACCESS_FINE_LOCATION
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -93,7 +97,7 @@ class MainActivity : AppCompatActivity(), EasyPermissions.PermissionCallbacks{
 
     // UI
 
-    private fun openFragment(fragment: androidx.fragment.app.Fragment) {
+    private fun openFragment(fragment: Fragment) {
         val fragmentTransaction = supportFragmentManager.beginTransaction()
         fragmentTransaction.replace(R.id.main_activity_frame_layout_list, fragment)
         fragmentTransaction.addToBackStack(null)
@@ -133,7 +137,7 @@ class MainActivity : AppCompatActivity(), EasyPermissions.PermissionCallbacks{
     // PERMISSION
     private fun enableLocation(){
         EasyPermissions.requestPermissions(
-            PermissionRequest.Builder(this, LOCATION_PERMISSION_REQUEST_CODE, PERMS)
+            PermissionRequest.Builder(this, LOCATION_PERMISSION_REQUEST_CODE, LOC_PERMS)
                 .setRationale(R.string.popup_title_permission_location_access)
                 .setPositiveButtonText(R.string.popup_message_answer_yes)
                 .setNegativeButtonText(R.string.popup_message_answer_no)
@@ -151,7 +155,13 @@ class MainActivity : AppCompatActivity(), EasyPermissions.PermissionCallbacks{
     }
 
     override fun onPermissionsGranted(requestCode: Int, perms: MutableList<String>) {
-        openFragment(mapFragment)
+        if (Utils.isInternetAvailable(this)){
+            openFragment(mapFragment)
+        }
+        else {
+            bottom_navigation.selectedItemId = R.id.navigation_list
+            Toast.makeText(this, getString(R.string.no_internet), Toast.LENGTH_SHORT).show()
+        }
     }
 }
 
