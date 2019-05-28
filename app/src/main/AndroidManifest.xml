@@ -20,6 +20,11 @@
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
         <activity
+                android:name=".controllers.activities.LoanSimulationActivity"
+                android:label="@string/title_activity_loan_simulation"
+                android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+        <activity
                 android:name=".controllers.activities.AddUpdateActivity"
                 android:label="@string/title_activity_edit_update">
             <meta-data

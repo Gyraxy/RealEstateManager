@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+                name="viewmodel"
+                type="com.nicolas.duboscq.realestatemanager.viewmodels.LoanSimulationViewModel"/>
+    </data>
+
+
+    <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:context=".controllers.activities.LoanSimulationActivity">
+
+        <androidx.appcompat.widget.Toolbar
+                android:id="@+id/activity_loan_toolbar"
+                android:minHeight="?attr/actionBarSize"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:titleTextColor="@android:color/white"
+                android:background="?attr/colorPrimary"
+                android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"/>
+
+        <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/activity_loan_toolbar">
+
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="5dp">
+
+                <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp">
+
+                    <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/loan_simulation"
+                            android:textSize="@dimen/activity_loan_title"
+                            android:textStyle="bold"
+                            android:layout_margin="5dp"
+                            android:drawableStart="@drawable/ic_bank"
+                            android:drawableTint="@color/colorGrey"/>
+                </TableRow>
+
+                <View
+                        android:layout_width="match_parent"
+                        android:layout_marginTop="10dp"
+                        android:layout_height="1dp"
+                        android:background="@color/colorGrey"/>
+
+                <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:gravity="center"
+                        android:padding="5dp">
+
+                    <TextView
+                            style="@style/LoanActivityTextView"
+                            android:text="@string/loan_value"/>
+
+                    <EditText
+                            android:id="@+id/activity_loan_loan_edt"
+                            style="@style/LoanActivityEditText"
+                            android:text="@={``+viewmodel.loan}"/>
+                </TableRow>
+
+                <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:gravity="center"
+                        android:padding="5dp">
+
+                    <TextView
+                            style="@style/LoanActivityTextView"
+                            android:text="@string/contribution"/>
+
+                    <EditText
+                            android:id="@+id/activity_loan_contribution_edt"
+                            style="@style/LoanActivityEditText"
+                            android:text="@={``+viewmodel.contribution}"/>
+                </TableRow>
+
+                <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:gravity="center"
+                        android:padding="5dp">
+
+                    <TextView
+                            style="@style/LoanActivityTextView"
+                            android:text="@string/loan_rate"/>
+
+                    <EditText
+                            android:id="@+id/activity_loan_rate_edt"
+                            style="@style/LoanActivityEditText"
+                            android:text="@={``+viewmodel.rate}"/>
+                </TableRow>
+
+                <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:gravity="center"
+                        android:padding="5dp">
+
+                    <TextView
+                            style="@style/LoanActivityTextView"
+                            android:text="@string/period"/>
+
+                    <EditText
+                            android:id="@+id/activity_loan_period_edt"
+                            style="@style/LoanActivityEditText"
+                            android:text="@={``+viewmodel.period}"/>
+                </TableRow>
+
+                <Button
+                        android:layout_width="@dimen/activity_loan_button_width"
+                        android:textSize="@dimen/activity_loan_button_txt"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/button_bg_rounded_corners"
+                        android:layout_marginTop="@dimen/activity_loan_button_margin_top"
+                        android:layout_gravity="center"
+                        android:onClick="@{()-> viewmodel.loanCalcul()}"
+                        android:text="@string/loan_calcul"/>
+
+                <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/activity_loan_button_margin_top"
+                        android:gravity="center"
+                        android:padding="5dp"
+                        app:monthlyCalculated="@{viewmodel.monthlyPayment}">
+
+                    <TextView
+                            style="@style/LoanActivityTextView"
+                            android:text="@string/monthly_payment"
+                            android:textColor="@color/colorBlack"/>
+
+                    <TextView
+                            android:id="@+id/activity_loan_monthly_txtv"
+                            android:layout_height="40dp"
+                            android:layout_width="0dp"
+                            android:layout_weight="50"
+                            android:textSize="@dimen/activity_loan_title"
+                            android:gravity="center"
+                            android:textColor="@color/colorAccent"
+                            android:textStyle="bold"
+                            android:text="@{``+viewmodel.monthlyPayment}"/>
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </ScrollView>
+
+
+    </RelativeLayout>
+
+</layout>

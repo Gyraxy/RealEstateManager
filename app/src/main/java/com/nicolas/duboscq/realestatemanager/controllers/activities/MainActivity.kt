@@ -15,11 +15,9 @@ import kotlinx.android.synthetic.main.activity_main.*
 import pub.devrel.easypermissions.EasyPermissions
 import pub.devrel.easypermissions.PermissionRequest
 import android.Manifest.permission.ACCESS_FINE_LOCATION
-import android.util.Log
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import pub.devrel.easypermissions.AfterPermissionGranted
 
 class MainActivity : AppCompatActivity(), EasyPermissions.PermissionCallbacks{
 
@@ -74,6 +72,10 @@ class MainActivity : AppCompatActivity(), EasyPermissions.PermissionCallbacks{
                 val addIntent = Intent(this, AddUpdateActivity::class.java)
                 addIntent.putExtra("activity","add")
                 startActivity(addIntent)
+            }
+            R.id.menu_activity_main_loan -> {
+                val loanIntent = Intent(this, LoanSimulationActivity::class.java)
+                startActivity(loanIntent)
             }
             else -> {
             }

@@ -24,3 +24,12 @@ fun bindAddress(view: TextView, address : Address? =null){
     val addressTxt = address?.streetNumber+" "+address?.streetName+" "+address?.zipcode+" "+address?.city+" "+address?.country
     view.text = addressTxt
 }
+
+@BindingAdapter("app:monthlyCalculated")
+fun monthlyCalculated (view: View, monthly:String) {
+    view.visibility = if (monthly.equals("")) {
+        View.GONE
+    } else {
+        View.VISIBLE
+    }
+}

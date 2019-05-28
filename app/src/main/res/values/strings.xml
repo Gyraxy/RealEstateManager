@@ -6,6 +6,7 @@
     <string name="modify">Modify</string>
     <string name="search">Recherche</string>
     <string name="position">Localisation</string>
+    <string name="loan">Prêt</string>
 
     //BOTTOM NAVIGATION
     <string name="property_list">Liste</string>
@@ -73,10 +74,18 @@
     <string name="no_property_found">Aucun Logement présent</string>
 
     //PERMISSION POPUP
-    <string name="popup_title_permission_location_access">Cette application a besoin de vous localiser. Acceptez-vous ?</string>
-    <string name="popup_title_permission_camera_access">Cette application a besoin d\'accéder à la caméra. Acceptez-vous ?</string>
-    <string name="popup_title_permission_read_access">Cette application a besoin d\'accéder à votre stockage. Acceptez vous ?</string>
-    <string name="popup_title_permission_write_access">Cette application a besoin d\'enregistrer des données sur votre stockage. Acceptez vous ?</string>
+    <string name="popup_title_permission_location_access">Cette application a besoin de vous localiser. Acceptez-vous
+        ?
+    </string>
+    <string name="popup_title_permission_camera_access">Cette application a besoin d\'accéder à la caméra. Acceptez-vous
+        ?
+    </string>
+    <string name="popup_title_permission_read_access">Cette application a besoin d\'accéder à votre stockage. Acceptez
+        vous ?
+    </string>
+    <string name="popup_title_permission_write_access">Cette application a besoin d\'enregistrer des données sur votre
+        stockage. Acceptez vous ?
+    </string>
     <string name="location_access_denied">Geolocalisation refusée, veuillez l\'accepter.</string>
     <string name="camera_access_denied">Accès à l\'appareil photo refusé, veuillez l\'accepter.</string>
     <string name="read_access_denied">Accès au stockage refusé, veuillez l\'accepter.</string>
@@ -91,7 +100,9 @@
     <string name="diag_del_picture_message">Voulez vous vraiment supprimer cette image ?</string>
     <string name="ok">ok</string>
     <string name="cancel">Annuler</string>
-    <string name="activity_edit_not_enough_info">Des informations sont manquantes. Merci de vérifier de renseigner les informations manquantes et d\'insérer au moins une photo.</string>
+    <string name="activity_edit_not_enough_info">Des informations sont manquantes. Merci de vérifier de renseigner les
+        informations manquantes et d\'insérer au moins une photo.
+    </string>
 
     //NOTIFICATION
     <string name="notification_property_created">"La création de la propriété a bien été réalisée."</string>
@@ -99,5 +110,15 @@
 
     //INTERNET
     <string name="no_internet">"Pas de connexion Internet. Veuillez vérifier votre connexion et relancer."</string>
+    <string name="title_activity_loan_simulation">LoanSimulation</string>
+
+    //LOAN SIMULATION ACTIVITY
+    <string name="loan_simulation">Simulateur de Prêt:</string>
+    <string name="loan_value">Montant du Pret</string>
+    <string name="contribution">Apport</string>
+    <string name="loan_rate">Taux</string>
+    <string name="period">Durée</string>
+    <string name="loan_calcul">Calcul du pret</string>
+    <string name="monthly_payment">Votre Mensualité</string>
 
 </resources>
