@@ -110,14 +110,15 @@
 
     //INTERNET
     <string name="no_internet">"Pas de connexion Internet. Veuillez vérifier votre connexion et relancer."</string>
-    <string name="title_activity_loan_simulation">LoanSimulation</string>
+
 
     //LOAN SIMULATION ACTIVITY
+    <string name="title_activity_loan_simulation">Simulateur Prêt</string>
     <string name="loan_simulation">Simulateur de Prêt:</string>
     <string name="loan_value">Montant du Pret</string>
     <string name="contribution">Apport</string>
-    <string name="loan_rate">Taux</string>
-    <string name="period">Durée</string>
+    <string name="loan_rate">Taux (%)</string>
+    <string name="period">Durée (année)</string>
     <string name="loan_calcul">Calcul du pret</string>
     <string name="monthly_payment">Votre Mensualité</string>
 

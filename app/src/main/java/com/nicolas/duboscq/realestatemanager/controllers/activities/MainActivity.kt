@@ -91,7 +91,10 @@ class MainActivity : AppCompatActivity(), EasyPermissions.PermissionCallbacks{
             }
             R.id.navigation_map -> {
                 enableLocation()
-                return@OnNavigationItemSelectedListener true
+                if (Utils.isInternetAvailable(this)){
+                    return@OnNavigationItemSelectedListener true
+                }
+                return@OnNavigationItemSelectedListener false
             }
         }
         false
@@ -161,7 +164,6 @@ class MainActivity : AppCompatActivity(), EasyPermissions.PermissionCallbacks{
             openFragment(mapFragment)
         }
         else {
-            bottom_navigation.selectedItemId = R.id.navigation_list
             Toast.makeText(this, getString(R.string.no_internet), Toast.LENGTH_SHORT).show()
         }
     }
