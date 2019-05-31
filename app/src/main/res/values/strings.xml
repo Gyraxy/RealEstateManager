@@ -30,7 +30,7 @@
     <string name="to">Au</string>
     <string name="square_meters">m2</string>
     <string name="description">Description</string>
-    <string name="modified">"Modifié : "</string>
+    <string name="modified">"Modifié: "</string>
     <string name="created">"Mis en ligne: "</string>
     <string name="none">Aucun</string>
 
@@ -96,6 +96,8 @@
     <string name="no_description">Veuillez renseigner une description</string>
 
     //EDIT-UPDATE ACTIVITY
+    <string name="agent">Agent Immobilier</string>
+    <string name="points_of_interest">Points d\'interêt</string>
     <string name="diag_del_picture_title">Suppression Image</string>
     <string name="diag_del_picture_message">Voulez vous vraiment supprimer cette image ?</string>
     <string name="ok">ok</string>
@@ -121,5 +123,10 @@
     <string name="period">Durée (année)</string>
     <string name="loan_calcul">Calcul du pret</string>
     <string name="monthly_payment">Votre Mensualité</string>
+
+    //DETAIL ACTIVITY
+    <string name="sold">VENDU</string>
+    <string name="entry_date">Date d\'entrée</string>
+    <string name="sold_date">Date de vente</string>
 
 </resources>

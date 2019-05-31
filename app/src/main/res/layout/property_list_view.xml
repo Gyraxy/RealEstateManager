@@ -5,12 +5,32 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-    <ImageView
-            android:id="@+id/property_listview_picture_imv"
-            android:layout_height="70dp"
-            android:layout_width="70dp"
-            android:layout_margin="5dp"
-            android:layout_gravity="center"/>
+    <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+        <ImageView
+                android:id="@+id/property_listview_picture_imv"
+                android:layout_height="70dp"
+                android:layout_width="70dp"
+                android:layout_margin="5dp"
+                android:layout_gravity="center"/>
+
+        <TextView
+                android:layout_width="70dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/activity_list_soldbanner_txt"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:text="@string/sold"
+                android:gravity="center"
+                android:textColor="@color/colorWhite"
+                android:background="@color/colorRed"
+                android:layout_marginBottom="24dp"
+                android:layout_alignBottom="@+id/property_listview_picture_imv"
+                android:layout_alignEnd="@+id/property_listview_picture_imv"/>
+
+    </RelativeLayout>
 
     <LinearLayout
             android:layout_width="match_parent"

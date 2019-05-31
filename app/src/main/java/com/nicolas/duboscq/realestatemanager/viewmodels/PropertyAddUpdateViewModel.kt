@@ -23,7 +23,7 @@ class PropertyAddUpdateViewModel (
     private val executor: Executor
 ): ViewModel() {
 
-    var property = MutableLiveData<Property>(Property("",0,0,0,0,0,"","", Utils.getTodayDate()," "))
+    var property = MutableLiveData<Property>(Property("","A Vendre",0,0,0,0,0,"","","","","", Utils.getTodayDate()," "))
     var address = MutableLiveData<Address>(Address(0,"","","","",""))
     var picture = MutableLiveData<Picture>(Picture(0,"","",0))
 
@@ -62,7 +62,12 @@ class PropertyAddUpdateViewModel (
     fun updatePropertyById(propId:Int,context: Context){
         if (canSaveToDataBase()){
             executor.execute {
-                propertyDataSource.updatePropertyById(propId,property.value!!.status,
+                if (!property.value!!.date_sold.equals("")){
+                    property.value!!.status = "Vendu"
+                }
+                propertyDataSource.updatePropertyById(propId,
+                    property.value!!.agent,
+                    property.value!!.status,
                     property.value!!.price,
                     property.value!!.surface,
                     property.value!!.room,
@@ -70,6 +75,9 @@ class PropertyAddUpdateViewModel (
                     property.value!!.bathroom,
                     property.value!!.description,
                     property.value!!.type,
+                    property.value!!.points_interest,
+                    property.value!!.date_entry,
+                    property.value!!.date_sold,
                     property.value!!.dateModified)
                 addressDataSource.updateAddressByPropId(propId,address.value!!.streetNumber,
                     address.value!!.streetName,
@@ -93,7 +101,7 @@ class PropertyAddUpdateViewModel (
     }
 
     fun onClearPropertyAddUpdateViewModel(){
-        property.value = Property("",0,0,0,0,0,"","", Utils.getTodayDate()," ")
+        property.value = Property("","A Vendre",0,0,0,0,0,"","","","","", Utils.getTodayDate()," ")
         address.value = Address(0,"","","","","")
         _pictureLinkList.clear()
         _pictureDescriptionList.clear()
@@ -125,7 +133,8 @@ class PropertyAddUpdateViewModel (
     }
 
     fun canSaveToDataBase():Boolean{
-        if (!property.value!!.status.equals("") &&
+        if (!property.value!!.agent.equals("") &&
+            !property.value!!.date_entry.equals("") &&
             !property.value!!.price.equals(0) &&
             !property.value!!.surface.equals(0) &&
             !property.value!!.room.equals(0) &&
@@ -133,6 +142,7 @@ class PropertyAddUpdateViewModel (
             !property.value!!.bathroom.equals(0) &&
             !property.value!!.description.equals("") &&
             !property.value!!.type.equals("")&&
+            !property.value!!.points_interest.equals("")&&
             !pictureLinkList.value!!.size.equals(0) &&
             !pictureDescriptionList.value!!.size.equals(0) &&
             !address.value!!.city.equals("") &&
@@ -144,10 +154,6 @@ class PropertyAddUpdateViewModel (
             return true
         }
         else return false
-    }
-
-    fun onStatusSelectItem(parent: AdapterView<*>, view: View, pos: Int, id: Long) {
-        property.value?.status = parent.selectedItem.toString()
     }
 
     fun onTypeSelectItem(parent: AdapterView<*>, view: View, pos: Int, id: Long) {

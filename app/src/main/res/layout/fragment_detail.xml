@@ -47,6 +47,20 @@
                         app:snap="false"/>
 
                 <TextView
+                        android:id="@+id/activity_detail_soldbanner_txt"
+                        app:soldBanner="@{viewmodel.property.date_sold}"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="30sp"
+                        android:textStyle="bold"
+                        android:text="@string/sold"
+                        android:gravity="center"
+                        android:textColor="@color/colorWhite"
+                        android:background="@color/colorRed"
+                        android:layout_marginBottom="85dp"
+                        android:layout_alignBottom="@+id/picture_viewpager"/>
+
+                <TextView
                         android:id="@+id/fragment_detail_price_txtv"
                         android:text="@{Integer.toString(viewmodel.property.price)}"
                         android:gravity="center"
@@ -61,13 +75,10 @@
 
             </RelativeLayout>
 
-
-
             <TableLayout
                     android:id="@+id/fragment_detail_status_ly"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/picture_slider_ly"
                     android:layout_margin="5dp">
 
                 <TableRow>
@@ -87,14 +98,16 @@
                             android:layout_weight="50"
                             android:layout_height="wrap_content"
                             android:gravity="end"
-                            android:text="@string/created"
+                            android:text="@string/entry_date"
                             android:textSize="12sp"/>
 
                     <TextView
                             android:id="@+id/fragment_detail_create_status_txtv"
-                            android:text="@{viewmodel.property.dateCreation}"
+                            android:text="@{viewmodel.property.date_entry}"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:textColor="@color/colorBlack"
+                            android:layout_marginStart="5dp"
                             android:gravity="end"
                             android:textSize="12sp"/>
 
@@ -119,14 +132,16 @@
                             android:layout_weight="50"
                             android:layout_height="wrap_content"
                             android:gravity="end"
-                            android:text="@string/modified"
+                            android:text="@string/sold_date"
                             android:textSize="12sp"/>
 
                     <TextView
                             android:id="@+id/fragment_detail_modify_status_txtv"
-                            android:text="@{viewmodel.property.dateModified}"
+                            android:text="@{viewmodel.property.date_sold}"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:textColor="@color/colorBlack"
+                            android:layout_marginStart="5dp"
                             android:gravity="end"
                             android:textSize="12sp"/>
                 </TableRow>
@@ -137,29 +152,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
-
-                <TableLayout
-
-                        android:id="@+id/fragment_detail_description_ly"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="5dp">
-
-                    <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/description"
-                            android:textSize="@dimen/fragment_detail_description_txt"/>
-
-                    <TextView
-                            android:id="@+id/fragment_detail_description_txtv"
-                            android:text="@{viewmodel.property.description}"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textColor="@color/colorBlack"
-                            android:textSize="@dimen/fragment_detail_description_txt"/>
-
-                </TableLayout>
 
                 <TableLayout
                         android:id="@+id/fragment_detail_compo_ly"
@@ -225,15 +217,43 @@
 
                 </TableLayout>
 
-                <TableLayout
+                <TableRow
 
-                        android:id="@+id/fragment_detail_location_ly"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_margin="5dp">
+                        android:layout_margin="5dp"
+                        android:gravity="center_vertical">
 
                     <TextView
-                            android:layout_width="wrap_content"
+                            android:layout_width="0dp"
+                            android:layout_weight="35"
+                            android:layout_height="wrap_content"
+                            android:text="@string/description"
+                            android:drawableStart="@drawable/ic_description"
+                            android:textSize="@dimen/fragment_detail_description_txt"/>
+
+                    <TextView
+                            android:layout_width="0dp"
+                            android:layout_weight="65"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/fragment_detail_description_txtv"
+                            android:padding="5dp"
+                            android:gravity="center"
+                            android:textColor="@color/colorBlack"
+                            android:text="@{viewmodel.property.description}"/>
+
+                </TableRow>
+
+                <TableRow
+
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5dp"
+                        android:gravity="center_vertical">
+
+                    <TextView
+                            android:layout_width="0dp"
+                            android:layout_weight="35"
                             android:layout_height="wrap_content"
                             android:text="@string/place"
                             android:drawableStart="@drawable/ic_location"
@@ -241,14 +261,43 @@
                             android:drawableTint="@color/colorGrey"/>
 
                     <TextView
+                            android:layout_width="0dp"
+                            android:layout_weight="65"
+                            android:layout_height="wrap_content"
                             android:id="@+id/fragment_detail_adress_txtv"
                             android:padding="5dp"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:gravity="center"
                             android:textColor="@color/colorBlack"
                             app:propertyAddress="@{viewmodel.address}"/>
 
-                </TableLayout>
+                </TableRow>
+
+                <TableRow
+
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5dp"
+                        android:gravity="center_vertical">
+
+                    <TextView
+                            android:layout_width="0dp"
+                            android:layout_weight="35"
+                            android:layout_height="wrap_content"
+                            android:text="@string/points_of_interest"
+                            android:drawableStart="@drawable/ic_info"
+                            android:textSize="@dimen/fragment_detail_description_txt"/>
+
+                    <TextView
+                            android:layout_width="0dp"
+                            android:layout_weight="65"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/fragment_detail_point_interest_txtv"
+                            android:padding="5dp"
+                            android:gravity="center"
+                            android:textColor="@color/colorBlack"
+                            android:text="@{viewmodel.property.points_interest}"/>
+
+                </TableRow>
 
                 <ImageView
                         android:id="@+id/fragment_detail_adress_imv"
@@ -258,8 +307,83 @@
                         android:scaleType="centerCrop"
                         android:layout_margin="20dp"/>
 
+                <TableRow
+
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5dp"
+                        android:gravity="center_vertical">
+
+                    <TextView
+                            android:layout_width="0dp"
+                            android:layout_weight="35"
+                            android:layout_height="wrap_content"
+                            android:text="@string/agent"
+                            android:drawableStart="@drawable/ic_account"
+                            android:textSize="@dimen/fragment_detail_description_txt"/>
+
+                    <TextView
+                            android:layout_width="0dp"
+                            android:layout_weight="65"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/fragment_detail_agent_txtv"
+                            android:padding="5dp"
+                            android:gravity="center"
+                            android:textColor="@color/colorBlack"
+                            android:text="@{viewmodel.property.agent}"/>
+
+                </TableRow>
+
             </LinearLayout>
 
+            <TableLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp">
+
+                <TableRow>
+
+                    <TextView
+                            android:layout_width="0dp"
+                            android:layout_weight="50"
+                            android:layout_height="wrap_content"
+                            android:gravity="end"
+                            android:text="@string/created"
+                            android:textSize="10sp"/>
+
+                    <TextView
+                            android:id="@+id/activity_edit_update_create_status_txtv"
+                            android:text="@{viewmodel.property.dateCreation}"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="end"
+                            android:textSize="10sp"/>
+
+                </TableRow>
+
+                <TableRow>
+
+                    <TextView
+                            android:layout_width="0dp"
+                            android:layout_weight="50"
+                            android:layout_height="wrap_content"
+                            android:gravity="end"
+                            android:text="@string/modified"
+                            android:textSize="10sp"/>
+
+                    <TextView
+                            android:id="@+id/activity_edit_update_update_status_txtv"
+                            android:text="@{viewmodel.property.dateModified}"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="end"
+                            android:textSize="10sp"/>
+
+                </TableRow>
+
+
+            </TableLayout>
 
         </LinearLayout>
 

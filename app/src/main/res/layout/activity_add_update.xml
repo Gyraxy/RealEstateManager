@@ -17,6 +17,14 @@
                 name="addeditpropertyclicklistener"
                 type="android.view.View.OnClickListener"/>
 
+        <variable
+                name="dateentrypicklistener"
+                type="android.view.View.OnClickListener"/>
+
+        <variable
+                name="datesoldpicklistener"
+                type="android.view.View.OnClickListener"/>
+
     </data>
 
     <RelativeLayout
@@ -58,56 +66,20 @@
                         style="@style/EditUpdateActivityLayout">
 
                     <TextView
-                            android:text="@string/ref"
-                            style="@style/EditUpdateActivityTextTitle"/>
+                            android:text="@string/agent"
+                            style="@style/EditUpdateActivityTextTitle"
+                            android:drawableStart="@drawable/ic_account"/>
 
-                    <TableLayout
+                    <EditText
+                            android:id="@+id/activity_edit_update_agent_edt"
+                            android:text="@={viewmodel.property.agent}"
+                            android:gravity="center"
                             android:layout_width="0dp"
-                            android:layout_height="30dp"
-                            android:layout_weight="65">
-
-                        <TableRow>
-
-                            <TextView
-                                    android:layout_width="0dp"
-                                    android:layout_weight="50"
-                                    android:layout_height="wrap_content"
-                                    android:gravity="end"
-                                    android:text="@string/created"
-                                    android:textSize="@dimen/activity_edit_update_status_txt"/>
-
-                            <TextView
-                                    android:id="@+id/activity_edit_update_create_status_txtv"
-                                    android:text="@{viewmodel.property.dateCreation}"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:gravity="end"
-                                    android:textSize="@dimen/activity_edit_update_status_txt"/>
-
-                        </TableRow>
-
-                        <TableRow>
-
-                            <TextView
-                                    android:layout_width="0dp"
-                                    android:layout_weight="50"
-                                    android:layout_height="wrap_content"
-                                    android:gravity="end"
-                                    android:text="@string/modified"
-                                    android:textSize="@dimen/activity_edit_update_status_txt"/>
-
-                            <TextView
-                                    android:id="@+id/activity_edit_update_update_status_txtv"
-                                    android:text="@{viewmodel.property.dateModified}"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:gravity="end"
-                                    android:textSize="@dimen/activity_edit_update_status_txt"/>
-
-                        </TableRow>
-
-
-                    </TableLayout>
+                            android:layout_height="40dp"
+                            android:textSize="@dimen/activity_edit_update_txt"
+                            android:layout_weight="65"
+                            android:background="@drawable/search_bg_transp"
+                            android:inputType="text"/>
 
                 </LinearLayout>
 
@@ -155,18 +127,46 @@
                         style="@style/EditUpdateActivityLayout">
 
                     <TextView
-                            android:text="@string/status"
+                            android:text="@string/entry_date"
                             style="@style/EditUpdateActivityTextTitle"
-                            android:drawableStart="@drawable/ic_status"/>
+                            android:drawableStart="@drawable/ic_date"/>
 
-                    <Spinner
-                            android:id="@+id/activity_edit_update_status_sp"
-                            android:onItemSelected="@{(parent,view,pos,id)->viewmodel.onStatusSelectItem(parent,view,pos,id)}"
+                    <EditText
+                            android:id="@+id/activity_edit_update_entryDate_edt"
+                            android:text="@={viewmodel.property.date_entry}"
                             android:layout_width="0dp"
                             android:layout_height="40dp"
                             android:layout_weight="65"
-                            android:entries="@array/status_spinner"
-                            android:background="@drawable/search_bg_transp"/>
+                            android:gravity="center"
+                            android:textSize="@dimen/activity_edit_update_txt"
+                            android:background="@drawable/search_bg_transp"
+                            android:focusable="false"
+                            android:clickable="true"
+                            android:onClick="@{dateentrypicklistener}"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                        style="@style/EditUpdateActivityLayout"
+                        app:dateSold="@{viewmodel.property.dateModified}">
+
+                    <TextView
+                            android:text="@string/sold_date"
+                            style="@style/EditUpdateActivityTextTitle"
+                            android:drawableStart="@drawable/ic_date"/>
+
+                    <EditText
+                            android:id="@+id/activity_edit_update_soldDate_edt"
+                            android:text="@={viewmodel.property.date_sold}"
+                            android:layout_width="0dp"
+                            android:layout_height="40dp"
+                            android:layout_weight="65"
+                            android:gravity="center"
+                            android:textSize="@dimen/activity_edit_update_txt"
+                            android:background="@drawable/search_bg_transp"
+                            android:focusable="false"
+                            android:clickable="true"
+                            android:onClick="@{datesoldpicklistener}"/>
 
                 </LinearLayout>
 
@@ -421,6 +421,30 @@
                             android:gravity="center"
                             android:inputType="textCapWords"/>
 
+                    <TableRow
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp">
+
+                        <TextView
+                                android:hint="@string/points_of_interest"
+                                android:layout_height="40dp"
+                                android:textSize="@dimen/activity_edit_update_txt"
+                                android:layout_width="0dp"
+                                android:layout_weight="35"/>
+
+                        <EditText
+                                android:id="@+id/activity_edit_update_pointinterest_edt"
+                                android:layout_height="40dp"
+                                android:text="@={viewmodel.property.points_interest}"
+                                android:textSize="@dimen/activity_edit_update_txt"
+                                android:layout_width="0dp"
+                                android:layout_weight="65"
+                                android:gravity="center"/>
+
+                    </TableRow>
+
+
                 </LinearLayout>
 
                 <View
@@ -450,11 +474,6 @@
                             style="@style/EditUpdateActivityBtn"/>
 
                 </TableRow>
-
-                <ImageView
-                        android:id="@+id/picture_test"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
 
                 <LinearLayout
                         android:id="@+id/picture_layout"
@@ -492,6 +511,59 @@
 
                 </LinearLayout>
 
+                <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/colorAccent"
+                        android:layout_margin="10dp"/>
+
+                <TableLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp">
+
+                    <TableRow>
+
+                        <TextView
+                                android:layout_width="0dp"
+                                android:layout_weight="50"
+                                android:layout_height="wrap_content"
+                                android:gravity="end"
+                                android:text="@string/created"
+                                android:textSize="@dimen/activity_edit_update_status_txt"/>
+
+                        <TextView
+                                android:id="@+id/activity_edit_update_create_status_txtv"
+                                android:text="@{viewmodel.property.dateCreation}"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:gravity="end"
+                                android:textSize="@dimen/activity_edit_update_status_txt"/>
+
+                    </TableRow>
+
+                    <TableRow>
+
+                        <TextView
+                                android:layout_width="0dp"
+                                android:layout_weight="50"
+                                android:layout_height="wrap_content"
+                                android:gravity="end"
+                                android:text="@string/modified"
+                                android:textSize="@dimen/activity_edit_update_status_txt"/>
+
+                        <TextView
+                                android:id="@+id/activity_edit_update_update_status_txtv"
+                                android:text="@{viewmodel.property.dateModified}"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:gravity="end"
+                                android:textSize="@dimen/activity_edit_update_status_txt"/>
+
+                    </TableRow>
+
+
+                </TableLayout>
 
             </LinearLayout>
 

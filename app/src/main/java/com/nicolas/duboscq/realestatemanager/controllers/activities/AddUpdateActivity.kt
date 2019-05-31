@@ -3,6 +3,7 @@ package com.nicolas.duboscq.realestatemanager.controllers.activities
 import android.Manifest
 import android.app.Activity
 import android.app.AlertDialog
+import android.app.DatePickerDialog
 import android.content.DialogInterface
 import android.content.Intent
 import android.net.Uri
@@ -13,6 +14,7 @@ import android.util.Log
 import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.Spinner
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.FileProvider
@@ -24,10 +26,8 @@ import com.nicolas.duboscq.realestatemanager.R
 import com.nicolas.duboscq.realestatemanager.adapters.PictureAdapter
 import com.nicolas.duboscq.realestatemanager.database.AppDatabase
 import com.nicolas.duboscq.realestatemanager.databinding.ActivityAddUpdateBinding
-import com.nicolas.duboscq.realestatemanager.repositories.PropertyRepository
 import com.nicolas.duboscq.realestatemanager.utils.Injection
 import com.nicolas.duboscq.realestatemanager.utils.ItemClickSupport
-import com.nicolas.duboscq.realestatemanager.utils.Notifications
 import com.nicolas.duboscq.realestatemanager.utils.Utils
 import com.nicolas.duboscq.realestatemanager.viewmodels.PropertyAddUpdateViewModel
 import kotlinx.android.synthetic.main.activity_add_update.*
@@ -36,6 +36,7 @@ import pub.devrel.easypermissions.AfterPermissionGranted
 import pub.devrel.easypermissions.EasyPermissions
 import java.io.File
 import java.io.IOException
+import java.util.*
 
 
 class AddUpdateActivity : AppCompatActivity() {
@@ -93,12 +94,13 @@ class AddUpdateActivity : AppCompatActivity() {
             if (currentActivity.equals("add")){
                 viewModel.createPropertyandAddress(this)
                 activity_edit_update_type_sp.setSelection(0)
-                activity_edit_update_status_sp.setSelection(0)
             }
            else if (currentActivity.equals("edit")){
                 viewModel.updatePropertyById(propertyId,this)
             }
         }
+        binding.dateentrypicklistener = View.OnClickListener { showDatePicker(activity_edit_update_entryDate_edt)}
+        binding.datesoldpicklistener = View.OnClickListener { showDatePicker(activity_edit_update_soldDate_edt)}
         this.viewModel.toast.observe(this, Observer {
             if (it.equals(true)){
                 Toast.makeText(this,getString(R.string.activity_edit_not_enough_info),Toast.LENGTH_LONG).show()
@@ -148,7 +150,18 @@ class AddUpdateActivity : AppCompatActivity() {
 
     private fun configureAllSpinner() {
         this.configureSpinner(resources.getStringArray(R.array.type_spinner), activity_edit_update_type_sp)
-        this.configureSpinner(resources.getStringArray(R.array.status_spinner), activity_edit_update_status_sp)
+    }
+
+    private fun showDatePicker(idRDateEditText: TextView) {
+        val c = Calendar.getInstance()
+        val year = c.get(Calendar.YEAR)
+        val month = c.get(Calendar.MONTH)
+        val day = c.get(Calendar.DAY_OF_MONTH)
+        val dpd = DatePickerDialog(this, DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
+            val date = "$dayOfMonth/${monthOfYear+1}/$year"
+            idRDateEditText.text = date
+        }, year, month, day)
+        dpd.show()
     }
 
     // RECYCLERVIEW

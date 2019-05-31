@@ -17,15 +17,12 @@ import com.bumptech.glide.Glide
 import com.google.android.gms.maps.model.LatLng
 import com.nicolas.duboscq.realestatemanager.adapters.SlidingPictureAdapter
 import com.nicolas.duboscq.realestatemanager.databinding.FragmentDetailBinding
-import com.nicolas.duboscq.realestatemanager.models.Address
 import com.nicolas.duboscq.realestatemanager.models.Picture
 import com.nicolas.duboscq.realestatemanager.utils.Injection
 import com.nicolas.duboscq.realestatemanager.viewmodels.PropertyDetailViewModel
 import com.nicolas.duboscq.realestatemanager.utils.GOOGLE_KEY
 import com.nicolas.duboscq.realestatemanager.utils.Utils
 import java.util.*
-
-
 
 class DetailFragment : androidx.fragment.app.Fragment() {
 

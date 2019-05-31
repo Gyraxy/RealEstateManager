@@ -12,12 +12,15 @@ class PropertyViewHolder(itemView: View) : androidx.recyclerview.widget.Recycler
 
     fun updateWithProperty(property: Property,picture:Picture,address: Address,glide:RequestManager) {
         itemView.property_listview_type_txt.text = property.type
-        itemView.property_listview_price_txt.text = property.price.toString()
+        itemView.property_listview_price_txt.text = "${property.price} €"
         val ref = property.id.toString()
         itemView.property_listview_ref_txt.text = "Ref: $ref"
         itemView.property_listview_city_txt.text = address.city
         if (!picture.pictureLink.isNullOrEmpty()) {
             glide.load(picture.pictureLink).into(itemView.property_listview_picture_imv)
+        }
+        if (property.date_sold.equals("")){
+            itemView.activity_list_soldbanner_txt.visibility = View.GONE
         }
     }
 }

@@ -6,6 +6,7 @@ import androidx.room.PrimaryKey
 
 @Entity
 data class Property(
+    @ColumnInfo(name = "agent") var agent: String,
     @ColumnInfo(name = "status") var status: String,
     @ColumnInfo(name = "price") var price: Int,
     @ColumnInfo(name = "surface") var surface: Int,
@@ -14,6 +15,9 @@ data class Property(
     @ColumnInfo(name = "bathroom") var bathroom: Int,
     @ColumnInfo(name = "description") var description: String,
     @ColumnInfo(name = "type") var type: String,
+    @ColumnInfo(name = "points_of_interest") var points_interest: String,
+    @ColumnInfo(name = "date_entry") var date_entry:String,
+    @ColumnInfo(name = "date_sold") var date_sold:String,
     @ColumnInfo(name = "date_creation") var dateCreation: String,
     @ColumnInfo(name = "date_modified") var dateModified: String
 )

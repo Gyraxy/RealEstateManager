@@ -82,7 +82,7 @@ class SearchActivity : AppCompatActivity() {
         val month = c.get(Calendar.MONTH)
         val day = c.get(Calendar.DAY_OF_MONTH)
         val dpd = DatePickerDialog(this, DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
-            val date = "$dayOfMonth/$month/$year"
+            val date = "$dayOfMonth/${monthOfYear+1}/$year"
             idRDateEditText.text = date
         }, year, month, day)
         dpd.show()

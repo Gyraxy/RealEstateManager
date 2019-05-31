@@ -63,12 +63,13 @@ class MapDetailActivity : AppCompatActivity() {
         menuInflater.inflate(R.menu.main_activity_toolbar, menu)
         when (activity){
             "location" -> {
-                for (i in 0..3) { menu.getItem(i).isVisible = false}
+                for (i in 0..4) { menu.getItem(i).isVisible = false}
             }
             "detail" -> {
                 menu.getItem(0).isVisible = false
                 menu.getItem(1).isVisible = false
                 menu.getItem(3).isVisible = false
+                menu.getItem(4).isVisible = false
             }
         }
 

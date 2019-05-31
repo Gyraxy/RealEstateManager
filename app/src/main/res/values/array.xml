@@ -5,11 +5,6 @@
         <item>Appartement</item>
         <item>Duplex</item>
         <item>Maison</item>
-    </string-array>
-
-    <string-array name="status_spinner">
-        <item> </item>
-        <item>A Vendre</item>
-        <item>Vendu</item>
+        <item>Loft</item>
     </string-array>
 </resources>
