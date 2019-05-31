@@ -19,6 +19,7 @@ import com.google.android.libraries.places.widget.AutocompleteActivity
 import android.content.Intent
 import android.app.Activity
 import android.util.Log
+import java.text.SimpleDateFormat
 
 
 class SearchActivity : AppCompatActivity() {
@@ -77,20 +78,16 @@ class SearchActivity : AppCompatActivity() {
     }
 
     private fun showDatePicker(idRDateEditText: TextView) {
+        val sdf = SimpleDateFormat("dd/MM/yyyy", Locale.FRANCE)
         val c = Calendar.getInstance()
-        val year = c.get(Calendar.YEAR)
-        val month = c.get(Calendar.MONTH)
-        val day = c.get(Calendar.DAY_OF_MONTH)
-        val dpd = DatePickerDialog(this, DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
-            val date = "$dayOfMonth/${monthOfYear+1}/$year"
+        val mYear = c.get(Calendar.YEAR)
+        val mMonth = c.get(Calendar.MONTH)
+        val mDay = c.get(Calendar.DAY_OF_MONTH)
+        val dpd = DatePickerDialog(this, DatePickerDialog.OnDateSetListener { _, year, monthOfYear, dayOfMonth ->
+            val date = sdf.format(Date(year - 1900, monthOfYear, dayOfMonth))
             idRDateEditText.text = date
-        }, year, month, day)
+        }, mYear, mMonth, mDay)
         dpd.show()
-    }
-
-    private fun underlineEditText(idRDateEditText: TextView) {
-        idRDateEditText.paintFlags = UNDERLINE_TEXT_FLAG
-        idRDateEditText.text = ("                          ")
     }
 
     //AUTOCOMPLETE PLACE

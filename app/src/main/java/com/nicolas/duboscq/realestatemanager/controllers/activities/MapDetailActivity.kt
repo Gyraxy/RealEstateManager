@@ -2,13 +2,18 @@ package com.nicolas.duboscq.realestatemanager.controllers.activities
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import androidx.appcompat.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
+import androidx.lifecycle.Observer
+import androidx.room.Database
 import com.nicolas.duboscq.realestatemanager.controllers.fragments.MapFragment
 import com.nicolas.duboscq.realestatemanager.R
 import com.nicolas.duboscq.realestatemanager.controllers.fragments.DetailFragment
+import com.nicolas.duboscq.realestatemanager.database.AppDatabase
+import com.nicolas.duboscq.realestatemanager.database.dao.PropertyDao
 import kotlinx.android.synthetic.main.activity_map_detail.*
 
 class MapDetailActivity : AppCompatActivity() {
@@ -17,6 +22,7 @@ class MapDetailActivity : AppCompatActivity() {
     private val detailFragment = DetailFragment()
     private lateinit var activity: String
     private var property_id = 0
+    private var propertySold:Boolean = false
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -24,6 +30,13 @@ class MapDetailActivity : AppCompatActivity() {
         setContentView(R.layout.activity_map_detail)
         activity = intent.extras.getString("activity")
         property_id = intent.extras.getInt("id")
+        if (!property_id.equals(0)&& activity.equals("detail")){
+            AppDatabase.getDatabase(this).propertyDao().getPropertyById(property_id).observe(this, Observer {
+                if(it.status.equals("Vendu")){
+                    propertySold = true
+                }
+            })
+        }
         configFragment()
         configureToolBar()
     }
@@ -66,6 +79,9 @@ class MapDetailActivity : AppCompatActivity() {
                 for (i in 0..4) { menu.getItem(i).isVisible = false}
             }
             "detail" -> {
+                if (propertySold){
+                    menu.getItem(2).isVisible = false
+                }
                 menu.getItem(0).isVisible = false
                 menu.getItem(1).isVisible = false
                 menu.getItem(3).isVisible = false

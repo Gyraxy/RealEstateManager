@@ -50,3 +50,9 @@ fun soldBanner (view: View, dateSold:String? =null) {
         View.VISIBLE
     }
 }
+
+@BindingAdapter("app:AddEuroSymbol")
+fun bindEuroSymbol(view: TextView,price:String){
+    val priceEuro = "$price €"
+    view.text = priceEuro
+}
