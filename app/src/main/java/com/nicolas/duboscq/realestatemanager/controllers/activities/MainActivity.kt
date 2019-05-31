@@ -18,12 +18,16 @@ import android.Manifest.permission.ACCESS_FINE_LOCATION
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.nicolas.duboscq.realestatemanager.controllers.fragments.BlankFragment
 
 class MainActivity : AppCompatActivity(), EasyPermissions.PermissionCallbacks{
 
     private val listFragment = ListFragment()
     private val mapFragment = MapFragment()
+    private val detailFragment = DetailFragment()
     private lateinit var mode : String
+    private var propertyid : Int =0
+    private var statusProperty : String =""
 
     companion object {
         private const val LOCATION_PERMISSION_REQUEST_CODE = 1
@@ -77,6 +81,19 @@ class MainActivity : AppCompatActivity(), EasyPermissions.PermissionCallbacks{
                 val loanIntent = Intent(this, LoanSimulationActivity::class.java)
                 startActivity(loanIntent)
             }
+            R.id.menu_activity_main_modify -> {
+                if (!propertyid.equals(0) && !statusProperty.equals("Vendu")){
+                    val editIntent = Intent(this, AddUpdateActivity::class.java)
+                    editIntent.putExtra("activity","edit")
+                    editIntent.putExtra("propertyId",propertyid)
+                    startActivity(editIntent)
+                } else if (statusProperty.equals("Vendu")){
+                    Toast.makeText(this,"Ce bien est vendu. Vous ne pouvez plus le modifier.",Toast.LENGTH_SHORT).show()
+                }
+                else {
+                    Toast.makeText(this,"Veuillez sélectionner un bien pour l'éditer.",Toast.LENGTH_SHORT).show()
+                }
+            }
             else -> {
             }
         }
@@ -103,18 +120,32 @@ class MainActivity : AppCompatActivity(), EasyPermissions.PermissionCallbacks{
     // UI
 
     private fun openFragment(fragment: Fragment) {
+        val args = Bundle()
+        args.putString("mode", mode)
+        fragment.arguments = args
         val fragmentTransaction = supportFragmentManager.beginTransaction()
         fragmentTransaction.replace(R.id.main_activity_frame_layout_list, fragment)
         fragmentTransaction.addToBackStack(null)
         fragmentTransaction.commit()
     }
 
+    fun openDetailFragment(position:Int,status:String){
+        val args = Bundle()
+        args.putInt("property_id", position)
+        propertyid = position
+        statusProperty = status
+        detailFragment.arguments = args
+        val fragmentTransaction = supportFragmentManager.beginTransaction()
+        fragmentTransaction.replace(R.id.main_activity_frame_layout_detail, detailFragment)
+        fragmentTransaction.commit()
+    }
+
     private fun configureAndShowTablet() {
-        var detailFragment = supportFragmentManager.findFragmentById(R.id.main_activity_frame_layout_detail)
-        if (detailFragment == null && main_activity_frame_layout_detail != null) {
-            detailFragment = DetailFragment()
+        var blankFragment = supportFragmentManager.findFragmentById(R.id.main_activity_frame_layout_detail)
+        if (blankFragment == null && main_activity_frame_layout_detail != null) {
+            blankFragment = BlankFragment()
             supportFragmentManager.beginTransaction()
-                .add(R.id.main_activity_frame_layout_detail, detailFragment)
+                .add(R.id.main_activity_frame_layout_detail, blankFragment)
                 .commit()
         }
     }

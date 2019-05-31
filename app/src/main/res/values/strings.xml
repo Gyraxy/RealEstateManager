@@ -129,4 +129,7 @@
     <string name="entry_date">Date d\'entrée</string>
     <string name="sold_date">Date de vente</string>
 
+    //BLANK FRAGMENT
+    <string name="blank_fragment">Veuillez Cliquer sur un bien de la liste</string>
+
 </resources>

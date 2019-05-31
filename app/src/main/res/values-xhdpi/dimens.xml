@@ -13,7 +13,7 @@
 
     <!-- FRAGMENT LIST-->
     <dimen name="fragment_empty_recycler_view_txt">24sp</dimen>
-    <dimen name="property_list_txt">14sp</dimen>
+    <dimen name="property_list_txt">12sp</dimen>
     <dimen name="property_list_pad">2dp</dimen>
 
     <!-- ACTIVITY EDIT/UPDATE -->

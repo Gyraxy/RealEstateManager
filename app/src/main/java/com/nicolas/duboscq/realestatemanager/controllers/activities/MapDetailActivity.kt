@@ -11,6 +11,7 @@ import androidx.lifecycle.Observer
 import androidx.room.Database
 import com.nicolas.duboscq.realestatemanager.controllers.fragments.MapFragment
 import com.nicolas.duboscq.realestatemanager.R
+import com.nicolas.duboscq.realestatemanager.controllers.fragments.BlankFragment
 import com.nicolas.duboscq.realestatemanager.controllers.fragments.DetailFragment
 import com.nicolas.duboscq.realestatemanager.database.AppDatabase
 import com.nicolas.duboscq.realestatemanager.database.dao.PropertyDao
@@ -20,6 +21,7 @@ class MapDetailActivity : AppCompatActivity() {
 
     private val mapFragment = MapFragment()
     private val detailFragment = DetailFragment()
+    private val blankFragment = BlankFragment()
     private lateinit var activity: String
     private var property_id = 0
     private var propertySold:Boolean = false
@@ -28,7 +30,7 @@ class MapDetailActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_map_detail)
-        activity = intent.extras.getString("activity")
+        activity = intent.extras.getString("activity","none")
         property_id = intent.extras.getInt("id")
         if (!property_id.equals(0)&& activity.equals("detail")){
             AppDatabase.getDatabase(this).propertyDao().getPropertyById(property_id).observe(this, Observer {
@@ -51,6 +53,8 @@ class MapDetailActivity : AppCompatActivity() {
                 detailFragment.arguments = args
                 openFragment(detailFragment)
             }
+            "none" -> openFragment(blankFragment)
+
         }
     }
 

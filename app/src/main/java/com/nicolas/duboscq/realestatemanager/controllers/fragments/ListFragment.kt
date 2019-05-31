@@ -8,6 +8,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import com.bumptech.glide.Glide
 import com.nicolas.duboscq.realestatemanager.R
 import com.nicolas.duboscq.realestatemanager.utils.Injection
@@ -15,10 +16,13 @@ import com.nicolas.duboscq.realestatemanager.models.Address
 import com.nicolas.duboscq.realestatemanager.models.Property
 import com.nicolas.duboscq.realestatemanager.viewmodels.PropertyListViewModel
 import com.nicolas.duboscq.realestatemanager.adapters.PropertyAdapter
+import com.nicolas.duboscq.realestatemanager.controllers.activities.MainActivity
 import com.nicolas.duboscq.realestatemanager.controllers.activities.MapDetailActivity
 import com.nicolas.duboscq.realestatemanager.models.Picture
 import com.nicolas.duboscq.realestatemanager.utils.DividerItemDecoration
 import com.nicolas.duboscq.realestatemanager.utils.ItemClickSupport
+import com.nicolas.duboscq.realestatemanager.utils.Utils
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_property_list.*
 
 
@@ -29,6 +33,7 @@ class ListFragment : androidx.fragment.app.Fragment() {
     private lateinit var propertylist : MutableList<Property>
     private lateinit var addresslist : MutableList<Address>
     private lateinit var picturelist : MutableList<Picture>
+    private lateinit var mode:String
     private var property_id:Int = 0
 
     override fun onCreateView(
@@ -44,6 +49,7 @@ class ListFragment : androidx.fragment.app.Fragment() {
         this.configureRecyclerView()
         this.configureOnClickRecyclerView()
         this.configureViewModel()
+        mode=arguments!!.getString("mode",null)
     }
 
     // VIEW MODEL
@@ -94,12 +100,20 @@ class ListFragment : androidx.fragment.app.Fragment() {
     private fun configureOnClickRecyclerView(){
         ItemClickSupport.addTo(fragment_list_recyclerView, R.layout.property_list_view)
             .setOnItemClickListener{recyclerView, position, v ->
-                val intentDetail = Intent(activity,MapDetailActivity::class.java)
-                intentDetail.putExtra("activity","detail")
-                property_id = propertylist[position].id
-                Log.i("Property",property_id.toString())
-                intentDetail.putExtra("id",property_id)
-                startActivity(intentDetail)
+                if (mode.equals("phone")){
+                    val intentDetail = Intent(activity,MapDetailActivity::class.java)
+                    intentDetail.putExtra("activity","detail")
+                    property_id = propertylist[position].id
+                    Log.i("Property",property_id.toString())
+                    intentDetail.putExtra("id",property_id)
+                    startActivity(intentDetail)
+                }
+                if (mode.equals("tablet")){
+                    var mainActivity : MainActivity = activity as MainActivity
+                    property_id = propertylist[position].id
+                    val status = propertylist[position].status
+                    mainActivity.openDetailFragment(property_id,status)
+                }
             }
     }
 
