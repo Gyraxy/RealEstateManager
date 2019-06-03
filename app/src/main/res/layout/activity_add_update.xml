@@ -25,6 +25,10 @@
                 name="datesoldpicklistener"
                 type="android.view.View.OnClickListener"/>
 
+        <variable
+                name="typeclicklistener"
+                type="android.view.View.OnClickListener"/>
+
     </data>
 
     <RelativeLayout
@@ -91,14 +95,16 @@
                             style="@style/EditUpdateActivityTextTitle"
                             android:drawableStart="@drawable/ic_home"/>
 
-                    <Spinner
+                    <TextView
                             android:id="@+id/activity_edit_update_type_sp"
-                            android:onItemSelected="@{(parent,view,pos,id)->viewmodel.onTypeSelectItem(parent,view,pos,id)}"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:layout_weight="65"
-                            android:entries="@array/type_spinner"
-                            android:background="@drawable/search_bg_transp"/>
+                            android:gravity="center"
+                            android:drawableEnd="@drawable/ic_arrow_drop"
+                            android:background="@drawable/search_bg_transp"
+                            android:text="@={viewmodel.property.type}"
+                            android:onClick="@{typeclicklistener}"/>
 
                 </LinearLayout>
 

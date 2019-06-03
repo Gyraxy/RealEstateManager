@@ -19,6 +19,15 @@ import com.google.android.libraries.places.widget.AutocompleteActivity
 import android.content.Intent
 import android.app.Activity
 import android.util.Log
+import android.view.View
+import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.ViewModelProviders
+import com.google.android.material.textfield.TextInputEditText
+import com.nicolas.duboscq.realestatemanager.BR.viewmodel
+import com.nicolas.duboscq.realestatemanager.databinding.ActivitySearchBinding
+import com.nicolas.duboscq.realestatemanager.utils.Injection
+import com.nicolas.duboscq.realestatemanager.viewmodels.LoanSimulationViewModel
+import com.nicolas.duboscq.realestatemanager.viewmodels.SearchViewModel
 import java.text.SimpleDateFormat
 
 
@@ -26,12 +35,19 @@ class SearchActivity : AppCompatActivity() {
 
     private val AUTOCOMPLETE_REQUEST_CODE = 1
     private val fields = asList(Place.Field.ID, Place.Field.NAME)
-    private val searchType = arrayOf("Type", "Appartement", "Maison", "Duplex", "Penthouse")
-    private val searchStatus = arrayOf("Status", "A Vendre", "Vendu")
+    private lateinit var viewModel:SearchViewModel
+    private lateinit var binding: ActivitySearchBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_search)
+
+        val factory = Injection.provideSearchViewModelFactory(this)
+
+        viewModel = ViewModelProviders.of(this,factory).get(SearchViewModel::class.java)
+        binding = DataBindingUtil.setContentView(this,R.layout.activity_search)
+        binding.viewmodel = viewModel
+        binding.lifecycleOwner = this@SearchActivity
+
         configureToolBar()
         configureAllSpinner()
         configureDatePicker()
@@ -54,21 +70,19 @@ class SearchActivity : AppCompatActivity() {
         return true
     }
 
-    // SPINNER CONFIGURATION
-    private fun configureSpinner(idRStringArray: Array<String>, spinner: Spinner) {
-
-        val spinnerAdapter = ArrayAdapter<String>(
-            this,
-            R.layout.simple_spinner_item, idRStringArray
-        )
-        spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_item)
-        spinner.adapter = spinnerAdapter
-        spinner.onItemSelectedListener
+    //SPINNER CONFIGURATION
+    private fun configureAllSpinner(){
+        binding.typeclicklistener = View.OnClickListener{ this.displayPopupMenu(resources.getStringArray(R.array.type_spinner), activity_search_type_spinner) }
+        binding.statusclicklistener = View.OnClickListener { this.displayPopupMenu(resources.getStringArray(R.array.status_spinner), activity_search_status_spinner)  }
     }
 
-    private fun configureAllSpinner() {
-        this.configureSpinner(searchType, activity_search_type_sp)
-        this.configureSpinner(searchStatus, activity_search_status_sp)
+    private fun displayPopupMenu(listToDisplay: Array<String>, view: TextInputEditText) {
+        val popupMenu = PopupMenu(this, view)
+        (0 until listToDisplay.size).forEach { it ->
+            popupMenu.menu.add(Menu.NONE, it, it, listToDisplay[it])
+            popupMenu.setOnMenuItemClickListener { view.setText(it.title);true }
+        }
+        popupMenu.show()
     }
 
     //DATE PICKER

@@ -2,13 +2,10 @@ package com.nicolas.duboscq.realestatemanager.utils
 
 import android.content.Context
 import com.nicolas.duboscq.realestatemanager.database.AppDatabase
-import com.nicolas.duboscq.realestatemanager.viewmodels.PropertyDetailViewModelFactory
-import com.nicolas.duboscq.realestatemanager.viewmodels.PropertyListViewModelFactory
 import com.nicolas.duboscq.realestatemanager.repositories.AddressRepository
 import com.nicolas.duboscq.realestatemanager.repositories.PictureRepository
 import com.nicolas.duboscq.realestatemanager.repositories.PropertyRepository
-import com.nicolas.duboscq.realestatemanager.viewmodels.PropertyAddUpdateViewModelFactory
-import com.nicolas.duboscq.realestatemanager.viewmodels.PropertyMapViewModelFactory
+import com.nicolas.duboscq.realestatemanager.viewmodels.*
 import java.util.concurrent.Executor
 import java.util.concurrent.Executors
 
@@ -84,4 +81,12 @@ object Injection {
         )
     }
 
+    fun provideSearchViewModelFactory(context: Context): SearchViewModelFactory {
+        val dataSourceProperty = providePropertyDataSource(context)
+        val executor = provideExecutor()
+        return SearchViewModelFactory(
+            dataSourceProperty,
+            executor
+        )
+    }
 }

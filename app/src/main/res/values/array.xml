@@ -7,4 +7,10 @@
         <item>Maison</item>
         <item>Loft</item>
     </string-array>
+
+    <string-array name="status_spinner">
+        <item> </item>
+        <item>A Vendre</item>
+        <item>Vendu</item>
+    </string-array>
 </resources>

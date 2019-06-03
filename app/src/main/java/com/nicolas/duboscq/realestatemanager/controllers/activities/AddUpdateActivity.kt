@@ -11,17 +11,16 @@ import android.os.Bundle
 import android.os.Environment
 import android.provider.MediaStore
 import android.util.Log
+import android.view.Menu
 import android.view.View
-import android.widget.ArrayAdapter
-import android.widget.Spinner
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.FileProvider
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.bumptech.glide.Glide
+import com.google.android.material.textfield.TextInputEditText
 import com.nicolas.duboscq.realestatemanager.R
 import com.nicolas.duboscq.realestatemanager.adapters.PictureAdapter
 import com.nicolas.duboscq.realestatemanager.database.AppDatabase
@@ -31,6 +30,8 @@ import com.nicolas.duboscq.realestatemanager.utils.ItemClickSupport
 import com.nicolas.duboscq.realestatemanager.utils.Utils
 import com.nicolas.duboscq.realestatemanager.viewmodels.PropertyAddUpdateViewModel
 import kotlinx.android.synthetic.main.activity_add_update.*
+import kotlinx.android.synthetic.main.activity_add_update.toolbar
+import kotlinx.android.synthetic.main.activity_search.*
 import kotlinx.android.synthetic.main.diag_description.view.*
 import pub.devrel.easypermissions.AfterPermissionGranted
 import pub.devrel.easypermissions.EasyPermissions
@@ -94,7 +95,6 @@ class AddUpdateActivity : AppCompatActivity() {
         binding.addeditpropertyclicklistener = View.OnClickListener {
             if (currentActivity.equals("add")){
                 viewModel.createPropertyandAddress(this)
-                activity_edit_update_type_sp.setSelection(0)
             }
            else if (currentActivity.equals("edit")){
                 viewModel.updatePropertyById(propertyId,this)
@@ -102,7 +102,7 @@ class AddUpdateActivity : AppCompatActivity() {
         }
         binding.dateentrypicklistener = View.OnClickListener { showDatePicker(activity_edit_update_entryDate_edt)}
         binding.datesoldpicklistener = View.OnClickListener { showDatePicker(activity_edit_update_soldDate_edt)}
-        this.viewModel.toast.observe(this, Observer {
+        this.viewModel.toastMissingInfo.observe(this, Observer {
             if (it.equals(true)){
                 Toast.makeText(this,getString(R.string.activity_edit_not_enough_info),Toast.LENGTH_LONG).show()
             }
@@ -141,16 +141,17 @@ class AddUpdateActivity : AppCompatActivity() {
         ab!!.setDisplayHomeAsUpEnabled(true)
     }
 
-    // SPINNER CONFIGURATION
-    private fun configureSpinner(idRStringArray: Array<String>, spinner: Spinner) {
-        val spinnerAdapter = ArrayAdapter<String>(this, R.layout.simple_spinner_item, idRStringArray)
-        spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_item)
-        spinner.adapter = spinnerAdapter
-        spinner.onItemSelectedListener
+    private fun configureAllSpinner() {
+        binding.typeclicklistener = View.OnClickListener { this.displayPopupMenu(resources.getStringArray(R.array.type_spinner), activity_edit_update_type_sp) }
     }
 
-    private fun configureAllSpinner() {
-        this.configureSpinner(resources.getStringArray(R.array.type_spinner), activity_edit_update_type_sp)
+    private fun displayPopupMenu(listToDisplay: Array<String>, view: TextView) {
+        val popupMenu = PopupMenu(this, view)
+        (0 until listToDisplay.size).forEach { it ->
+            popupMenu.menu.add(Menu.NONE, it, it, listToDisplay[it])
+            popupMenu.setOnMenuItemClickListener { view.setText(it.title);true }
+        }
+        popupMenu.show()
     }
 
     private fun showDatePicker(idRDateEditText: TextView) {

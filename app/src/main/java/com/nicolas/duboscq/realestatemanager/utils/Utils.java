@@ -11,6 +11,7 @@ import com.google.android.gms.maps.model.LatLng;
 
 import java.io.IOException;
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -110,5 +111,19 @@ public class Utils {
         if (frameLayout == null) {
             return "phone";
         } else return "tablet";
+    }
+
+    public static Date convertingStringDate(String date) {
+
+        Date format_date = null;
+        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+
+        try {
+            format_date = format.parse(date);
+            System.out.println(date);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return format_date;
     }
 }

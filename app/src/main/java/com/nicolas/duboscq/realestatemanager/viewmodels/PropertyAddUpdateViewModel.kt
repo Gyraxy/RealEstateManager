@@ -33,7 +33,7 @@ class PropertyAddUpdateViewModel (
     var _pictureLinkList: MutableList<String> = mutableListOf()
     var _pictureDescriptionList: MutableList<String> = mutableListOf()
 
-    var toast = MutableLiveData<Boolean>(false)
+    var toastMissingInfo = MutableLiveData<Boolean>(false)
 
     fun createPropertyandAddress(context: Context){
         if (canSaveToDataBase()){
@@ -54,8 +54,8 @@ class PropertyAddUpdateViewModel (
             onClearPropertyAddUpdateViewModel()
         }
         else {
-            toast.value = true
-            toast.value = false
+            toastMissingInfo.value = true
+            toastMissingInfo.value = false
         }
     }
 
@@ -95,8 +95,8 @@ class PropertyAddUpdateViewModel (
             Notifications().sendNotification(context,"edit")
         }
         else {
-            toast.value = true
-            toast.value = false
+            toastMissingInfo.value = true
+            toastMissingInfo.value = false
         }
     }
 
@@ -154,9 +154,5 @@ class PropertyAddUpdateViewModel (
             return true
         }
         else return false
-    }
-
-    fun onTypeSelectItem(parent: AdapterView<*>, view: View, pos: Int, id: Long) {
-        property.value?.type = parent.selectedItem.toString()
     }
 }

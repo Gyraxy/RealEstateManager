@@ -1,238 +1,460 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<layout
         xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
         xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:minHeight="?attr/actionBarSize"
+    <data>
+        <variable
+                name="viewmodel"
+                type="com.nicolas.duboscq.realestatemanager.viewmodels.SearchViewModel"/>
+        <variable
+                name="typeclicklistener"
+                type="android.view.View.OnClickListener"/>
+        <variable
+                name="statusclicklistener"
+                type="android.view.View.OnClickListener"/>
+
+    </data>
+
+    <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:titleTextColor="@android:color/white"
-            android:background="?attr/colorPrimary"
-            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"/>
+            android:layout_height="match_parent">
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/activity_search_fl_btn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentEnd="true"
-            android:layout_margin="@dimen/floating_btn_margin"
-            android:src="@drawable/ic_search_icon"
-            app:backgroundTint="@color/colorAccent"/>
-
-    <ScrollView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_below="@+id/toolbar">
-
-        <LinearLayout
+        <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:minHeight="?attr/actionBarSize"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="@dimen/activity_search_padding_margin">
+                app:titleTextColor="@android:color/white"
+                android:background="?attr/colorPrimary"
+                android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"/>
 
-            <TableRow
-                    android:paddingTop="@dimen/activity_search_padding_top"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/activity_search_fl_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentEnd="true"
+                android:layout_margin="@dimen/floating_btn_margin"
+                android:src="@drawable/ic_search_icon"
+                app:backgroundTint="@color/colorAccent"
+                android:onClick="@{()-> viewmodel.findProperty()}"/>
 
-                <Spinner
-                        android:id="@+id/activity_search_type_sp"
-                        style="@style/SearchActivitySpinner"/>
+        <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/toolbar">
 
-                <Spinner
-                        android:id="@+id/activity_search_status_sp"
-                        style="@style/SearchActivitySpinner"/>
-
-            </TableRow>
-
-            <TableRow
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center">
-
-                <EditText
-                        android:hint="@string/price_min"
-                        android:id="@+id/activity_search_price_min_edt"
-                        android:inputType="number"
-                        style="@style/SearchActivityEditText"/>
-
-                <ImageView
-                        android:src="@drawable/ic_money"
-                        style="@style/SearchActivityIcon"/>
-
-                <EditText
-                        android:hint="@string/price_max"
-                        android:id="@+id/activity_search_price_max_edt"
-                        style="@style/SearchActivityEditText"
-                        android:inputType="number"/>
-            </TableRow>
-
-            <TableRow
+            <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="center">
+                    android:orientation="vertical"
+                    android:padding="@dimen/activity_search_padding_margin">
 
-                <EditText
-                        android:hint="@string/surface_min"
-                        android:id="@+id/activity_search_surf_min_edt"
-                        style="@style/SearchActivityEditText"
-                        android:inputType="number"/>
+                <TableRow
+                        android:paddingTop="@dimen/activity_search_padding_top"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
 
-                <ImageView
-                        android:src="@drawable/ic_surface"
-                        style="@style/SearchActivityIcon"/>
+                    <com.google.android.material.textfield.TextInputLayout
+                            android:layout_width="match_parent"
+                            android:layout_weight="50"
+                            android:layout_height="55dp"
+                            android:layout_margin="5dp"
+                            android:hint="@string/type"
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
-                <EditText
-                        android:hint="@string/surface_max"
-                        android:id="@+id/activity_search_surf_max_edt"
-                        style="@style/SearchActivityEditText"
-                        android:inputType="number"/>
+                        <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/activity_search_type_spinner"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:textSize="@dimen/activity_search_title_txt"
+                                android:clickable="true"
+                                android:drawableEnd="@drawable/ic_arrow_drop"
+                                android:focusable="false"
+                                android:inputType="text"
+                                android:onClick="@{typeclicklistener}"
+                                android:text="@={viewmodel.type}"/>
 
-            </TableRow>
+                    </com.google.android.material.textfield.TextInputLayout>
 
-            <TableRow
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center">
 
-                <EditText
-                        android:hint="@string/room_min"
-                        android:id="@+id/activity_search_room_min_edt"
-                        style="@style/SearchActivityEditText"
-                        android:inputType="number"/>
+                    <com.google.android.material.textfield.TextInputLayout
+                            android:layout_width="match_parent"
+                            android:layout_weight="50"
+                            android:layout_height="55dp"
+                            android:layout_margin="5dp"
+                            android:hint="@string/status"
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
-                <ImageView
-                        android:src="@drawable/ic_home"
-                        style="@style/SearchActivityIcon"/>
+                        <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/activity_search_status_spinner"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:textSize="@dimen/activity_search_title_txt"
+                                android:clickable="true"
+                                android:drawableEnd="@drawable/ic_arrow_drop"
+                                android:focusable="false"
+                                android:inputType="text"
+                                android:onClick="@{statusclicklistener}"
+                                android:text="@={viewmodel.status}"/>
 
-                <EditText
-                        android:hint="@string/room_max"
-                        android:id="@+id/activity_search_room_max_edt"
-                        style="@style/SearchActivityEditText"
-                        android:inputType="number"/>
+                    </com.google.android.material.textfield.TextInputLayout>
 
-            </TableRow>
+                </TableRow>
 
-            <TableRow
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center">
+                <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center">
 
-                <EditText
-                        android:hint="@string/bedroom_min"
-                        android:id="@+id/activity_search_bedroom_min_edt"
-                        style="@style/SearchActivityEditText"
-                        android:inputType="number"/>
+                    <com.google.android.material.textfield.TextInputLayout
+                            android:layout_width="match_parent"
+                            android:layout_weight="50"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="5dp"
+                            android:hint="@string/price_min"
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
-                <ImageView
-                        android:src="@drawable/ic_room"
-                        style="@style/SearchActivityIcon"/>
+                        <com.google.android.material.textfield.TextInputEditText
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:textSize="@dimen/activity_search_title_txt"
+                                android:text="@={``+viewmodel.priceMin}"
+                                android:inputType="number" />
 
-                <EditText
-                        android:hint="@string/bedroom_max"
-                        android:id="@+id/activity_search_bedroom_max_edt"
-                        style="@style/SearchActivityEditText"
-                        android:inputType="number"/>
+                    </com.google.android.material.textfield.TextInputLayout>
 
-            </TableRow>
+                    <ImageView
+                            android:src="@drawable/ic_money_dark"
+                            style="@style/SearchActivityIcon"/>
 
-            <TableRow
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center">
+                    <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/search_fragment_price_max_layout"
+                            android:layout_width="match_parent"
+                            android:layout_weight="50"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="5dp"
+                            android:hint="@string/price_max"
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
-                <EditText
-                        android:hint="@string/bathroom_min"
-                        android:id="@+id/activity_search_bathroom_min_edt"
-                        style="@style/SearchActivityEditText"
-                        android:inputType="number"/>
+                        <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/search_fragment_price_max"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:textSize="@dimen/activity_search_title_txt"
+                                android:text="@={``+viewmodel.priceMax}"
+                                android:inputType="number" />
 
-                <ImageView
-                        android:src="@drawable/ic_bathroom"
-                        style="@style/SearchActivityIcon"/>
+                    </com.google.android.material.textfield.TextInputLayout>
 
-                <EditText
-                        android:hint="@string/bathroom_max"
-                        android:id="@+id/activity_search_bathroom_max_edt"
-                        style="@style/SearchActivityEditText"
-                        android:inputType="number"/>
+                </TableRow>
 
-            </TableRow>
+                <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center">
 
-            <TableRow
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center">
+                    <com.google.android.material.textfield.TextInputLayout
+                            android:layout_width="match_parent"
+                            android:layout_weight="50"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="5dp"
+                            android:hint="@string/price_max"
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
-                <EditText
-                        android:hint="@string/picture_min"
-                        android:id="@+id/activity_search_picture_min_edt"
-                        android:inputType="number"
-                        style="@style/SearchActivityEditText"/>
+                        <com.google.android.material.textfield.TextInputEditText
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:textSize="@dimen/activity_search_title_txt"
+                                android:text="@={``+viewmodel.surfaceMin}"
+                                android:inputType="number" />
 
-                <ImageView
-                        android:src="@drawable/ic_camera"
-                        style="@style/SearchActivityIcon"
-                        android:contentDescription="@string/none"/>
+                    </com.google.android.material.textfield.TextInputLayout>
 
-                <EditText
-                        android:hint="@string/picture_max"
-                        android:id="@+id/activity_search_picture_max_edt"
-                        android:inputType="number"
-                        style="@style/SearchActivityEditText"/>
+                    <ImageView
+                            android:src="@drawable/ic_surface"
+                            style="@style/SearchActivityIcon"/>
 
-            </TableRow>
+                    <com.google.android.material.textfield.TextInputLayout
+                            android:layout_width="match_parent"
+                            android:layout_weight="50"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="5dp"
+                            android:hint="@string/surface_max"
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
-            <TableRow
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center">
+                        <com.google.android.material.textfield.TextInputEditText
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:textSize="@dimen/activity_search_title_txt"
+                                android:text="@={``+viewmodel.surfaceMax}"
+                                android:inputType="number" />
 
-                <EditText
-                        android:hint="@string/begin_date"
-                        android:id="@+id/activity_search_date_min_edt"
-                        android:focusable="false"
-                        android:clickable="true"
-                        style="@style/SearchActivityEditText"/>
+                    </com.google.android.material.textfield.TextInputLayout>
 
-                <ImageView
-                        android:src="@drawable/ic_date"
-                        style="@style/SearchActivityIcon"
-                        android:contentDescription="@string/none"/>
+                </TableRow>
 
-                <EditText
-                        android:hint="@string/end_date"
-                        android:id="@+id/activity_search_date_max_edt"
-                        android:focusable="false"
-                        android:clickable="true"
-                        style="@style/SearchActivityEditText"/>
+                <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center">
 
-            </TableRow>
+                    <com.google.android.material.textfield.TextInputLayout
+                            android:layout_width="match_parent"
+                            android:layout_weight="50"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="5dp"
+                            android:hint="@string/room_min"
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
-            <TableRow
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center">
+                        <com.google.android.material.textfield.TextInputEditText
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:textSize="@dimen/activity_search_title_txt"
+                                android:text="@={``+viewmodel.roomMin}"
+                                android:inputType="number" />
 
-                <ImageView
-                        android:src="@drawable/ic_location"
-                        style="@style/SearchActivityIcon"
-                        android:contentDescription="@string/none"/>
+                    </com.google.android.material.textfield.TextInputLayout>
 
-                <TextView
-                        android:hint="@string/place"
-                        android:id="@+id/activity_search_place_edt"
-                        style="@style/SearchActivityEditText"/>
+                    <ImageView
+                            android:src="@drawable/ic_home"
+                            style="@style/SearchActivityIcon"/>
 
-            </TableRow>
+                    <com.google.android.material.textfield.TextInputLayout
+                            android:layout_width="match_parent"
+                            android:layout_weight="50"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="5dp"
+                            android:hint="@string/room_max"
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
-        </LinearLayout>
+                        <com.google.android.material.textfield.TextInputEditText
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:textSize="@dimen/activity_search_title_txt"
+                                android:text="@={``+viewmodel.roomMax}"
+                                android:inputType="number" />
 
-    </ScrollView>
+                    </com.google.android.material.textfield.TextInputLayout>
 
-</RelativeLayout>
+                </TableRow>
+
+                <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center">
+
+                    <com.google.android.material.textfield.TextInputLayout
+                            android:layout_width="match_parent"
+                            android:layout_weight="50"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="5dp"
+                            android:hint="@string/bedroom_min"
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:textSize="@dimen/activity_search_title_txt"
+                                android:text="@={``+viewmodel.bedroomMin}"
+                                android:inputType="number" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <ImageView
+                            android:src="@drawable/ic_room"
+                            style="@style/SearchActivityIcon"/>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                            android:layout_width="match_parent"
+                            android:layout_weight="50"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="5dp"
+                            android:hint="@string/bedroom_max"
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:textSize="@dimen/activity_search_title_txt"
+                                android:text="@={``+viewmodel.bedroomMax}"
+                                android:inputType="number" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                </TableRow>
+
+                <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center">
+
+                    <com.google.android.material.textfield.TextInputLayout
+                            android:layout_width="match_parent"
+                            android:layout_weight="50"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="5dp"
+                            android:hint="@string/bathroom_min"
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:textSize="@dimen/activity_search_title_txt"
+                                android:text="@={``+viewmodel.bathroomMin}"
+                                android:inputType="number" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <ImageView
+                            android:src="@drawable/ic_bathroom"
+                            style="@style/SearchActivityIcon"/>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                            android:layout_width="match_parent"
+                            android:layout_weight="50"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="5dp"
+                            android:hint="@string/bathroom_max"
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:textSize="@dimen/activity_search_title_txt"
+                                android:text="@={``+viewmodel.bathroomMax}"
+                                android:inputType="number"/>
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                </TableRow>
+
+                <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center">
+
+                    <com.google.android.material.textfield.TextInputLayout
+                            android:layout_width="match_parent"
+                            android:layout_weight="50"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="5dp"
+                            android:hint="@string/picture_min"
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:textSize="@dimen/activity_search_title_txt"
+                                android:text="@={``+viewmodel.pictureMin}"
+                                android:inputType="number" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <ImageView
+                            android:src="@drawable/ic_camera"
+                            style="@style/SearchActivityIcon"
+                            android:contentDescription="@string/none"/>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                            android:layout_width="match_parent"
+                            android:layout_weight="50"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="5dp"
+                            android:hint="@string/picture_max"
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:textSize="@dimen/activity_search_title_txt"
+                                android:text="@={``+viewmodel.pictureMax}"
+                                android:inputType="number" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                </TableRow>
+
+                <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center">
+
+                    <com.google.android.material.textfield.TextInputLayout
+                            android:layout_width="match_parent"
+                            android:layout_weight="50"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="5dp"
+                            android:hint="@string/begin_date"
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/activity_search_date_min_edt"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:textSize="@dimen/activity_search_title_txt"
+                                android:text="@={viewmodel.dateMin}"
+                                android:focusable="false"
+                                android:clickable="true"
+                                android:inputType="number" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <ImageView
+                            android:src="@drawable/ic_date"
+                            style="@style/SearchActivityIcon"
+                            android:contentDescription="@string/none"/>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                            android:layout_width="match_parent"
+                            android:layout_weight="50"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="5dp"
+                            android:hint="@string/end_date"
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/activity_search_date_max_edt"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:textSize="@dimen/activity_search_title_txt"
+                                android:text="@={viewmodel.dateMax}"
+                                android:focusable="false"
+                                android:clickable="true"
+                                android:inputType="number" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                </TableRow>
+
+                <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center">
+
+                    <ImageView
+                            android:src="@drawable/ic_location_dark"
+                            style="@style/SearchActivityIcon"
+                            android:contentDescription="@string/none"/>
+
+                    <TextView
+                            android:hint="@string/place"
+                            android:id="@+id/activity_search_place_edt"
+                            android:layout_height="50dp"
+                            android:layout_margin="5dp"
+                            android:layout_weight="50"
+                            android:gravity="center"
+                            android:textColor="@color/colorBlack"
+                            android:textSize="@dimen/activity_search_title_txt"
+                            android:background="@drawable/search_bg_transparent_grey"
+                            android:text="@={viewmodel.localisation}"/>
+
+                </TableRow>
+
+            </LinearLayout>
+
+        </ScrollView>
+
+    </RelativeLayout>
+</layout>

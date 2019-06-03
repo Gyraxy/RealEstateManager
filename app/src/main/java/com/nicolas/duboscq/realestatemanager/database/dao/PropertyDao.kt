@@ -2,6 +2,7 @@ package com.nicolas.duboscq.realestatemanager.database.dao
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
+import androidx.sqlite.db.SupportSQLiteQuery
 import com.nicolas.duboscq.realestatemanager.models.Property
 
 

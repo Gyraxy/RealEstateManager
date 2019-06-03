@@ -10,384 +10,399 @@
                 name="clickListener"
                 type="android.view.View.OnClickListener"/>
     </data>
-
-    <ScrollView
+    <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent">
 
-        <LinearLayout
-                android:layout_width="match_parent"
+        <ProgressBar
+                android:id="@+id/activity_detail_progressbar"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                tools:context=".controllers.fragments.DetailFragment"
-                android:orientation="vertical">
+                android:layout_gravity="center"/>
 
-            <RelativeLayout
-                    android:id="@+id/picture_slider_ly"
-                    android:layout_width="match_parent"
-                    android:layout_height="200dp"
-                    android:layout_margin="5dp">
-
-                <androidx.viewpager.widget.ViewPager
-                        android:id="@+id/picture_viewpager"
-                        android:layout_width="fill_parent"
-                        android:layout_height="fill_parent"
-                        android:layout_alignParentTop="true"/>
-
-                <com.viewpagerindicator.CirclePageIndicator
-                        android:id="@+id/indicator"
-                        android:layout_width="200dp"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentBottom="true"
-                        android:layout_centerHorizontal="true"
-                        android:gravity="bottom"
-                        android:padding="10dip"
-                        app:centered="true"
-                        app:fillColor="@color/colorAccent"
-                        app:pageColor="@color/colorWhite"
-                        app:snap="false"/>
-
-                <TextView
-                        android:id="@+id/activity_detail_soldbanner_txt"
-                        app:soldBanner="@{viewmodel.property.date_sold}"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:textSize="30sp"
-                        android:textStyle="bold"
-                        android:text="@string/sold"
-                        android:gravity="center"
-                        android:textColor="@color/colorWhite"
-                        android:background="@color/colorRed"
-                        android:layout_marginBottom="85dp"
-                        android:layout_alignBottom="@+id/picture_viewpager"/>
-
-                <TextView
-                        android:id="@+id/fragment_detail_price_txtv"
-                        android:text="@{Integer.toString(viewmodel.property.price)}"
-                        app:AddEuroSymbol="@{Integer.toString(viewmodel.property.price)}"
-                        android:gravity="center"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textSize="16sp"
-                        android:textStyle="bold"
-                        android:textColor="#F0000B"
-                        android:background="@drawable/price_bg_rounded_corners"
-                        android:padding="5dp"
-                        android:layout_alignBottom="@+id/picture_viewpager"/>
-
-            </RelativeLayout>
-
-            <TableLayout
-                    android:id="@+id/fragment_detail_status_ly"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="5dp">
-
-                <TableRow>
-
-                    <TextView
-                            android:id="@+id/fragment_detail_type_txtv"
-                            android:text="@{viewmodel.property.type}"
-                            android:layout_width="0dp"
-                            android:layout_weight="50"
-                            android:layout_height="wrap_content"
-                            android:textSize="16sp"
-                            android:textColor="@color/colorBlack"
-                            android:textStyle="bold"/>
-
-                    <TextView
-                            android:layout_width="0dp"
-                            android:layout_weight="50"
-                            android:layout_height="wrap_content"
-                            android:gravity="end"
-                            android:text="@string/entry_date"
-                            android:textSize="12sp"/>
-
-                    <TextView
-                            android:id="@+id/fragment_detail_create_status_txtv"
-                            android:text="@{viewmodel.property.date_entry}"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textColor="@color/colorBlack"
-                            android:layout_marginStart="5dp"
-                            android:gravity="end"
-                            android:textSize="12sp"/>
-
-                </TableRow>
-
-
-                <TableRow
-                        android:paddingTop="5dp">
-
-                    <TextView
-                            android:id="@+id/fragment_detail_status_txtv"
-                            android:text="@{viewmodel.property.status}"
-                            android:layout_width="0dp"
-                            android:layout_weight="50"
-                            android:layout_height="wrap_content"
-                            android:textStyle="bold"
-                            android:textSize="16sp"
-                            android:textColor="@color/colorPrimary"/>
-
-                    <TextView
-                            android:layout_width="0dp"
-                            android:layout_weight="50"
-                            android:layout_height="wrap_content"
-                            android:gravity="end"
-                            android:text="@string/sold_date"
-                            android:textSize="12sp"/>
-
-                    <TextView
-                            android:id="@+id/fragment_detail_modify_status_txtv"
-                            android:text="@{viewmodel.property.date_sold}"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textColor="@color/colorBlack"
-                            android:layout_marginStart="5dp"
-                            android:gravity="end"
-                            android:textSize="12sp"/>
-                </TableRow>
-
-            </TableLayout>
+        <ScrollView
+                android:id="@+id/activity_detail_scrollview"
+                android:visibility="gone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
             <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    tools:context=".controllers.fragments.DetailFragment"
                     android:orientation="vertical">
 
+                <RelativeLayout
+                        android:id="@+id/picture_slider_ly"
+                        android:layout_width="match_parent"
+                        android:layout_height="200dp"
+                        android:layout_margin="5dp">
+
+                    <androidx.viewpager.widget.ViewPager
+                            android:id="@+id/picture_viewpager"
+                            android:layout_width="fill_parent"
+                            android:layout_height="fill_parent"
+                            android:layout_alignParentTop="true"/>
+
+                    <com.viewpagerindicator.CirclePageIndicator
+                            android:id="@+id/indicator"
+                            android:layout_width="200dp"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentBottom="true"
+                            android:layout_centerHorizontal="true"
+                            android:gravity="bottom"
+                            android:padding="10dip"
+                            app:centered="true"
+                            app:fillColor="@color/colorAccent"
+                            app:pageColor="@color/colorWhite"
+                            app:snap="false"/>
+
+                    <TextView
+                            android:id="@+id/activity_detail_soldbanner_txt"
+                            app:soldBanner="@{viewmodel.property.date_sold}"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textSize="30sp"
+                            android:textStyle="bold"
+                            android:text="@string/sold"
+                            android:gravity="center"
+                            android:textColor="@color/colorWhite"
+                            android:background="@color/colorRed"
+                            android:layout_marginBottom="85dp"
+                            android:layout_alignBottom="@+id/picture_viewpager"/>
+
+                    <TextView
+                            android:id="@+id/fragment_detail_price_txtv"
+                            android:text="@{Integer.toString(viewmodel.property.price)}"
+                            app:AddEuroSymbol="@{Integer.toString(viewmodel.property.price)}"
+                            android:gravity="center"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="16sp"
+                            android:textStyle="bold"
+                            android:textColor="#F0000B"
+                            android:background="@drawable/price_bg_rounded_corners"
+                            android:padding="5dp"
+                            android:layout_alignBottom="@+id/picture_viewpager"/>
+
+                </RelativeLayout>
+
                 <TableLayout
-                        android:id="@+id/fragment_detail_compo_ly"
-                        android:layout_width="wrap_content"
+                        android:id="@+id/fragment_detail_status_ly"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_margin="5dp">
 
                     <TableRow>
 
-                        <ImageView
-                                android:layout_width="wrap_content"
+                        <TextView
+                                android:id="@+id/fragment_detail_type_txtv"
+                                android:text="@{viewmodel.property.type}"
+                                android:layout_width="0dp"
+                                android:layout_weight="50"
                                 android:layout_height="wrap_content"
-                                android:src="@drawable/ic_surface"
-                                android:padding="5dp"
-                                android:contentDescription="@string/none"/>
+                                android:textSize="16sp"
+                                android:textColor="@color/colorBlack"
+                                android:textStyle="bold"/>
 
                         <TextView
-                                android:id="@+id/fragment_detail_surface_txtv"
-                                style="@style/FragmentDetailTextIco"
-                                android:text="@{Integer.toString(viewmodel.property.surface)}"/>
-
-                        <ImageView
-                                android:layout_width="wrap_content"
+                                android:layout_width="0dp"
+                                android:layout_weight="50"
                                 android:layout_height="wrap_content"
-                                android:src="@drawable/ic_home"
-                                android:padding="5dp"
-                                android:contentDescription="@string/none"/>
+                                android:gravity="end"
+                                android:text="@string/entry_date"
+                                android:textSize="12sp"/>
 
                         <TextView
-                                android:id="@+id/fragment_detail_room_txtv"
-                                style="@style/FragmentDetailTextIco"
-                                android:text="@{Integer.toString(viewmodel.property.room)}"/>
-
-                        <ImageView
+                                android:id="@+id/fragment_detail_create_status_txtv"
+                                android:text="@{viewmodel.property.date_entry}"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:src="@drawable/ic_room"
-                                android:padding="5dp"
-                                android:contentDescription="@string/none"/>
+                                android:textColor="@color/colorBlack"
+                                android:layout_marginStart="5dp"
+                                android:gravity="end"
+                                android:textSize="12sp"/>
+
+                    </TableRow>
+
+
+                    <TableRow
+                            android:paddingTop="5dp">
 
                         <TextView
-                                android:id="@+id/fragment_detail_bedroom_txtv"
-                                style="@style/FragmentDetailTextIco"
-                                android:text="@{Integer.toString(viewmodel.property.bedroom)}"/>
-
-                        <ImageView
-                                android:layout_width="wrap_content"
+                                android:id="@+id/fragment_detail_status_txtv"
+                                android:text="@{viewmodel.property.status}"
+                                android:layout_width="0dp"
+                                android:layout_weight="50"
                                 android:layout_height="wrap_content"
-                                android:src="@drawable/ic_bathroom"
-                                android:padding="5dp"
-                                android:contentDescription="@string/none"/>
-
-                        <TextView
-                                android:id="@+id/fragment_detail_bathroom_txt"
-                                android:text="@{Integer.toString(viewmodel.property.bathroom)}"
-                                android:layout_width="wrap_content"
-                                android:layout_height="match_parent"
                                 android:textStyle="bold"
-                                android:gravity="center_vertical"
+                                android:textSize="16sp"
                                 android:textColor="@color/colorPrimary"/>
 
+                        <TextView
+                                android:layout_width="0dp"
+                                android:layout_weight="50"
+                                android:layout_height="wrap_content"
+                                android:gravity="end"
+                                android:text="@string/sold_date"
+                                android:textSize="12sp"/>
+
+                        <TextView
+                                android:id="@+id/fragment_detail_modify_status_txtv"
+                                android:text="@{viewmodel.property.date_sold}"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textColor="@color/colorBlack"
+                                android:layout_marginStart="5dp"
+                                android:gravity="end"
+                                android:textSize="12sp"/>
                     </TableRow>
 
                 </TableLayout>
 
-                <TableRow
-
+                <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_margin="5dp"
-                        android:gravity="center_vertical">
+                        android:orientation="vertical">
 
-                    <TextView
-                            android:layout_width="0dp"
-                            android:layout_weight="35"
+                    <TableLayout
+                            android:id="@+id/fragment_detail_compo_ly"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/description"
-                            android:drawableStart="@drawable/ic_description"
-                            android:textSize="@dimen/fragment_detail_description_txt"/>
+                            android:layout_margin="5dp">
 
-                    <TextView
-                            android:layout_width="0dp"
-                            android:layout_weight="65"
+                        <TableRow>
+
+                            <ImageView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:src="@drawable/ic_surface"
+                                    android:padding="5dp"
+                                    android:contentDescription="@string/none"/>
+
+                            <TextView
+                                    android:id="@+id/fragment_detail_surface_txtv"
+                                    style="@style/FragmentDetailTextIco"
+                                    android:text="@{Integer.toString(viewmodel.property.surface)}"/>
+
+                            <ImageView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:src="@drawable/ic_home"
+                                    android:padding="5dp"
+                                    android:contentDescription="@string/none"/>
+
+                            <TextView
+                                    android:id="@+id/fragment_detail_room_txtv"
+                                    style="@style/FragmentDetailTextIco"
+                                    android:text="@{Integer.toString(viewmodel.property.room)}"/>
+
+                            <ImageView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:src="@drawable/ic_room"
+                                    android:padding="5dp"
+                                    android:contentDescription="@string/none"/>
+
+                            <TextView
+                                    android:id="@+id/fragment_detail_bedroom_txtv"
+                                    style="@style/FragmentDetailTextIco"
+                                    android:text="@{Integer.toString(viewmodel.property.bedroom)}"/>
+
+                            <ImageView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:src="@drawable/ic_bathroom"
+                                    android:padding="5dp"
+                                    android:contentDescription="@string/none"/>
+
+                            <TextView
+                                    android:id="@+id/fragment_detail_bathroom_txt"
+                                    android:text="@{Integer.toString(viewmodel.property.bathroom)}"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="match_parent"
+                                    android:textStyle="bold"
+                                    android:gravity="center_vertical"
+                                    android:textColor="@color/colorPrimary"/>
+
+                        </TableRow>
+
+                    </TableLayout>
+
+                    <TableRow
+
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:id="@+id/fragment_detail_description_txtv"
-                            android:padding="5dp"
-                            android:gravity="center"
-                            android:textColor="@color/colorBlack"
-                            android:text="@{viewmodel.property.description}"/>
+                            android:layout_margin="5dp"
+                            android:gravity="center_vertical">
 
-                </TableRow>
+                        <TextView
+                                android:layout_width="0dp"
+                                android:layout_weight="35"
+                                android:layout_height="wrap_content"
+                                android:text="@string/description"
+                                android:drawableStart="@drawable/ic_description"
+                                android:textSize="@dimen/fragment_detail_description_txt"/>
 
-                <TableRow
+                        <TextView
+                                android:layout_width="0dp"
+                                android:layout_weight="65"
+                                android:layout_height="wrap_content"
+                                android:id="@+id/fragment_detail_description_txtv"
+                                android:padding="5dp"
+                                android:gravity="center"
+                                android:textColor="@color/colorBlack"
+                                android:text="@{viewmodel.property.description}"/>
 
+                    </TableRow>
+
+                    <TableRow
+
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="5dp"
+                            android:gravity="center_vertical">
+
+                        <TextView
+                                android:layout_width="0dp"
+                                android:layout_weight="35"
+                                android:layout_height="wrap_content"
+                                android:text="@string/place"
+                                android:drawableStart="@drawable/ic_location"
+                                android:textSize="@dimen/fragment_detail_description_txt"
+                                android:drawableTint="@color/colorGrey"/>
+
+                        <TextView
+                                android:layout_width="0dp"
+                                android:layout_weight="65"
+                                android:layout_height="wrap_content"
+                                android:id="@+id/fragment_detail_adress_txtv"
+                                android:padding="5dp"
+                                android:gravity="center"
+                                android:textColor="@color/colorBlack"
+                                app:propertyAddress="@{viewmodel.address}"/>
+
+                    </TableRow>
+
+                    <TableRow
+
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="5dp"
+                            android:gravity="center_vertical">
+
+                        <TextView
+                                android:layout_width="0dp"
+                                android:layout_weight="35"
+                                android:layout_height="wrap_content"
+                                android:text="@string/points_of_interest"
+                                android:drawableStart="@drawable/ic_info"
+                                android:textSize="@dimen/fragment_detail_description_txt"/>
+
+                        <TextView
+                                android:layout_width="0dp"
+                                android:layout_weight="65"
+                                android:layout_height="wrap_content"
+                                android:id="@+id/fragment_detail_point_interest_txtv"
+                                android:padding="5dp"
+                                android:gravity="center"
+                                android:textColor="@color/colorBlack"
+                                android:text="@{viewmodel.property.points_interest}"/>
+
+                    </TableRow>
+
+                    <ImageView
+                            android:id="@+id/fragment_detail_adress_imv"
+                            android:onClick="@{clickListener}"
+                            android:layout_width="match_parent"
+                            android:layout_height="200dp"
+                            android:scaleType="centerCrop"
+                            android:layout_margin="20dp"/>
+
+                    <TableRow
+
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="5dp"
+                            android:gravity="center_vertical">
+
+                        <TextView
+                                android:layout_width="0dp"
+                                android:layout_weight="35"
+                                android:layout_height="wrap_content"
+                                android:text="@string/agent"
+                                android:drawableStart="@drawable/ic_account"
+                                android:textSize="@dimen/fragment_detail_description_txt"/>
+
+                        <TextView
+                                android:layout_width="0dp"
+                                android:layout_weight="65"
+                                android:layout_height="wrap_content"
+                                android:id="@+id/fragment_detail_agent_txtv"
+                                android:padding="5dp"
+                                android:gravity="center"
+                                android:textColor="@color/colorBlack"
+                                android:text="@{viewmodel.property.agent}"/>
+
+                    </TableRow>
+
+                </LinearLayout>
+
+                <TableLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_margin="5dp"
-                        android:gravity="center_vertical">
+                        android:layout_marginStart="10dp"
+                        android:layout_marginEnd="10dp">
 
-                    <TextView
-                            android:layout_width="0dp"
-                            android:layout_weight="35"
-                            android:layout_height="wrap_content"
-                            android:text="@string/place"
-                            android:drawableStart="@drawable/ic_location"
-                            android:textSize="@dimen/fragment_detail_description_txt"
-                            android:drawableTint="@color/colorGrey"/>
+                    <TableRow>
 
-                    <TextView
-                            android:layout_width="0dp"
-                            android:layout_weight="65"
-                            android:layout_height="wrap_content"
-                            android:id="@+id/fragment_detail_adress_txtv"
-                            android:padding="5dp"
-                            android:gravity="center"
-                            android:textColor="@color/colorBlack"
-                            app:propertyAddress="@{viewmodel.address}"/>
+                        <TextView
+                                android:layout_width="0dp"
+                                android:layout_weight="50"
+                                android:layout_height="wrap_content"
+                                android:gravity="end"
+                                android:text="@string/created"
+                                android:textSize="10sp"/>
 
-                </TableRow>
+                        <TextView
+                                android:id="@+id/activity_edit_update_create_status_txtv"
+                                android:text="@{viewmodel.property.dateCreation}"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:gravity="end"
+                                android:textSize="10sp"/>
 
-                <TableRow
+                    </TableRow>
 
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="5dp"
-                        android:gravity="center_vertical">
+                    <TableRow>
 
-                    <TextView
-                            android:layout_width="0dp"
-                            android:layout_weight="35"
-                            android:layout_height="wrap_content"
-                            android:text="@string/points_of_interest"
-                            android:drawableStart="@drawable/ic_info"
-                            android:textSize="@dimen/fragment_detail_description_txt"/>
+                        <TextView
+                                android:layout_width="0dp"
+                                android:layout_weight="50"
+                                android:layout_height="wrap_content"
+                                android:gravity="end"
+                                android:text="@string/modified"
+                                android:textSize="10sp"/>
 
-                    <TextView
-                            android:layout_width="0dp"
-                            android:layout_weight="65"
-                            android:layout_height="wrap_content"
-                            android:id="@+id/fragment_detail_point_interest_txtv"
-                            android:padding="5dp"
-                            android:gravity="center"
-                            android:textColor="@color/colorBlack"
-                            android:text="@{viewmodel.property.points_interest}"/>
+                        <TextView
+                                android:id="@+id/activity_edit_update_update_status_txtv"
+                                android:text="@{viewmodel.property.dateModified}"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:gravity="end"
+                                android:textSize="10sp"/>
 
-                </TableRow>
+                    </TableRow>
 
-                <ImageView
-                        android:id="@+id/fragment_detail_adress_imv"
-                        android:onClick="@{clickListener}"
-                        android:layout_width="match_parent"
-                        android:layout_height="200dp"
-                        android:scaleType="centerCrop"
-                        android:layout_margin="20dp"/>
 
-                <TableRow
-
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="5dp"
-                        android:gravity="center_vertical">
-
-                    <TextView
-                            android:layout_width="0dp"
-                            android:layout_weight="35"
-                            android:layout_height="wrap_content"
-                            android:text="@string/agent"
-                            android:drawableStart="@drawable/ic_account"
-                            android:textSize="@dimen/fragment_detail_description_txt"/>
-
-                    <TextView
-                            android:layout_width="0dp"
-                            android:layout_weight="65"
-                            android:layout_height="wrap_content"
-                            android:id="@+id/fragment_detail_agent_txtv"
-                            android:padding="5dp"
-                            android:gravity="center"
-                            android:textColor="@color/colorBlack"
-                            android:text="@{viewmodel.property.agent}"/>
-
-                </TableRow>
+                </TableLayout>
 
             </LinearLayout>
 
-            <TableLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginEnd="10dp">
+        </ScrollView>
 
-                <TableRow>
-
-                    <TextView
-                            android:layout_width="0dp"
-                            android:layout_weight="50"
-                            android:layout_height="wrap_content"
-                            android:gravity="end"
-                            android:text="@string/created"
-                            android:textSize="10sp"/>
-
-                    <TextView
-                            android:id="@+id/activity_edit_update_create_status_txtv"
-                            android:text="@{viewmodel.property.dateCreation}"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:gravity="end"
-                            android:textSize="10sp"/>
-
-                </TableRow>
-
-                <TableRow>
-
-                    <TextView
-                            android:layout_width="0dp"
-                            android:layout_weight="50"
-                            android:layout_height="wrap_content"
-                            android:gravity="end"
-                            android:text="@string/modified"
-                            android:textSize="10sp"/>
-
-                    <TextView
-                            android:id="@+id/activity_edit_update_update_status_txtv"
-                            android:text="@{viewmodel.property.dateModified}"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:gravity="end"
-                            android:textSize="10sp"/>
-
-                </TableRow>
+    </FrameLayout>
 
 
-            </TableLayout>
-
-        </LinearLayout>
-
-    </ScrollView>
 
 </layout>

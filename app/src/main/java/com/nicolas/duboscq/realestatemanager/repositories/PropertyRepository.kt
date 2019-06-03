@@ -1,6 +1,7 @@
 package com.nicolas.duboscq.realestatemanager.repositories
 
 import androidx.lifecycle.LiveData
+import androidx.sqlite.db.SupportSQLiteQuery
 import com.nicolas.duboscq.realestatemanager.database.dao.PropertyDao
 import com.nicolas.duboscq.realestatemanager.models.Property
 

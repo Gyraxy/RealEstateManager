@@ -68,6 +68,8 @@ class DetailFragment : androidx.fragment.app.Fragment() {
                     .load(R.drawable.no_internet)
                     .into(fragment_detail_adress_imv)
             }
+            activity_detail_progressbar.visibility = View.INVISIBLE
+            activity_detail_scrollview.visibility = View.VISIBLE
         })
         binding.clickListener = View.OnClickListener {
             if (Utils.isInternetAvailable(activity!!.applicationContext)){
