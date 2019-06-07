@@ -101,9 +101,9 @@ class MapFragment : androidx.fragment.app.Fragment() , OnMapReadyCallback,Google
     override fun onMarkerClick(p0: Marker?): Boolean {
         val intentDetail = Intent(activity, MapDetailActivity::class.java)
         intentDetail.putExtra("activity","detail")
-        val property_id = p0!!.title
-        Log.i("Property",property_id)
-        intentDetail.putExtra("id",property_id.toInt())
+        val propertyId = p0!!.title
+        Log.i("Property",propertyId)
+        intentDetail.putExtra("id",propertyId.toInt())
         startActivity(intentDetail)
         return false
     }
@@ -114,7 +114,7 @@ class MapFragment : androidx.fragment.app.Fragment() , OnMapReadyCallback,Google
                 ACCESS_FINE_LOCATION
             ) == PackageManager.PERMISSION_GRANTED
         ) {
-            fusedLocationClient.getLastLocation().addOnSuccessListener { location ->
+            fusedLocationClient.lastLocation.addOnSuccessListener { location ->
                 if (location != null) {
                     val myLatLng = LatLng(location.latitude, location.longitude)
                     googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(myLatLng, 17f))
@@ -124,7 +124,7 @@ class MapFragment : androidx.fragment.app.Fragment() , OnMapReadyCallback,Google
     }
 
     private fun generateMarker(addressList: MutableList<Address>){
-        for (i in 0..addressList.size-1){
+        for (i in 0 .. addressList.size-1){
             val addressTxt = "${addressList[i].streetNumber} ${addressList[i].streetName} ${addressList[i].zipcode} ${addressList[i].city} ${addressList[i].country}"
             val addressLatLng = Utils.getLocationFromAddress(activity!!.applicationContext,addressTxt)
             googleMap.addMarker(MarkerOptions()

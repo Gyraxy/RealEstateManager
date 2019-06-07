@@ -10,7 +10,6 @@ import android.net.Uri
 import android.os.Bundle
 import android.os.Environment
 import android.provider.MediaStore
-import android.util.Log
 import android.view.Menu
 import android.view.View
 import android.widget.*
@@ -20,7 +19,6 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.bumptech.glide.Glide
-import com.google.android.material.textfield.TextInputEditText
 import com.nicolas.duboscq.realestatemanager.R
 import com.nicolas.duboscq.realestatemanager.adapters.PictureAdapter
 import com.nicolas.duboscq.realestatemanager.database.AppDatabase
@@ -31,7 +29,6 @@ import com.nicolas.duboscq.realestatemanager.utils.Utils
 import com.nicolas.duboscq.realestatemanager.viewmodels.PropertyAddUpdateViewModel
 import kotlinx.android.synthetic.main.activity_add_update.*
 import kotlinx.android.synthetic.main.activity_add_update.toolbar
-import kotlinx.android.synthetic.main.activity_search.*
 import kotlinx.android.synthetic.main.diag_description.view.*
 import pub.devrel.easypermissions.AfterPermissionGranted
 import pub.devrel.easypermissions.EasyPermissions
@@ -48,7 +45,7 @@ class AddUpdateActivity : AppCompatActivity() {
 
     // FOR DATA
     private lateinit var viewModel: PropertyAddUpdateViewModel
-    private val AUTHORITY: String ="com.nicolas.duboscq.realestatemanager.fileprovider"
+    private val authority: String ="com.nicolas.duboscq.realestatemanager.fileprovider"
     private lateinit var picturePathList : MutableList<String>
     private lateinit var pictureDescriptionList : MutableList<String>
     private lateinit var pictureAdapter: PictureAdapter
@@ -61,11 +58,11 @@ class AddUpdateActivity : AppCompatActivity() {
         private const val CAMERA_PERMISSION_REQUEST_CODE = 1
         private const val WRITE_PERMISSION_REQUEST_CODE = 2
         private const val READ_PERMISSION_REQUEST_CODE = 3
-        private val REQUEST_CHOOSE_PHOTO = 4
-        private val REQUEST_IMAGE_CAPTURE = 101
-        private val CAMERA_PERM = Manifest.permission.CAMERA
-        private val WRITE_PERM = Manifest.permission.WRITE_EXTERNAL_STORAGE
-        private val READ_PERM = Manifest.permission.READ_EXTERNAL_STORAGE
+        private const val REQUEST_CHOOSE_PHOTO = 4
+        private const val REQUEST_IMAGE_CAPTURE = 101
+        private const val CAMERA_PERM = Manifest.permission.CAMERA
+        private const val WRITE_PERM = Manifest.permission.WRITE_EXTERNAL_STORAGE
+        private const val READ_PERM = Manifest.permission.READ_EXTERNAL_STORAGE
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -86,24 +83,22 @@ class AddUpdateActivity : AppCompatActivity() {
         propertyId = intent.getIntExtra("propertyId",0)
         currentActivity = intent.getStringExtra("activity")
 
-        if (currentActivity.equals("edit")){
+        if (currentActivity=="edit"){
             getPropertyInfoFromDataBase(propertyId)
         }
 
         binding.addpictureclicklistener = View.OnClickListener { this.chooseImageFromPhone() }
         binding.takepictureclicklistener = View.OnClickListener { this.onAccessCamera() }
         binding.addeditpropertyclicklistener = View.OnClickListener {
-            if (currentActivity.equals("add")){
-                viewModel.createPropertyandAddress(this)
-            }
-           else if (currentActivity.equals("edit")){
-                viewModel.updatePropertyById(propertyId,this)
+            when (currentActivity){
+                "add"-> viewModel.createPropertyandAddress(this)
+                "edit"->viewModel.updatePropertyById(propertyId,this)
             }
         }
         binding.dateentrypicklistener = View.OnClickListener { showDatePicker(activity_edit_update_entryDate_edt)}
         binding.datesoldpicklistener = View.OnClickListener { showDatePicker(activity_edit_update_soldDate_edt)}
         this.viewModel.toastMissingInfo.observe(this, Observer {
-            if (it.equals(true)){
+            if (it==true){
                 Toast.makeText(this,getString(R.string.activity_edit_not_enough_info),Toast.LENGTH_LONG).show()
             }
         })
@@ -178,7 +173,7 @@ class AddUpdateActivity : AppCompatActivity() {
 
     private fun configureOnClickRecyclerView(){
         ItemClickSupport.addTo(activity_edit_update_recyclerView, R.layout.picture_main_item)
-            .setOnItemClickListener{recyclerView, position, v ->
+            .setOnItemClickListener{_, position, _ ->
                 createAlertDiagDelPicture(position)
             }
     }
@@ -200,7 +195,7 @@ class AddUpdateActivity : AppCompatActivity() {
                 photoFile?.also {
                     val photoURI: Uri = FileProvider.getUriForFile(
                         this,
-                        AUTHORITY,
+                        authority,
                         it
                     )
                     takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI)
@@ -252,11 +247,11 @@ class AddUpdateActivity : AppCompatActivity() {
                 setTitle(getString(R.string.diag_del_picture_title))
                 setMessage(getString(R.string.diag_del_picture_message))
                 setPositiveButton(R.string.ok, DialogInterface.OnClickListener {
-                        dialog, id ->
+                        _, _ ->
                     viewModel.removePictureDescriptionToList(position)
                     viewModel.removePictureLinkToList(position)
                 })
-                setNegativeButton(R.string.cancel, DialogInterface.OnClickListener { dialog, id -> })
+                setNegativeButton(R.string.cancel, DialogInterface.OnClickListener { _, _ -> })
             }
             builder.create()
             builder.show()
@@ -328,7 +323,7 @@ class AddUpdateActivity : AppCompatActivity() {
     // DATA
     // ----
 
-    fun getPropertyInfoFromDataBase(propertyInfo : Int){
+    private fun getPropertyInfoFromDataBase(propertyInfo : Int){
         AppDatabase.getDatabase(this).propertyDao().getPropertyById(propertyInfo).observe(this, Observer {
             this.viewModel.property.value = it
             this.viewModel.property.value!!.dateModified = Utils.getTodayDate()

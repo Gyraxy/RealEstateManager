@@ -34,10 +34,9 @@ class Notifications {
 
         val pendingIntent = PendingIntent.getActivity(mContext, 0, resultIntent, PendingIntent.FLAG_UPDATE_CURRENT)
 
-        if (activity.equals("create")){
-            notificationMessage = context.resources.getString(R.string.notification_property_created)
-        } else {
-            notificationMessage = context.resources.getString(R.string.notification_property_updated)
+        when (activity){
+            "create"-> notificationMessage = context.resources.getString(R.string.notification_property_created)
+            "edit"-> notificationMessage = context.resources.getString(R.string.notification_property_updated)
         }
 
         //Build notification

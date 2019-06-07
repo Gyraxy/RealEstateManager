@@ -1,13 +1,9 @@
 package com.nicolas.duboscq.realestatemanager.adapters
 
 import android.view.View
-import android.widget.LinearLayout
-import android.widget.Spinner
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import com.nicolas.duboscq.realestatemanager.models.Address
-import com.nicolas.duboscq.realestatemanager.models.Picture
-import com.nicolas.duboscq.realestatemanager.models.Property
 
 @BindingAdapter("isGone")
 fun bindIsGone(view: View, isGone: Boolean) {
@@ -26,7 +22,7 @@ fun bindAddress(view: TextView, address : Address? =null){
 
 @BindingAdapter("app:monthlyCalculated")
 fun monthlyCalculated (view: View, monthly:String) {
-    view.visibility = if (monthly.equals("")) {
+    view.visibility = if (monthly=="") {
         View.GONE
     } else {
         View.VISIBLE
@@ -35,7 +31,7 @@ fun monthlyCalculated (view: View, monthly:String) {
 
 @BindingAdapter("app:dateSold")
 fun dateSold (view: View, dateModified:String) {
-    view.visibility = if (dateModified.equals(" ")) {
+    view.visibility = if (dateModified==" ") {
         View.GONE
     } else {
         View.VISIBLE
@@ -44,7 +40,7 @@ fun dateSold (view: View, dateModified:String) {
 
 @BindingAdapter("app:soldBanner")
 fun soldBanner (view: View, dateSold:String? =null) {
-    view.visibility = if (dateSold.equals("")) {
+    view.visibility = if (dateSold=="") {
         View.GONE
     } else {
         View.VISIBLE

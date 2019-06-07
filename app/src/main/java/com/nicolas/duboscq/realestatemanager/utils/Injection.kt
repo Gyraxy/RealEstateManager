@@ -11,22 +11,22 @@ import java.util.concurrent.Executors
 
 object Injection {
 
-    fun providePropertyDataSource(context: Context): PropertyRepository {
+    private fun providePropertyDataSource(context: Context): PropertyRepository {
         val database = AppDatabase.getDatabase(context)
         return PropertyRepository(database.propertyDao())
     }
 
-    fun provideAddressDataSource(context: Context): AddressRepository {
+    private fun provideAddressDataSource(context: Context): AddressRepository {
         val database = AppDatabase.getDatabase(context)
         return AddressRepository(database.addressDao())
     }
 
-    fun providePictureDataSource(context: Context): PictureRepository {
+    private fun providePictureDataSource(context: Context): PictureRepository {
         val database = AppDatabase.getDatabase(context)
         return PictureRepository(database.pictureDao())
     }
 
-    fun provideExecutor(): Executor {
+    private fun provideExecutor(): Executor {
         return Executors.newSingleThreadExecutor()
     }
 
@@ -73,7 +73,6 @@ object Injection {
         val dataSourceProperty = providePropertyDataSource(context)
         val dataSourceAddress = provideAddressDataSource(context)
         val dataSourcePictures = providePictureDataSource(context)
-        val executor = provideExecutor()
         return PropertyMapViewModelFactory(
             dataSourceProperty,
             dataSourceAddress,

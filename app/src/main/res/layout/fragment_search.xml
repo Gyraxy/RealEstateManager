@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout
-        xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools"
         xmlns:app="http://schemas.android.com/apk/res-auto">
-
     <data>
         <variable
                 name="viewmodel"
@@ -21,16 +19,8 @@
 
     <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-        <androidx.appcompat.widget.Toolbar
-                android:id="@+id/toolbar"
-                android:minHeight="?attr/actionBarSize"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:titleTextColor="@android:color/white"
-                android:background="?attr/colorPrimary"
-                android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"/>
+            android:layout_height="match_parent"
+            tools:context=".controllers.fragments.SearchFragment">
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:id="@+id/activity_search_fl_btn"
@@ -45,8 +35,7 @@
 
         <ScrollView
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_below="@+id/toolbar">
+                android:layout_height="match_parent">
 
             <LinearLayout
                     android:layout_width="match_parent"
@@ -68,7 +57,7 @@
                             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
                         <com.google.android.material.textfield.TextInputEditText
-                                android:id="@+id/activity_search_type_spinner"
+                                android:id="@+id/fragment_search_type_spinner"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:textSize="@dimen/activity_search_title_txt"
@@ -91,7 +80,7 @@
                             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
                         <com.google.android.material.textfield.TextInputEditText
-                                android:id="@+id/activity_search_status_spinner"
+                                android:id="@+id/fragment_search_status_spinner"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:textSize="@dimen/activity_search_title_txt"
@@ -393,7 +382,7 @@
                             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
                         <com.google.android.material.textfield.TextInputEditText
-                                android:id="@+id/activity_search_date_min_edt"
+                                android:id="@+id/activity_search_entry_date_min_edt"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:textSize="@dimen/activity_search_title_txt"
@@ -418,7 +407,7 @@
                             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
                         <com.google.android.material.textfield.TextInputEditText
-                                android:id="@+id/activity_search_date_max_edt"
+                                android:id="@+id/activity_search_entry_date_max_edt"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:textSize="@dimen/activity_search_title_txt"
@@ -445,7 +434,7 @@
                             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
                         <com.google.android.material.textfield.TextInputEditText
-                                android:id="@+id/activity_search_datesold_min_edt"
+                                android:id="@+id/activity_search_sold_date_min_edt"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:textSize="@dimen/activity_search_title_txt"
@@ -470,7 +459,7 @@
                             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
                         <com.google.android.material.textfield.TextInputEditText
-                                android:id="@+id/activity_search_datesold_max_edt"
+                                android:id="@+id/activity_search_sold_date_max_edt"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:textSize="@dimen/activity_search_title_txt"
@@ -495,7 +484,7 @@
 
                     <TextView
                             android:hint="@string/place"
-                            android:id="@+id/activity_search_place_edt"
+                            android:id="@+id/search_fragment_place_edt"
                             android:layout_height="50dp"
                             android:layout_margin="5dp"
                             android:layout_weight="50"
@@ -513,4 +502,5 @@
         </ScrollView>
 
     </RelativeLayout>
+
 </layout>

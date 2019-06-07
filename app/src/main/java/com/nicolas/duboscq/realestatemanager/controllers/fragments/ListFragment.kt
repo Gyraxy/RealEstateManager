@@ -8,7 +8,6 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import com.bumptech.glide.Glide
 import com.nicolas.duboscq.realestatemanager.R
 import com.nicolas.duboscq.realestatemanager.utils.Injection
@@ -21,8 +20,6 @@ import com.nicolas.duboscq.realestatemanager.controllers.activities.MapDetailAct
 import com.nicolas.duboscq.realestatemanager.models.Picture
 import com.nicolas.duboscq.realestatemanager.utils.DividerItemDecoration
 import com.nicolas.duboscq.realestatemanager.utils.ItemClickSupport
-import com.nicolas.duboscq.realestatemanager.utils.Utils
-import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_property_list.*
 
 
@@ -34,7 +31,7 @@ class ListFragment : androidx.fragment.app.Fragment() {
     private lateinit var addresslist : MutableList<Address>
     private lateinit var picturelist : MutableList<Picture>
     private lateinit var mode:String
-    private var property_id:Int = 0
+    private var propertyId:Int = 0
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -56,7 +53,7 @@ class ListFragment : androidx.fragment.app.Fragment() {
 
     private fun configureViewModel(){
         val mViewModelFactory = Injection.provideListViewModelFactory(activity!!.applicationContext)
-        this.propertyListViewModel = ViewModelProviders.of(this, mViewModelFactory).get(PropertyListViewModel::class.java!!)
+        this.propertyListViewModel = ViewModelProviders.of(this, mViewModelFactory).get(PropertyListViewModel::class.java)
         this.propertyListViewModel.getProperty().observe(this, Observer {
             if (it != null) {
                 if (it.isEmpty()) {
@@ -93,26 +90,26 @@ class ListFragment : androidx.fragment.app.Fragment() {
         picturelist = mutableListOf()
         propertyAdapter = PropertyAdapter(propertylist, addresslist,picturelist,Glide.with(this))
         fragment_list_recyclerView.adapter = propertyAdapter
-        val mDividerItemDecoration = DividerItemDecoration(fragment_list_recyclerView.getContext(), R.drawable.horizontal_divider)
+        val mDividerItemDecoration = DividerItemDecoration(fragment_list_recyclerView.context, R.drawable.horizontal_divider)
         fragment_list_recyclerView.addItemDecoration(mDividerItemDecoration)
     }
 
     private fun configureOnClickRecyclerView(){
         ItemClickSupport.addTo(fragment_list_recyclerView, R.layout.property_list_view)
-            .setOnItemClickListener{recyclerView, position, v ->
-                if (mode.equals("phone")){
+            .setOnItemClickListener{_, position, _ ->
+                if (mode=="phone"){
                     val intentDetail = Intent(activity,MapDetailActivity::class.java)
                     intentDetail.putExtra("activity","detail")
-                    property_id = propertylist[position].id
-                    Log.i("Property",property_id.toString())
-                    intentDetail.putExtra("id",property_id)
+                    propertyId = propertylist[position].id
+                    Log.i("Property",propertyId.toString())
+                    intentDetail.putExtra("id",propertyId)
                     startActivity(intentDetail)
                 }
-                if (mode.equals("tablet")){
-                    var mainActivity : MainActivity = activity as MainActivity
-                    property_id = propertylist[position].id
+                if (mode=="tablet"){
+                    val mainActivity : MainActivity = activity as MainActivity
+                    propertyId = propertylist[position].id
                     val status = propertylist[position].status
-                    mainActivity.openDetailFragment(property_id,status)
+                    mainActivity.openDetailFragment(propertyId,status)
                 }
             }
     }

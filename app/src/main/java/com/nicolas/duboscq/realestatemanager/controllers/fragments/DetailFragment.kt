@@ -48,7 +48,7 @@ class DetailFragment : androidx.fragment.app.Fragment() {
         viewModel = ViewModelProviders.of(this,factory).get(PropertyDetailViewModel::class.java)
         binding = DataBindingUtil.inflate<FragmentDetailBinding>(inflater, R.layout.fragment_detail, container,false).apply {
             viewmodel = viewModel
-            setLifecycleOwner (this@DetailFragment)
+            lifecycleOwner = this@DetailFragment
         }
         setHasOptionsMenu(true)
         return binding.root
@@ -101,12 +101,12 @@ class DetailFragment : androidx.fragment.app.Fragment() {
         val density = resources.displayMetrics.density
 
         //Set circle indicator radius
-        indicator.setRadius(5*density)
+        indicator.radius= 5*density
         numPage = pictureList.size
 
         // Auto start of viewpager
         val handler = Handler()
-        val Update = Runnable {
+        val update = Runnable {
             if (currentPage == numPage) {
                 currentPage = 0
                 }
@@ -115,7 +115,7 @@ class DetailFragment : androidx.fragment.app.Fragment() {
         val swipeTimer = Timer()
         swipeTimer.schedule(object : TimerTask() {
             override fun run() {
-                handler.post(Update)
+                handler.post(update)
             }
         }, 5000, 5000)
 
