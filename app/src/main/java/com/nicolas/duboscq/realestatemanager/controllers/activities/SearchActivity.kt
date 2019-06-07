@@ -54,7 +54,13 @@ class SearchActivity : AppCompatActivity() {
         if (!Places.isInitialized()) {
             Places.initialize(applicationContext, "AIzaSyDE8xBMmrWat5ugUmWhLANHGDui3ngNJjI")
         }
-        activity_search_place_edt.setOnClickListener { autocompletePlace() }
+        binding.autocompleteclicklistener = View.OnClickListener { autocompletePlace() }
+
+        viewModel.listResult.observe(this,androidx.lifecycle.Observer {
+            if (!it.isNullOrEmpty()){
+                Log.i("PropertySearch",it.size.toString())
+            }
+        })
     }
 
     //TOOLBAR CONFIGURATION

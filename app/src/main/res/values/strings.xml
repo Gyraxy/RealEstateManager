@@ -34,14 +34,6 @@
     <string name="created">"Mis en ligne: "</string>
     <string name="none">Aucun</string>
 
-    <string-array name="place">
-        <item>Aucune</item>
-        <item>Piscine</item>
-        <item>Ecole</item>
-        <item>Bibliotheque</item>
-        <item>Commerces</item>
-    </string-array>
-
     <string name="title_activity_edit_update">Edition</string>
     <string name="price_min">Prix Min</string>
     <string name="price_max">Prix Max</string>
@@ -55,8 +47,10 @@
     <string name="bathroom_max">Nbre SdB Max</string>
     <string name="picture_min">Nbre Photos Min</string>
     <string name="picture_max">Nbre Photos Max</string>
-    <string name="begin_date">Date début</string>
-    <string name="end_date">Date Fin</string>
+    <string name="entry_date_begin">Date Entrée début</string>
+    <string name="entry_date_end">Date Entrée Fin</string>
+    <string name="sold_date_begin">Date Vente début</string>
+    <string name="sold_date_end">Date Vente Fin</string>
     <string name="put_description">Veuillez Saisir une description</string>
     <string name="nb_room">Nb de pièces</string>
     <string name="nb_bedroom">Nb de chambres</string>
@@ -131,5 +125,9 @@
 
     //BLANK FRAGMENT
     <string name="blank_fragment">Veuillez Cliquer sur un bien de la liste</string>
+    <string name="title_activity_result">ResultActivity</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>

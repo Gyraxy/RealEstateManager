@@ -23,4 +23,7 @@ interface PropertyDao {
 
     @Query("DELETE FROM property")
     fun deleteAll()
+
+    @RawQuery
+    fun getPropertyBySearch(query:SupportSQLiteQuery) : List<Property>
 }
