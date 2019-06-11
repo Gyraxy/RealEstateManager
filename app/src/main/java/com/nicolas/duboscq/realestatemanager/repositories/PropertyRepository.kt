@@ -19,8 +19,8 @@ class PropertyRepository(private val propertyDao: PropertyDao) {
         return propertyDao.getPropertyById(prop_id)
     }
 
-    fun updatePropertyById(prop_id:Int,agent:String, status: String,price: Int, surface:Int,room: Int,bedroom:Int,bathroom: Int,description:String,type:String,points_interest:String,dateEntry:String,dateSold:String,dateModified:String){
-        return propertyDao.updatePropertyById(prop_id,agent,status,price,surface,room,bedroom,bathroom,description,type,points_interest,dateEntry,dateSold,dateModified)
+    fun updatePropertyById(prop_id:Int,agent:String, status: String,price: Int, surface:Int,room: Int,bedroom:Int,bathroom: Int,description:String,type:String,points_interest:String,nbPictures:Int,dateEntry:String,dateSold:String,dateModified:String){
+        return propertyDao.updatePropertyById(prop_id,agent,status,price,surface,room,bedroom,bathroom,description,type,points_interest,nbPictures,dateEntry,dateSold,dateModified)
     }
 
     fun getPropertyBySearch(query:SupportSQLiteQuery):MutableList<Property>{

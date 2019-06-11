@@ -1,6 +1,7 @@
 package com.nicolas.duboscq.realestatemanager.repositories
 
 import androidx.lifecycle.LiveData
+import androidx.sqlite.db.SupportSQLiteQuery
 import com.nicolas.duboscq.realestatemanager.database.dao.AddressDao
 import com.nicolas.duboscq.realestatemanager.models.Address
 
@@ -20,5 +21,9 @@ class AddressRepository(private val addressDao: AddressDao) {
 
     fun updateAddressByPropId(prop_id:Int,streetNumber:String,streetName:String,zipcode:String,city:String,country:String){
         return addressDao.updateAddressFromPropertyId(prop_id,streetNumber,streetName,zipcode,city,country)
+    }
+
+    fun getAddressBySearch(query: SupportSQLiteQuery):MutableList<Address>{
+        return addressDao.getAddressBySearch(query)
     }
 }

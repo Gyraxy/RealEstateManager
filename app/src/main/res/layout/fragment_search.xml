@@ -502,6 +502,30 @@
 
                 </TableRow>
 
+                <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center">
+
+                    <ImageView
+                            android:src="@drawable/ic_info_dark"
+                            style="@style/SearchActivityIcon"
+                            android:contentDescription="@string/none"/>
+
+                    <EditText
+                            android:hint="@string/points_of_interest"
+                            android:id="@+id/search_fragment_pointinterest_edt"
+                            android:layout_height="50dp"
+                            android:layout_margin="5dp"
+                            android:layout_weight="50"
+                            android:gravity="center"
+                            android:textColor="@color/colorBlack"
+                            android:textSize="@dimen/activity_search_title_txt"
+                            android:background="@drawable/search_bg_transparent_grey"
+                            android:text="@={viewmodel.pointOfInterest}"/>
+
+                </TableRow>
+
             </LinearLayout>
 
         </ScrollView>

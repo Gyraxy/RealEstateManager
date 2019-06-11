@@ -4,6 +4,8 @@ import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
+import androidx.room.RawQuery
+import androidx.sqlite.db.SupportSQLiteQuery
 import com.nicolas.duboscq.realestatemanager.models.Picture
 
 @Dao
@@ -26,4 +28,7 @@ interface PictureDao {
 
     @Query("DELETE FROM picture")
     fun deleteAll()
+
+    @RawQuery
+    fun getPictureBySearch(query: SupportSQLiteQuery) : MutableList<Picture>
 }

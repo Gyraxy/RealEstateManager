@@ -23,7 +23,7 @@ class PropertyAddUpdateViewModel (
     private val executor: Executor
 ): ViewModel() {
 
-    var property = MutableLiveData<Property>(Property("","A Vendre",0,0,0,0,0,"","","","","", Utils.getTodayDate()," "))
+    var property = MutableLiveData<Property>(Property("","A Vendre",0,0,0,0,0,"","","",0,"","", Utils.getTodayDate()," "))
     var address = MutableLiveData<Address>(Address(0,"","","","",""))
     var picture = MutableLiveData<Picture>(Picture(0,"","",0))
 
@@ -39,6 +39,7 @@ class PropertyAddUpdateViewModel (
         if (canSaveToDataBase()){
 
             executor.execute {
+                property.value!!.nbPictures = pictureLinkList.value!!.size
                 val id = propertyDataSource.createProperty(property.value!!)
 
                 address.value!!.propertyId = id
@@ -76,6 +77,7 @@ class PropertyAddUpdateViewModel (
                     property.value!!.description,
                     property.value!!.type,
                     property.value!!.points_interest,
+                    pictureLinkList.value!!.size,
                     property.value!!.date_entry,
                     property.value!!.date_sold,
                     property.value!!.dateModified)
@@ -101,7 +103,7 @@ class PropertyAddUpdateViewModel (
     }
 
     private fun onClearPropertyAddUpdateViewModel(){
-        property.value = Property("","A Vendre",0,0,0,0,0,"","","","","", Utils.getTodayDate()," ")
+        property.value = Property("","A Vendre",0,0,0,0,0,"","","",0,"","", Utils.getTodayDate()," ")
         address.value = Address(0,"","","","","")
         pictureLinkListVM.clear()
         pictureDescriptionListVM.clear()

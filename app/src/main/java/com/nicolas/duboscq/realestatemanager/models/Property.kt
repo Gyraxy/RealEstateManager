@@ -16,6 +16,7 @@ data class Property(
     @ColumnInfo(name = "description") var description: String,
     @ColumnInfo(name = "type") var type: String,
     @ColumnInfo(name = "points_of_interest") var points_interest: String,
+    @ColumnInfo(name = "nb_of_pictures") var nbPictures:Int,
     @ColumnInfo(name = "date_entry") var date_entry:String,
     @ColumnInfo(name = "date_sold") var date_sold:String,
     @ColumnInfo(name = "date_creation") var dateCreation: String,

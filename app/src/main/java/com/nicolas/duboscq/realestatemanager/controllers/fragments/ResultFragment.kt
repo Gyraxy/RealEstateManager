@@ -54,12 +54,18 @@ class ResultFragment : Fragment() {
             if (!it.isNullOrEmpty()){
                 Log.i("Fragment ResultProperty",it.size.toString())
                 updateProperty(it)
-                viewModel.getAddressList(it)
             }
         })
         viewModel.addressListResult.observe(this, Observer {
             if (!it.isNullOrEmpty()){
                 Log.i("Fragment ResultAddress",it.size.toString())
+                updateAddress(it)
+            }
+        })
+        viewModel.pictureListResult.observe(this, Observer {
+            if (!it.isNullOrEmpty()) {
+                Log.i("Fragment ResultPicture", it.size.toString())
+                updatePicture(it)
             }
         })
     }
@@ -80,12 +86,21 @@ class ResultFragment : Fragment() {
                 Log.i("Property",propertyId.toString())
                 intentDetail.putExtra("id",propertyId)
                 startActivity(intentDetail)
-
             }
     }
 
     private fun updateProperty(proplist: MutableList<Property>) {
         propertylist.addAll(proplist)
+        propertyAdapter.notifyDataSetChanged()
+    }
+
+    private fun updateAddress(addlist: MutableList<Address>) {
+        addresslist.addAll(addlist)
+        propertyAdapter.notifyDataSetChanged()
+    }
+
+    private fun updatePicture(piclist: MutableList<Picture>) {
+        picturelist.addAll(piclist)
         propertyAdapter.notifyDataSetChanged()
     }
 }
