@@ -24,6 +24,6 @@ class PropertyAdapter (private var listProperty : MutableList<Property>,private 
     }
 
     override fun onBindViewHolder(propertyviewholder: PropertyViewHolder, position: Int) {
-        propertyviewholder.updateWithProperty(this.listProperty[position],this.listPicture[position],this.listAddress[position],glide)
+        propertyviewholder.updateWithProperty(this.listProperty,this.listPicture,this.listAddress,glide,position)
     }
 }

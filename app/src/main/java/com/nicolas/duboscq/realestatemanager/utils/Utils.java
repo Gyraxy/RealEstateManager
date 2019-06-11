@@ -47,7 +47,7 @@ public class Utils {
      * @return
      */
     public static String getTodayDateOld(){
-        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
+        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd",Locale.FRANCE);
         return dateFormat.format(new Date());
     }
 
@@ -116,7 +116,7 @@ public class Utils {
     public static Date convertingStringDate(String date) {
 
         Date format_date = null;
-        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy",Locale.FRANCE);
 
         try {
             format_date = format.parse(date);

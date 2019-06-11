@@ -82,9 +82,11 @@ object Injection {
 
     fun provideSearchViewModelFactory(context: Context): SearchViewModelFactory {
         val dataSourceProperty = providePropertyDataSource(context)
+        val dataSourceAddress= provideAddressDataSource(context)
         val executor = provideExecutor()
         return SearchViewModelFactory(
             dataSourceProperty,
+            dataSourceAddress,
             executor
         )
     }

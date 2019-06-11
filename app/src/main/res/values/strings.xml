@@ -95,7 +95,7 @@
     <string name="points_of_interest">Points d\'interêt</string>
     <string name="diag_del_picture_title">Suppression Image</string>
     <string name="diag_del_picture_message">Voulez vous vraiment supprimer cette image ?</string>
-    <string name="ok">ok</string>
+    <string name="ok">OK</string>
     <string name="cancel">Annuler</string>
     <string name="activity_edit_not_enough_info">Des informations sont manquantes. Merci de vérifier de renseigner les
         informations manquantes et d\'insérer au moins une photo.

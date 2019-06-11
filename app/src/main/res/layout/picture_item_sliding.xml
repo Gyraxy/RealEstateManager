@@ -10,7 +10,8 @@
             android:layout_height="fill_parent"
             android:adjustViewBounds="true"
             android:layout_gravity="center"
-            android:scaleType="centerCrop" />
+            android:scaleType="centerCrop"
+            android:contentDescription="@string/none"/>
 
     <TextView
             android:id="@+id/picture_item_sliding_description_txt"

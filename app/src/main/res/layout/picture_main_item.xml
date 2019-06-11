@@ -11,13 +11,15 @@
             android:id="@+id/picture_main_item_image_imv"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:scaleType="centerCrop"/>
+            android:scaleType="centerCrop"
+            android:contentDescription="@string/none"/>
 
     <ImageView
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:src="@drawable/ic_suppress"
-            android:layout_alignEnd="@+id/picture_main_item_image_imv"/>
+            android:layout_alignEnd="@+id/picture_main_item_image_imv"
+            android:contentDescription="@string/none"/>
 
     <TextView
             android:id="@+id/picture_main_item_description_txt"

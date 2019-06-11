@@ -230,7 +230,7 @@ class AddUpdateActivity : AppCompatActivity() {
         val ad = builder.show()
         view.diag_description_btn.setOnClickListener{
             val description = view.diag_description_edt.text.toString()
-            if (description.isNullOrEmpty()){
+            if (description.isEmpty()){
                 Toast.makeText(this,getString(R.string.no_description),Toast.LENGTH_SHORT).show()
             } else {
                 this.viewModel.addPictureLinkToList(picturePath)
@@ -333,12 +333,12 @@ class AddUpdateActivity : AppCompatActivity() {
         })
         AppDatabase.getDatabase(this).pictureDao().getPictureFromPropId(propertyInfo).observe(this, Observer {
             for (i in 0..it.size-1){
-                viewModel._pictureLinkList.add(it[i].pictureLink)
-                viewModel.pictureLinkList.value = viewModel._pictureLinkList
+                viewModel.pictureLinkListVM.add(it[i].pictureLink)
+                viewModel.pictureLinkList.value = viewModel.pictureLinkListVM
             }
             for (i in 0..it.size-1){
-                viewModel._pictureDescriptionList.add(it[i].description)
-                viewModel.pictureDescriptionList.value = viewModel._pictureDescriptionList
+                viewModel.pictureDescriptionListVM.add(it[i].description)
+                viewModel.pictureDescriptionList.value = viewModel.pictureDescriptionListVM
             }
         })
     }

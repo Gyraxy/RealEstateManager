@@ -16,7 +16,7 @@ class PropertyAddUpdateViewModelFactory(
     ViewModelProvider.Factory {
 
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
-        if (modelClass.isAssignableFrom(PropertyAddUpdateViewModel::class.java!!)) {
+        if (modelClass.isAssignableFrom(PropertyAddUpdateViewModel::class.java)) {
             return PropertyAddUpdateViewModel(
                 propertyDataSource,
                 addressDataSource,

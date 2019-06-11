@@ -16,7 +16,7 @@ class PropertyDetailViewModelFactory(
     ViewModelProvider.Factory {
 
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
-        if (modelClass.isAssignableFrom(PropertyDetailViewModel::class.java!!)) {
+        if (modelClass.isAssignableFrom(PropertyDetailViewModel::class.java)) {
             return PropertyDetailViewModel(
                 propertyDataSource,
                 addressDataSource,

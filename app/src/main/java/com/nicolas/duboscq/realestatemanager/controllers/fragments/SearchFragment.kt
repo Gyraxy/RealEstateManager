@@ -29,6 +29,7 @@ import com.nicolas.duboscq.realestatemanager.viewmodels.SearchViewModel
 import kotlinx.android.synthetic.main.fragment_search.*
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.collections.ArrayList
 
 
 class SearchFragment : Fragment() {
@@ -43,7 +44,7 @@ class SearchFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val factory = Injection.provideSearchViewModelFactory(activity!!.applicationContext)
-        viewModel = ViewModelProviders.of(this,factory).get(SearchViewModel::class.java)
+        viewModel = ViewModelProviders.of(activity as SearchResultActivity,factory).get(SearchViewModel::class.java)
         binding = DataBindingUtil.inflate<FragmentSearchBinding>(inflater,R.layout.fragment_search,container,false).apply {
             viewmodel = viewModel
             lifecycleOwner = this@SearchFragment
@@ -61,14 +62,16 @@ class SearchFragment : Fragment() {
             Places.initialize(context as SearchResultActivity, "AIzaSyDE8xBMmrWat5ugUmWhLANHGDui3ngNJjI")
         }
         binding.autocompleteclicklistener = View.OnClickListener { autocompletePlace() }
-        viewModel.listResult.observe(this,androidx.lifecycle.Observer {
+        viewModel.propertyListResult.observe(this,androidx.lifecycle.Observer {
             if (!it.isNullOrEmpty()){
                 Log.i("Fragment Search",it.size.toString())
                 val result : SearchResultActivity = activity as SearchResultActivity
                 result.openResultFragment()
             }
-            else {
-                Toast.makeText(context as SearchResultActivity,getString(R.string.no_result),Toast.LENGTH_SHORT).show()
+        })
+        viewModel.toast.observe(this,androidx.lifecycle.Observer {
+            if (it==true){
+                Toast.makeText(activity!!.applicationContext,getString(R.string.no_result),Toast.LENGTH_SHORT).show()
             }
         })
     }

@@ -23,7 +23,7 @@ class PropertyRepository(private val propertyDao: PropertyDao) {
         return propertyDao.updatePropertyById(prop_id,agent,status,price,surface,room,bedroom,bathroom,description,type,points_interest,dateEntry,dateSold,dateModified)
     }
 
-    fun getPropertyBySearch(query:SupportSQLiteQuery):List<Property>{
+    fun getPropertyBySearch(query:SupportSQLiteQuery):MutableList<Property>{
         return propertyDao.getPropertyBySearch(query)
     }
 }

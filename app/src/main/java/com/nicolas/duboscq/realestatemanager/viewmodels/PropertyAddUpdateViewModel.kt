@@ -30,8 +30,8 @@ class PropertyAddUpdateViewModel (
     var pictureLinkList = MutableLiveData<MutableList<String>>(mutableListOf())
     var pictureDescriptionList = MutableLiveData<MutableList<String>>(mutableListOf())
 
-    var _pictureLinkList: MutableList<String> = mutableListOf()
-    var _pictureDescriptionList: MutableList<String> = mutableListOf()
+    var pictureLinkListVM: MutableList<String> = mutableListOf()
+    var pictureDescriptionListVM: MutableList<String> = mutableListOf()
 
     var toastMissingInfo = MutableLiveData<Boolean>(false)
 
@@ -46,7 +46,7 @@ class PropertyAddUpdateViewModel (
 
                 for (i in 0..pictureLinkList.value!!.size-1){
                     val picture =
-                        Picture(id, pictureLinkList.value!!.get(i), pictureDescriptionList.value!!.get(i), i)
+                        Picture(id, pictureLinkList.value!![i], pictureDescriptionList.value!![i], i)
                     pictureDataSource.createPicture(picture)
                 }
             }
@@ -88,7 +88,7 @@ class PropertyAddUpdateViewModel (
 
                 for (i in 0..pictureLinkList.value!!.size-1){
                     val picture =
-                        Picture(propId.toLong(), pictureLinkList.value!!.get(i), pictureDescriptionList.value!!.get(i), i)
+                        Picture(propId.toLong(), pictureLinkList.value!![i], pictureDescriptionList.value!![i], i)
                     pictureDataSource.createPicture(picture)
                 }
             }
@@ -100,39 +100,39 @@ class PropertyAddUpdateViewModel (
         }
     }
 
-    fun onClearPropertyAddUpdateViewModel(){
+    private fun onClearPropertyAddUpdateViewModel(){
         property.value = Property("","A Vendre",0,0,0,0,0,"","","","","", Utils.getTodayDate()," ")
         address.value = Address(0,"","","","","")
-        _pictureLinkList.clear()
-        _pictureDescriptionList.clear()
-        pictureLinkList.value = _pictureLinkList
-        pictureDescriptionList.value = _pictureDescriptionList
+        pictureLinkListVM.clear()
+        pictureDescriptionListVM.clear()
+        pictureLinkList.value = pictureLinkListVM
+        pictureDescriptionList.value = pictureDescriptionListVM
         picture.value = Picture(0,"","",0)
     }
 
     fun addPictureLinkToList(pictureLink: String){
-        _pictureLinkList.add(pictureLink)
-        pictureLinkList.value = _pictureLinkList
+        pictureLinkListVM.add(pictureLink)
+        pictureLinkList.value = pictureLinkListVM
     }
 
     fun addPictureDescriptionToList(pictureDescription: String){
-        _pictureDescriptionList.add(pictureDescription)
-        pictureDescriptionList.value = _pictureDescriptionList
+        pictureDescriptionListVM.add(pictureDescription)
+        pictureDescriptionList.value = pictureDescriptionListVM
     }
 
     fun removePictureLinkToList(position: Int){
-        _pictureLinkList.removeAt(position)
-        pictureLinkList.value = _pictureLinkList
+        pictureLinkListVM.removeAt(position)
+        pictureLinkList.value = pictureLinkListVM
 
     }
 
     fun removePictureDescriptionToList(position: Int){
-        _pictureDescriptionList.removeAt(position)
-        pictureDescriptionList.value = _pictureDescriptionList
+        pictureDescriptionListVM.removeAt(position)
+        pictureDescriptionList.value = pictureDescriptionListVM
 
     }
 
-    fun canSaveToDataBase():Boolean{
+    private fun canSaveToDataBase():Boolean{
         if (!property.value!!.agent.equals("") &&
             !property.value!!.date_entry.equals("") &&
             !property.value!!.price.equals(0) &&

@@ -23,7 +23,7 @@ class MapDetailActivity : AppCompatActivity() {
     private val detailFragment = DetailFragment()
     private val blankFragment = BlankFragment()
     private lateinit var activity: String
-    private var property_id = 0
+    private var propertyId = 0
     private var propertySold:Boolean = false
 
 
@@ -31,9 +31,9 @@ class MapDetailActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_map_detail)
         activity = intent.extras.getString("activity","none")
-        property_id = intent.extras.getInt("id")
-        if (!property_id.equals(0)&& activity.equals("detail")){
-            AppDatabase.getDatabase(this).propertyDao().getPropertyById(property_id).observe(this, Observer {
+        propertyId = intent.extras.getInt("id")
+        if (propertyId!=0&& activity=="detail"){
+            AppDatabase.getDatabase(this).propertyDao().getPropertyById(propertyId).observe(this, Observer {
                 if(it.status.equals("Vendu")){
                     propertySold = true
                 }
@@ -49,7 +49,7 @@ class MapDetailActivity : AppCompatActivity() {
             "location" -> openFragment(mapFragment)
             "detail" -> {
                 val args = Bundle()
-                args.putInt("property_id",property_id)
+                args.putInt("property_id",propertyId)
                 detailFragment.arguments = args
                 openFragment(detailFragment)
             }
@@ -101,7 +101,7 @@ class MapDetailActivity : AppCompatActivity() {
             R.id.menu_activity_main_modify -> {
                 val editIntent = Intent(this, AddUpdateActivity::class.java)
                 editIntent.putExtra("activity","edit")
-                editIntent.putExtra("propertyId",property_id)
+                editIntent.putExtra("propertyId",propertyId)
                 startActivity(editIntent)
             }
             else -> {

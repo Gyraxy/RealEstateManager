@@ -25,5 +25,5 @@ interface PropertyDao {
     fun deleteAll()
 
     @RawQuery
-    fun getPropertyBySearch(query:SupportSQLiteQuery) : List<Property>
+    fun getPropertyBySearch(query:SupportSQLiteQuery) : MutableList<Property>
 }

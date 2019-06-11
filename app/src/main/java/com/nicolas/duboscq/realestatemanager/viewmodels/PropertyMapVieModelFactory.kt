@@ -14,7 +14,7 @@ class PropertyMapViewModelFactory(
     ViewModelProvider.Factory {
 
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
-        if (modelClass.isAssignableFrom(PropertyMapViewModel::class.java!!)) {
+        if (modelClass.isAssignableFrom(PropertyMapViewModel::class.java)) {
             return PropertyMapViewModel(
                 addressDataSource,
                 pictureDataSource

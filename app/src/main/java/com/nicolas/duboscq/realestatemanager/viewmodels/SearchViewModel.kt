@@ -3,15 +3,18 @@ package com.nicolas.duboscq.realestatemanager.viewmodels
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import androidx.sqlite.db.SimpleSQLiteQuery
+import com.nicolas.duboscq.realestatemanager.models.Address
 import com.nicolas.duboscq.realestatemanager.models.Property
+import com.nicolas.duboscq.realestatemanager.repositories.AddressRepository
 import com.nicolas.duboscq.realestatemanager.repositories.PropertyRepository
-import com.nicolas.duboscq.realestatemanager.utils.Utils
 import java.util.concurrent.Executor
 
 class SearchViewModel(
     private val propertyDataSource: PropertyRepository,
+    private val addressDataSource: AddressRepository,
     private val executor: Executor
 ) : ViewModel(){
 
@@ -34,16 +37,19 @@ class SearchViewModel(
     var dateEntryMax : MutableLiveData<String> = MutableLiveData("")
     var dateSoldMin : MutableLiveData<String> = MutableLiveData("")
     var dateSoldMax : MutableLiveData<String> = MutableLiveData("")
-    val localisation : MutableLiveData<String> = MutableLiveData("")
-    val type: MutableLiveData<String> = MutableLiveData("")
-    val status: MutableLiveData<String> = MutableLiveData("")
+    var localisation : MutableLiveData<String> = MutableLiveData("")
+    var type: MutableLiveData<String> = MutableLiveData("")
+    var status: MutableLiveData<String> = MutableLiveData("")
 
-    var listResult : MutableLiveData<List<Property>> = MutableLiveData(mutableListOf())
+    var toast:MutableLiveData<Boolean> = MutableLiveData(false)
+
+    var propertyListResult : MutableLiveData<MutableList<Property>> = MutableLiveData(mutableListOf())
+    var addressListResult : MutableLiveData<MutableList<Address>> = MutableLiveData(mutableListOf())
 
     fun findProperty(){
 
         query = "Select * FROM Property"
-        args = arrayListOf<Any>()
+        args = arrayListOf()
         var conditions = false
 
         if (!type.value.equals("")) {
@@ -129,14 +135,17 @@ class SearchViewModel(
         }
 
         executor.execute {
-            val querySQL = SimpleSQLiteQuery(query,args.toArray())
-
-            var list = propertyDataSource.getPropertyBySearch(querySQL)
+            val querySQL = SimpleSQLiteQuery(query, args.toArray())
+            val list = propertyDataSource.getPropertyBySearch(querySQL)
             updateSearchlist(list)
         }
     }
 
-    fun updateSearchlist(list:List<Property>){
-        listResult.postValue(list)
+    private fun updateSearchlist(list:MutableList<Property>){
+        propertyListResult.postValue(list)
+    }
+
+    fun getAddressList(list:MutableList<Property>){
+
     }
 }
