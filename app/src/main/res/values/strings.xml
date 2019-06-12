@@ -64,6 +64,8 @@
     <string name="city">Ville</string>
     <string name="country">Pays</string>
     <string name="no_result">"Aucune propriété n'a été trouvée suivant vos critères."</string>
+    <string name="error_value">"Attention l'un des valeurs min est supérieur a la valeur max de recherche."</string>
+    <string name="date_error">"Attention aux dates saisies."</string>
 
     //PROPERTY LIST
     <string name="no_property_found">Aucun Logement présent</string>

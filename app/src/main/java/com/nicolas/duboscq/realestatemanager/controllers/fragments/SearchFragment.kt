@@ -69,9 +69,14 @@ class SearchFragment : Fragment() {
                 result.openResultFragment()
             }
         })
-        viewModel.toast.observe(this,androidx.lifecycle.Observer {
+        viewModel.toastValue.observe(this,androidx.lifecycle.Observer {
             if (it==true){
-                Toast.makeText(activity!!.applicationContext,getString(R.string.no_result),Toast.LENGTH_SHORT).show()
+                Toast.makeText(activity!!.applicationContext,getString(R.string.error_value),Toast.LENGTH_LONG).show()
+            }
+        })
+        viewModel.toastDate.observe(this,androidx.lifecycle.Observer {
+            if (it==true){
+                Toast.makeText(activity!!.applicationContext,getString(R.string.date_error),Toast.LENGTH_LONG).show()
             }
         })
     }
@@ -94,7 +99,7 @@ class SearchFragment : Fragment() {
     //DATE PICKER
     private fun configureDatePicker() {
         activity_search_entry_date_min_edt.setOnClickListener { showDatePicker(activity_search_entry_date_min_edt) }
-        activity_search_entry_date_max_edt.setOnClickListener { showDatePicker(activity_search_entry_date_min_edt) }
+        activity_search_entry_date_max_edt.setOnClickListener { showDatePicker(activity_search_entry_date_max_edt) }
         activity_search_sold_date_min_edt.setOnClickListener { showDatePicker(activity_search_sold_date_min_edt) }
         activity_search_sold_date_max_edt.setOnClickListener { showDatePicker(activity_search_sold_date_max_edt) }
     }

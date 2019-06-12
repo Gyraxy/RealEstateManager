@@ -92,7 +92,12 @@ class AddUpdateActivity : AppCompatActivity() {
         binding.addeditpropertyclicklistener = View.OnClickListener {
             when (currentActivity){
                 "add"-> viewModel.createPropertyandAddress(this)
-                "edit"->viewModel.updatePropertyById(propertyId,this)
+                "edit"->{
+                    viewModel.updatePropertyById(propertyId,this)
+                    add_update_scrollview.fullScroll(ScrollView.FOCUS_UP)
+                    this.finish()
+                }
+
             }
         }
         binding.dateentrypicklistener = View.OnClickListener { showDatePicker(activity_edit_update_entryDate_edt)}
