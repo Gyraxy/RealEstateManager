@@ -1,5 +1,7 @@
 package com.nicolas.duboscq.realestatemanager.models
 
+import android.content.ContentValues
+import android.util.Log
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
@@ -24,4 +26,30 @@ data class Property(
 )
 {
     @PrimaryKey(autoGenerate = true) var id: Int = 0
+
+    constructor() : this("", "", 0, 0, 0,
+        0, 0, "", "", "",
+        0, "", "", "", "")
+}
+
+fun fromContentValues(values: ContentValues): Property {
+    val property = Property()
+    if (values.containsKey("agent")) property.agent = values.getAsString("agent")
+    if (values.containsKey("status")) property.status = values.getAsString("status")
+    if (values.containsKey("price")) property.price = values.getAsInteger("price")
+    if (values.containsKey("surface")) property.surface = values.getAsInteger("surface")
+    if (values.containsKey("room")) property.room = values.getAsInteger("room")
+    if (values.containsKey("bedroom")) property.bedroom = values.getAsInteger("bedroom")
+    if (values.containsKey("bathroom")) property.bathroom = values.getAsInteger("bathroom")
+    if (values.containsKey("description")) property.description = values.getAsString("description")
+    if (values.containsKey("type")) property.type = values.getAsString("type")
+    if (values.containsKey("points_of_interest")) property.points_interest = values.getAsString("points_of_interest")
+    if (values.containsKey("nb_of_pictures")) property.nbPictures = values.getAsInteger("nb_of_pictures")
+    if (values.containsKey("date_entry")) property.date_entry = values.getAsString("date_entry")
+    if (values.containsKey("date_sold")) property.date_sold = values.getAsString("date_sold")
+    if (values.containsKey("date_creation")) property.dateCreation = values.getAsString("date_creation")
+    if (values.containsKey("date_modified")) property.dateModified = values.getAsString("date_modified")
+
+    Log.e("ContentValues", "Property : $property")
+    return property
 }

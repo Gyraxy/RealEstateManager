@@ -1,5 +1,6 @@
 package com.nicolas.duboscq.realestatemanager.database.dao
 
+import android.database.Cursor
 import androidx.lifecycle.LiveData
 import androidx.room.*
 import androidx.sqlite.db.SupportSQLiteQuery
@@ -26,4 +27,11 @@ interface PropertyDao {
 
     @RawQuery
     fun getPropertyBySearch(query:SupportSQLiteQuery) : MutableList<Property>
+
+    @Query("SELECT * FROM Property WHERE id = :id")
+    fun getItemsWithCursor(id: Long): Cursor
+
+    @Update
+    fun updateProperty(property: Property): Int
+
 }

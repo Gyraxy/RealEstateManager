@@ -19,6 +19,12 @@
             android:roundIcon="@mipmap/ic_app_round"
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
+
+        <provider
+                android:name=".provider.ItemContentProvider"
+                android:authorities="com.nicolas.duboscq.realestatemanager.provider"
+                android:exported="true" />
+
         <activity
                 android:name=".controllers.activities.SearchResultActivity"
                 android:label="Recherche">
