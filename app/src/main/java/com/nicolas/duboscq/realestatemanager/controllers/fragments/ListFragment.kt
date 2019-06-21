@@ -22,7 +22,6 @@ import com.nicolas.duboscq.realestatemanager.utils.DividerItemDecoration
 import com.nicolas.duboscq.realestatemanager.utils.ItemClickSupport
 import kotlinx.android.synthetic.main.fragment_property_list.*
 
-
 class ListFragment : androidx.fragment.app.Fragment() {
 
     private lateinit var propertyListViewModel: PropertyListViewModel
@@ -46,12 +45,18 @@ class ListFragment : androidx.fragment.app.Fragment() {
         this.configureRecyclerView()
         this.configureOnClickRecyclerView()
         this.configureViewModel()
+        this.configureSwipeRefreshLayout()
         mode=arguments!!.getString("mode",null)
+    }
+
+    private fun configureSwipeRefreshLayout() {
+        fragment_list_swipe_container.setOnRefreshListener { configureViewModel()}
     }
 
     // VIEW MODEL
 
     private fun configureViewModel(){
+        Log.i("ListFragment","ConfigureViewModel")
         val mViewModelFactory = Injection.provideListViewModelFactory(activity!!.applicationContext)
         this.propertyListViewModel = ViewModelProviders.of(this, mViewModelFactory).get(PropertyListViewModel::class.java)
         this.propertyListViewModel.getProperty().observe(this, Observer {
@@ -75,8 +80,10 @@ class ListFragment : androidx.fragment.app.Fragment() {
         this.propertyListViewModel.getFirstPicture().observe(this, Observer {
             if (it != null) {
                 if (it.isEmpty()) {
+                    fragment_list_swipe_container.isRefreshing = false
                 } else {
                     updatePicture(it)
+                    fragment_list_swipe_container.isRefreshing = false
                 }
             }
         })

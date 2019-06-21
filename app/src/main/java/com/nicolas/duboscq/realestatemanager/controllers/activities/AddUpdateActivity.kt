@@ -95,7 +95,8 @@ class AddUpdateActivity : AppCompatActivity() {
                 "edit"->{
                     viewModel.updatePropertyById(propertyId,this)
                     add_update_scrollview.fullScroll(ScrollView.FOCUS_UP)
-                    this.finish()
+                    val mainActivity = Intent(this,MainActivity::class.java)
+                    startActivity(mainActivity)
                 }
 
             }

@@ -20,6 +20,11 @@
                 android:textSize="@dimen/fragment_empty_recycler_view_txt"
                 app:isGone="@{hasProperty}"/>
 
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+                android:id="@+id/fragment_list_swipe_container"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
         <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/fragment_list_recyclerView"
                 android:layout_width="match_parent"
@@ -28,6 +33,8 @@
                 tools:listitem="@layout/property_list_view"
                 android:scrollbars="vertical"
                 app:isGone="@{!hasProperty}"/>
+
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
     </FrameLayout>
 

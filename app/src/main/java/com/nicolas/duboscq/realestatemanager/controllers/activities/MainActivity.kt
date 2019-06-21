@@ -15,6 +15,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 import pub.devrel.easypermissions.EasyPermissions
 import pub.devrel.easypermissions.PermissionRequest
 import android.Manifest.permission.ACCESS_FINE_LOCATION
+import android.util.Log
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -35,6 +36,7 @@ class MainActivity : AppCompatActivity(), EasyPermissions.PermissionCallbacks{
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        Log.i("MainActivity","On Create")
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         this.configureStetho()
@@ -144,7 +146,7 @@ class MainActivity : AppCompatActivity(), EasyPermissions.PermissionCallbacks{
         fragmentTransaction.commit()
     }
 
-    private fun configureAndShowTablet() {
+    fun configureAndShowTablet() {
         var blankFragment = supportFragmentManager.findFragmentById(R.id.main_activity_frame_layout_detail)
         if (blankFragment == null && main_activity_frame_layout_detail != null) {
             blankFragment = BlankFragment()
