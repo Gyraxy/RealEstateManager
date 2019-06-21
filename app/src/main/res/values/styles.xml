@@ -54,7 +54,6 @@
     <!-- EDIT/UPDATE ACTIVITY -->
     <style name="EditUpdateActivityTextTitle">
         <item name="android:textSize">@dimen/activity_edit_update_txt</item>
-        <item name="android:drawableTint">@color/colorGrey</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_weight">35</item>
@@ -63,10 +62,10 @@
     <style name="EditUpdateActivityLayout">
         <item name="android:layout_height">40dp</item>
         <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_marginTop">5dp</item>
-        <item name="android:layout_marginBottom">5dp</item>
-        <item name="android:layout_marginStart">10dp</item>
-        <item name="android:layout_marginEnd">10dp</item>
+        <item name="android:layout_marginTop">@dimen/activity_edit_update_margin_top</item>
+        <item name="android:layout_marginBottom">@dimen/activity_edit_update_margin_bottom</item>
+        <item name="android:layout_marginStart">@dimen/activity_edit_update_margin_start</item>
+        <item name="android:layout_marginEnd">@dimen/activity_edit_update_margin_end</item>
         <item name="android:gravity">center</item>
         <item name="android:orientation">horizontal</item>
     </style>

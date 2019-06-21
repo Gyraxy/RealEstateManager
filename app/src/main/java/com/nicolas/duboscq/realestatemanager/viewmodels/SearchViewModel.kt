@@ -11,6 +11,7 @@ import com.nicolas.duboscq.realestatemanager.repositories.AddressRepository
 import com.nicolas.duboscq.realestatemanager.repositories.PictureRepository
 import com.nicolas.duboscq.realestatemanager.repositories.PropertyRepository
 import com.nicolas.duboscq.realestatemanager.utils.Utils
+import com.nicolas.duboscq.realestatemanager.utils.toFRDate
 import java.util.concurrent.Executor
 
 class SearchViewModel(
@@ -59,95 +60,119 @@ class SearchViewModel(
                 args = arrayListOf()
 
                 if (!type.value.equals("")) {
-                    query += " AND type = :${type.value}"
+                    query += " AND type = :type"
                     args.add(type.value!!)
                 }
 
                 if (!status.value.equals("")){
-                    query += " AND status = :${status.value}"
+                    query += " AND status = :status"
                     args.add(status.value!!)
                 }
 
                 if (!priceMin.value.equals("")) {
-                    query += " AND price >= :${priceMin.value!!.toInt()}"
+                    query += " AND price >= :priceMin"
                     args.add(priceMin.value!!.toInt())
                     Log.i("PropertyPriceMin", priceMin.value)
                 }
 
                 if (!priceMax.value.equals("")) {
-                    query += " AND price <= :${priceMax.value!!.toInt()}"
+                    query += " AND price <= :priceMax"
                     args.add(priceMax.value!!.toInt())
                     Log.i("PropertyPriceMax", priceMax.value)
                 }
 
                 if (!roomMin.value.equals("")) {
-                    query += " AND room >= :${roomMin.value!!.toInt()}"
+                    query += " AND room >= :roomMin"
                     args.add(roomMin.value!!.toInt())
                     Log.i("PropertyRoomMin", roomMin.value)
                 }
 
                 if (!roomMax.value.equals("")) {
-                    query += " AND room <= :${roomMax.value!!.toInt()}"
+                    query += " AND room <= :roomMax"
                     args.add(roomMax.value!!.toInt())
                     Log.i("PropertyRoomMax", roomMax.value)
                 }
 
                 if (!bedroomMin.value.equals("")) {
-                    query += " AND bedroom >= :${bedroomMin.value!!.toInt()}"
+                    query += " AND bedroom >= :bedroomMin"
                     args.add(bedroomMin.value!!.toInt())
                     Log.i("PropertyBedroomMin", bedroomMin.value)
                 }
 
                 if (!bedroomMax.value.equals("")) {
-                    query += " AND bedroom <= :${bedroomMax.value!!.toInt()}"
+                    query += " AND bedroom <= :bedroomMax"
                     args.add(bedroomMax.value!!.toInt())
                     Log.i("PropertyBedroomMax", bedroomMax.value)
                 }
 
                 if (!bathroomMin.value.equals("")) {
-                    query += " AND bathroom >= :${bathroomMin.value!!.toInt()}"
+                    query += " AND bathroom >= :bathroomMin"
                     args.add(bathroomMin.value!!.toInt())
                     Log.i("PropertyBathroomMin", bathroomMin.value)
                 }
 
                 if (!bathroomMax.value.equals("")) {
-                    query += " AND bathroom <= :${bathroomMax.value!!.toInt()}"
+                    query += " AND bathroom <= :bathroomMax"
                     args.add(bathroomMax.value!!.toInt())
                     Log.i("PropertyBathroomMax", bathroomMax.value)
                 }
 
                 if (!surfaceMin.value.equals("")) {
-                    query += " AND surface >= :${surfaceMin.value!!.toInt()}"
+                    query += " AND surface >= :surfaceMin"
                     args.add(surfaceMin.value!!.toInt())
                     Log.i("PropertySurfaceMin", surfaceMin.value)
                 }
 
                 if (!surfaceMax.value.equals("")) {
-                    query += " AND surface <= :${surfaceMax.value!!.toInt()}"
+                    query += " AND surface <= :surfaceMax"
                     args.add(surfaceMax.value!!.toInt())
                     Log.i("PropertySurfaceMax", surfaceMax.value)
                 }
 
                 if (!pictureMin.value.equals("")) {
-                    query += " AND nb_of_pictures >= :${pictureMin.value!!.toInt()}"
+                    query += " AND nb_of_pictures >= :pictureMin"
                     args.add(pictureMin.value!!.toInt())
                     Log.i("PropertyPictureMin", pictureMin.value)
                 }
 
                 if (!pictureMax.value.equals("")) {
-                    query += " AND p.nb_of_pictures <= :${pictureMax.value!!.toInt()}"
+                    query += " AND p.nb_of_pictures <= :pictureMax"
                     args.add(pictureMax.value!!.toInt())
                     Log.i("PropertyPictureMax", pictureMax.value)
                 }
 
                 if (!pointOfInterest.value.equals("")){
-                    query += " AND p.points_of_interest = :${pointOfInterest.value}"
+                    query += " AND p.points_of_interest = :pointOfInterest"
                     args.add(pointOfInterest.value!!)
                 }
 
                 if (!localisation.value.equals("")){
-                    query += " AND city = :${localisation.value}"
+                    query += " AND city = :localisation"
                     args.add(localisation.value!!)
+                }
+
+                if (!dateEntryMin.value.equals("")){
+                    query += " AND date_entry >= :dateEntryMin"
+                    args.add(dateEntryMin.value!!.toFRDate().time)
+                    Log.i("PropertyDateEntry",dateEntryMin.value)
+                }
+
+                if (!dateEntryMax.value.equals("")){
+                    query += " AND date_entry <= :dateEntryMax"
+                    args.add(dateEntryMax.value!!.toFRDate().time)
+                    Log.i("PropertyDateEntry",dateEntryMax.value)
+                }
+
+                if (!dateSoldMin.value.equals("")){
+                    query += " AND date_entry >= :dateSoldMin"
+                    args.add(dateSoldMin.value!!.toFRDate().time)
+                    Log.i("PropertyDateEntry",dateSoldMin.value)
+                }
+
+                if (!dateSoldMax.value.equals("")){
+                    query += " AND date_entry <= :dateSoldMax"
+                    args.add(dateEntryMax.value!!.toFRDate().time)
+                    Log.i("PropertyDateEntry",dateSoldMax.value)
                 }
 
                 executor.execute {

@@ -34,12 +34,12 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:padding="5dp">
+                    android:padding="@dimen/activity_loan_padding">
 
                 <TableRow
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp">
+                        android:layout_marginTop="@dimen/activity_loan_button_margin_top">
 
                     <TextView
                             android:layout_width="match_parent"
@@ -48,22 +48,21 @@
                             android:textSize="@dimen/activity_loan_title"
                             android:textStyle="bold"
                             android:layout_margin="5dp"
-                            android:drawableStart="@drawable/ic_bank"
-                            android:drawableTint="@color/colorGrey"/>
+                            android:drawableStart="@drawable/ic_bank_grey"/>
                 </TableRow>
 
                 <View
                         android:layout_width="match_parent"
-                        android:layout_marginTop="10dp"
-                        android:layout_height="1dp"
+                        android:layout_marginTop="@dimen/activity_loan_button_margin_top"
+                        android:layout_height="@dimen/activity_edit_update_view_thickness"
                         android:background="@color/colorGrey"/>
 
                 <TableRow
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
+                        android:layout_marginTop="@dimen/activity_loan_margin_top"
                         android:gravity="center"
-                        android:padding="5dp">
+                        android:padding="@dimen/activity_loan_padding">
 
                     <TextView
                             style="@style/LoanActivityTextView"
@@ -78,9 +77,9 @@
                 <TableRow
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
+                        android:layout_marginTop="@dimen/activity_loan_margin_top"
                         android:gravity="center"
-                        android:padding="5dp">
+                        android:padding="@dimen/activity_loan_padding">
 
                     <TextView
                             style="@style/LoanActivityTextView"
@@ -95,9 +94,9 @@
                 <TableRow
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
+                        android:layout_marginTop="@dimen/activity_loan_margin_top"
                         android:gravity="center"
-                        android:padding="5dp">
+                        android:padding="@dimen/activity_loan_padding">
 
                     <TextView
                             style="@style/LoanActivityTextView"
@@ -112,9 +111,9 @@
                 <TableRow
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
+                        android:layout_marginTop="@dimen/activity_loan_margin_top"
                         android:gravity="center"
-                        android:padding="5dp">
+                        android:padding="@dimen/activity_loan_padding">
 
                     <TextView
                             style="@style/LoanActivityTextView"
@@ -141,7 +140,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/activity_loan_button_margin_top"
                         android:gravity="center"
-                        android:padding="5dp"
+                        android:padding="@dimen/activity_loan_padding"
                         app:monthlyCalculated="@{viewmodel.monthlyPayment}">
 
                     <TextView

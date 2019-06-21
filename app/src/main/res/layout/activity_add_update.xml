@@ -80,7 +80,7 @@
                             android:text="@={viewmodel.property.agent}"
                             android:gravity="center"
                             android:layout_width="0dp"
-                            android:layout_height="40dp"
+                            android:layout_height="match_parent"
                             android:textSize="@dimen/activity_edit_update_txt"
                             android:layout_weight="65"
                             android:background="@drawable/search_bg_transp"
@@ -94,7 +94,7 @@
                     <TextView
                             android:text="@string/type"
                             style="@style/EditUpdateActivityTextTitle"
-                            android:drawableStart="@drawable/ic_home"/>
+                            android:drawableStart="@drawable/ic_home_grey"/>
 
                     <TextView
                             android:id="@+id/activity_edit_update_type_sp"
@@ -115,14 +115,14 @@
                     <TextView
                             android:text="@string/price"
                             style="@style/EditUpdateActivityTextTitle"
-                            android:drawableStart="@drawable/ic_money_dark"/>
+                            android:drawableStart="@drawable/ic_money_grey"/>
 
                     <EditText
                             android:id="@+id/activity_edit_update_price_edt"
                             android:text="@={``+viewmodel.property.price}"
                             android:gravity="center"
                             android:layout_width="0dp"
-                            android:layout_height="40dp"
+                            android:layout_height="match_parent"
                             android:textSize="@dimen/activity_edit_update_txt"
                             android:layout_weight="65"
                             android:background="@drawable/search_bg_transp"
@@ -136,13 +136,13 @@
                     <TextView
                             android:text="@string/entry_date"
                             style="@style/EditUpdateActivityTextTitle"
-                            android:drawableStart="@drawable/ic_date"/>
+                            android:drawableStart="@drawable/ic_date_grey"/>
 
                     <EditText
                             android:id="@+id/activity_edit_update_entryDate_edt"
                             android:text="@={viewmodel.property.date_entry}"
                             android:layout_width="0dp"
-                            android:layout_height="40dp"
+                            android:layout_height="match_parent"
                             android:layout_weight="65"
                             android:gravity="center"
                             android:textSize="@dimen/activity_edit_update_txt"
@@ -160,13 +160,13 @@
                     <TextView
                             android:text="@string/sold_date"
                             style="@style/EditUpdateActivityTextTitle"
-                            android:drawableStart="@drawable/ic_date"/>
+                            android:drawableStart="@drawable/ic_date_grey"/>
 
                     <EditText
                             android:id="@+id/activity_edit_update_soldDate_edt"
                             android:text="@={viewmodel.property.date_sold}"
                             android:layout_width="0dp"
-                            android:layout_height="40dp"
+                            android:layout_height="match_parent"
                             android:layout_weight="65"
                             android:gravity="center"
                             android:textSize="@dimen/activity_edit_update_txt"
@@ -181,7 +181,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
                         android:background="@color/colorAccent"
-                        android:layout_margin="10dp"/>
+                        android:layout_margin="@dimen/activity_edit_update_margin"/>
 
                 <LinearLayout
                         android:layout_height="wrap_content"
@@ -345,16 +345,16 @@
 
                 <View
                         android:layout_width="match_parent"
-                        android:layout_height="1dp"
+                        android:layout_height="@dimen/activity_edit_update_view_thickness"
                         android:background="@color/colorAccent"
-                        android:layout_margin="10dp"/>
+                        android:layout_margin="@dimen/activity_edit_update_margin"/>
 
                 <LinearLayout
                         android:layout_height="wrap_content"
                         android:layout_width="match_parent"
                         android:gravity="center"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginEnd="10dp"
+                        android:layout_marginStart="@dimen/activity_edit_update_margin_start"
+                        android:layout_marginEnd="@dimen/activity_edit_update_margin_end"
                         android:orientation="vertical">
 
                     <TextView
@@ -369,13 +369,13 @@
                     <TableRow
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="10dp">
+                            android:layout_marginTop="@dimen/activity_edit_update_margin_top">
 
                         <EditText
                                 android:id="@+id/activity_edit_update_street_nb_edt"
                                 android:text="@={viewmodel.address.streetNumber}"
                                 android:hint="@string/street_nb"
-                                android:layout_height="40dp"
+                                android:layout_height="@dimen/activity_edit_update_height_edt"
                                 android:textSize="@dimen/activity_edit_update_txt"
                                 android:layout_width="0dp"
                                 android:layout_weight="35"
@@ -386,7 +386,7 @@
                                 android:id="@+id/activity_edit_update_street_name_edt"
                                 android:text="@={viewmodel.address.streetName}"
                                 android:hint="@string/street_name"
-                                android:layout_height="40dp"
+                                android:layout_height="@dimen/activity_edit_update_height_edt"
                                 android:textSize="@dimen/activity_edit_update_txt"
                                 android:layout_width="0dp"
                                 android:layout_weight="65"
@@ -397,13 +397,13 @@
                     <TableRow
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="10dp">
+                            android:layout_marginTop="@dimen/activity_edit_update_margin_top">
 
                         <EditText
                                 android:id="@+id/activity_edit_update_zipcode_edt"
                                 android:text="@={viewmodel.address.zipcode}"
                                 android:hint="@string/zipcode"
-                                android:layout_height="40dp"
+                                android:layout_height="@dimen/activity_edit_update_height_edt"
                                 android:textSize="@dimen/activity_edit_update_txt"
                                 android:layout_width="0dp"
                                 android:layout_weight="35"
@@ -414,7 +414,7 @@
                                 android:id="@+id/activity_edit_update_city_edt"
                                 android:text="@={viewmodel.address.city}"
                                 android:hint="@string/city"
-                                android:layout_height="40dp"
+                                android:layout_height="@dimen/activity_edit_update_height_edt"
                                 android:textSize="@dimen/activity_edit_update_txt"
                                 android:layout_width="0dp"
                                 android:layout_weight="65"
@@ -426,7 +426,7 @@
                             android:id="@+id/activity_edit_update_country_edt"
                             android:text="@={viewmodel.address.country}"
                             android:hint="@string/country"
-                            android:layout_height="40dp"
+                            android:layout_height="@dimen/activity_edit_update_height_edt"
                             android:textSize="@dimen/activity_edit_update_txt"
                             android:layout_width="wrap_content"
                             android:gravity="center"
@@ -439,14 +439,14 @@
 
                         <TextView
                                 android:hint="@string/points_of_interest"
-                                android:layout_height="40dp"
+                                android:layout_height="@dimen/activity_edit_update_height_edt"
                                 android:textSize="@dimen/activity_edit_update_txt"
                                 android:layout_width="0dp"
                                 android:layout_weight="35"/>
 
                         <EditText
                                 android:id="@+id/activity_edit_update_pointinterest_edt"
-                                android:layout_height="40dp"
+                                android:layout_height="@dimen/activity_edit_update_height_edt"
                                 android:text="@={viewmodel.property.points_interest}"
                                 android:textSize="@dimen/activity_edit_update_txt"
                                 android:layout_width="0dp"
@@ -460,9 +460,9 @@
 
                 <View
                         android:layout_width="match_parent"
-                        android:layout_height="1dp"
+                        android:layout_height="@dimen/activity_edit_update_view_thickness"
                         android:background="@color/colorAccent"
-                        android:layout_margin="10dp"/>
+                        android:layout_margin="@dimen/activity_edit_update_margin"/>
 
                 <TableRow
                         android:layout_width="match_parent"
@@ -494,9 +494,9 @@
 
                     <View
                             android:layout_width="match_parent"
-                            android:layout_height="1dp"
+                            android:layout_height="@dimen/activity_edit_update_view_thickness"
                             android:background="@color/colorAccent"
-                            android:layout_margin="10dp"/>
+                            android:layout_margin="@dimen/activity_edit_update_margin"/>
 
                     <TextView
                             android:text="@string/picture"
@@ -506,8 +506,8 @@
                             android:drawableStart="@drawable/ic_photo"
                             android:gravity="center_vertical"
                             android:textSize="@dimen/activity_edit_update_txt"
-                            android:layout_marginStart="10dp"
-                            android:layout_marginEnd="10dp"/>
+                            android:layout_marginStart="@dimen/activity_edit_update_margin_start"
+                            android:layout_marginEnd="@dimen/activity_edit_update_margin_end"/>
 
                     <androidx.recyclerview.widget.RecyclerView
                             android:id="@+id/activity_edit_update_recyclerView"
@@ -524,14 +524,14 @@
 
                 <View
                         android:layout_width="match_parent"
-                        android:layout_height="1dp"
+                        android:layout_height="@dimen/activity_edit_update_view_thickness"
                         android:background="@color/colorAccent"
-                        android:layout_margin="10dp"/>
+                        android:layout_margin="@dimen/activity_edit_update_margin"/>
 
                 <TableLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_margin="10dp">
+                        android:layout_margin="@dimen/activity_edit_update_margin">
 
                     <TableRow>
 

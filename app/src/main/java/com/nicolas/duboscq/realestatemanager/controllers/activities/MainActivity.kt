@@ -68,9 +68,13 @@ class MainActivity : AppCompatActivity(), EasyPermissions.PermissionCallbacks{
                 startActivity(searchIntent)
             }
             R.id.menu_activity_main_position -> {
-                val positionIntent = Intent(this, MapDetailActivity::class.java)
-                positionIntent.putExtra("activity","location")
-                startActivity(positionIntent)
+                if (Utils.isInternetAvailable(this)){
+                    val positionIntent = Intent(this, MapDetailActivity::class.java)
+                    positionIntent.putExtra("activity","location")
+                    startActivity(positionIntent)
+                } else {
+                    Toast.makeText(this,getString(R.string.no_internet),Toast.LENGTH_SHORT).show()
+                }
             }
             R.id.menu_activity_main_add -> {
                 val addIntent = Intent(this, AddUpdateActivity::class.java)

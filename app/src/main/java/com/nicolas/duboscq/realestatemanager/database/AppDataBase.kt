@@ -22,18 +22,31 @@ abstract class AppDatabase : RoomDatabase() {
     companion object {
 
         @Volatile private var INSTANCE: AppDatabase? = null
+        var TEST_MODE = false
 
         fun getDatabase(context: Context): AppDatabase {
             return INSTANCE ?: synchronized(this){
-                val instance = Room.databaseBuilder(
-                    context.applicationContext,
-                    AppDatabase::class.java,
-                    DATABASE_NAME
-                )
-                    .fallbackToDestructiveMigration()
-                    .build()
-                INSTANCE = instance
-                instance
+                if (TEST_MODE){
+                    val instance = Room.inMemoryDatabaseBuilder(
+                        context.applicationContext,
+                        AppDatabase::class.java
+                    )
+                        .allowMainThreadQueries()
+                        .build()
+                    INSTANCE = instance
+                    instance
+                } else {
+                    val instance = Room.databaseBuilder(
+                        context.applicationContext,
+                        AppDatabase::class.java,
+                        DATABASE_NAME
+                    )
+                        .fallbackToDestructiveMigration()
+                        .build()
+                    INSTANCE = instance
+                    instance
+                }
+
             }
         }
     }

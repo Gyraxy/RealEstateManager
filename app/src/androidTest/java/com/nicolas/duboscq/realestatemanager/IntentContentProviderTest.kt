@@ -25,6 +25,7 @@ class ItemContentProviderTest {
     // DATA SET FOR TEST
     @Before
     fun setUp() {
+        AppDatabase.TEST_MODE=true
         Room.inMemoryDatabaseBuilder(
             InstrumentationRegistry.getContext(),
             AppDatabase::class.java)
