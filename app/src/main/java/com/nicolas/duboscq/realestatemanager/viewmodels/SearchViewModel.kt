@@ -48,6 +48,8 @@ class SearchViewModel(
     var toastValue:MutableLiveData<Boolean> = MutableLiveData(false)
     var toastDate:MutableLiveData<Boolean> = MutableLiveData(false)
 
+    var message:MutableLiveData<String> = MutableLiveData("")
+
     var propertyListResult : MutableLiveData<MutableList<Property>> = MutableLiveData(mutableListOf())
     var addressListResult : MutableLiveData<MutableList<Address>> = MutableLiveData(mutableListOf())
     var pictureListResult : MutableLiveData<MutableList<Picture>> = MutableLiveData(mutableListOf())
@@ -171,7 +173,7 @@ class SearchViewModel(
 
                 if (!dateSoldMax.value.equals("")){
                     query += " AND date_entry <= :dateSoldMax"
-                    args.add(dateEntryMax.value!!.toFRDate().time)
+                    args.add(dateSoldMax.value!!.toFRDate().time)
                     Log.i("PropertyDateEntry",dateSoldMax.value)
                 }
 
@@ -183,6 +185,7 @@ class SearchViewModel(
                         updateAddressSearchList(listAddress)
                         val listPicture = pictureDataSource.getPictureBySearch(querySQL)
                         updatePictureSearchList(listPicture)
+                        updateMessage(listProperty)
                     }
                 }
             else {
@@ -190,7 +193,6 @@ class SearchViewModel(
                 toastDate.value = false
             }
         }
-
         else {
             toastValue.value = true
             toastValue.value = false
@@ -207,6 +209,12 @@ class SearchViewModel(
 
     private fun updatePictureSearchList(list:MutableList<Picture>){
         pictureListResult.postValue(list)
+    }
+
+    private fun updateMessage(list:MutableList<Property>){
+        if (list.isEmpty()){
+            message.postValue("empty")
+        }
     }
 
     private fun checkMinMaxValue():Boolean{

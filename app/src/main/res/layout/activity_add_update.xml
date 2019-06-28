@@ -140,7 +140,7 @@
 
                     <EditText
                             android:id="@+id/activity_edit_update_entryDate_edt"
-                            android:text="@={viewmodel.property.date_entry}"
+                            app:date="@={viewmodel.property.date_entry}"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:layout_weight="65"
@@ -164,7 +164,7 @@
 
                     <EditText
                             android:id="@+id/activity_edit_update_soldDate_edt"
-                            android:text="@={viewmodel.property.date_sold}"
+                            app:date="@={viewmodel.property.date_sold}"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:layout_weight="65"

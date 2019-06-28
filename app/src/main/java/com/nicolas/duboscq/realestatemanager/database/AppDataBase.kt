@@ -4,6 +4,7 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import android.content.Context
+import androidx.room.TypeConverters
 import com.nicolas.duboscq.realestatemanager.database.dao.AddressDao
 import com.nicolas.duboscq.realestatemanager.database.dao.PictureDao
 import com.nicolas.duboscq.realestatemanager.database.dao.PropertyDao
@@ -13,6 +14,7 @@ import com.nicolas.duboscq.realestatemanager.models.Property
 import com.nicolas.duboscq.realestatemanager.utils.DATABASE_NAME
 
 @Database(entities = [(Property::class),(Address::class),(Picture::class)], version = 1)
+@TypeConverters(Converters::class)
 abstract class AppDatabase : RoomDatabase() {
 
     abstract fun propertyDao(): PropertyDao

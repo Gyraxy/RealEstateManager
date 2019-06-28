@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.room.*
 import androidx.sqlite.db.SupportSQLiteQuery
 import com.nicolas.duboscq.realestatemanager.models.Property
+import java.util.*
 
 
 @Dao
@@ -20,7 +21,7 @@ interface PropertyDao {
     fun insert(property: Property) : Long
 
     @Query("UPDATE property SET agent= :agent,status= :status,price= :price,surface= :surface,room= :room,bedroom= :bedroom,bathroom= :bathroom,description= :description,type= :type,points_of_interest= :points_interest,nb_of_pictures= :nbPictures,date_entry= :dateEntry,date_sold= :dateSold,date_modified= :dateModified WHERE property.id = :prop_id")
-    fun updatePropertyById(prop_id:Int,agent: String,status: String,price: Int, surface:Int,room: Int,bedroom:Int,bathroom: Int,description:String,type:String,points_interest:String,nbPictures:Int,dateEntry:String,dateSold:String,dateModified:String)
+    fun updatePropertyById(prop_id:Int, agent: String, status: String, price: Int, surface:Int, room: Int, bedroom:Int, bathroom: Int, description:String, type:String, points_interest:String, nbPictures:Int, dateEntry: Date, dateSold:Date?, dateModified:String)
 
     @Query("DELETE FROM property")
     fun deleteAll()

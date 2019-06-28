@@ -10,6 +10,7 @@ import android.net.Uri
 import android.os.Bundle
 import android.os.Environment
 import android.provider.MediaStore
+import android.util.Log
 import android.view.Menu
 import android.view.View
 import android.widget.*
@@ -26,6 +27,7 @@ import com.nicolas.duboscq.realestatemanager.databinding.ActivityAddUpdateBindin
 import com.nicolas.duboscq.realestatemanager.utils.Injection
 import com.nicolas.duboscq.realestatemanager.utils.ItemClickSupport
 import com.nicolas.duboscq.realestatemanager.utils.Utils
+import com.nicolas.duboscq.realestatemanager.utils.toFRDate
 import com.nicolas.duboscq.realestatemanager.viewmodels.PropertyAddUpdateViewModel
 import kotlinx.android.synthetic.main.activity_add_update.*
 import kotlinx.android.synthetic.main.activity_add_update.toolbar
@@ -93,6 +95,7 @@ class AddUpdateActivity : AppCompatActivity() {
             when (currentActivity){
                 "add"-> viewModel.createPropertyandAddress(this)
                 "edit"->{
+                    Log.i("Edit",viewModel.property.value?.date_sold.toString())
                     viewModel.updatePropertyById(propertyId,this)
                     add_update_scrollview.fullScroll(ScrollView.FOCUS_UP)
                     val mainActivity = Intent(this,MainActivity::class.java)
@@ -163,6 +166,7 @@ class AddUpdateActivity : AppCompatActivity() {
         val mDay = c.get(Calendar.DAY_OF_MONTH)
         val dpd = DatePickerDialog(this, DatePickerDialog.OnDateSetListener { _, year, monthOfYear, dayOfMonth ->
             val date = sdf.format(Date(year - 1900, monthOfYear, dayOfMonth))
+            val Date = date.toFRDate()
             idRDateEditText.text = date
         }, mYear, mMonth, mDay)
         dpd.show()

@@ -115,7 +115,7 @@
 
                         <TextView
                                 android:id="@+id/fragment_detail_create_status_txtv"
-                                android:text="@{viewmodel.property.date_entry}"
+                                app:showDate="@{viewmodel.property.date_entry}"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:textColor="@color/colorBlack"
@@ -149,13 +149,14 @@
 
                         <TextView
                                 android:id="@+id/fragment_detail_modify_status_txtv"
-                                android:text="@{viewmodel.property.date_sold}"
+                                app:showDate="@{viewmodel.property.date_sold}"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:textColor="@color/colorBlack"
                                 android:layout_marginStart="5dp"
                                 android:gravity="end"
                                 android:textSize="12sp"/>
+
                     </TableRow>
 
                 </TableLayout>

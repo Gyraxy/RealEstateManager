@@ -31,7 +31,7 @@ class PropertyViewHolder(itemView: View) : androidx.recyclerview.widget.Recycler
         }
 
         // SHOW BANNER SOLD IF PROPERTY SOLD STATUS
-        if (listProperty[position].date_sold==""){
+        if (listProperty[position].date_sold==null){
             itemView.activity_list_soldbanner_txt.visibility = View.GONE
         }
     }

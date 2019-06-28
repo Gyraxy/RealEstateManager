@@ -9,6 +9,7 @@ import kotlinx.android.synthetic.main.fragment_detail.*
 import android.content.Intent
 import android.net.Uri
 import android.os.Handler
+import android.util.Log
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProviders
@@ -78,6 +79,10 @@ class DetailFragment : androidx.fragment.app.Fragment() {
                 Toast.makeText(activity!!.applicationContext,getString(R.string.no_internet),Toast.LENGTH_SHORT).show()
             }
         }
+
+        viewModel.getPropertyByPropId().observe(this,androidx.lifecycle.Observer {
+            Log.i("Property",it.date_entry.toString())
+        })
     }
 
     // VIEWPAGER

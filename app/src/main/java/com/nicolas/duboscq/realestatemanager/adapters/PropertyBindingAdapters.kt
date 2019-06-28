@@ -4,6 +4,7 @@ import android.view.View
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import com.nicolas.duboscq.realestatemanager.models.Address
+import java.util.*
 
 @BindingAdapter("isGone")
 fun bindIsGone(view: View, isGone: Boolean) {
@@ -39,8 +40,8 @@ fun dateSold (view: View, dateModified:String) {
 }
 
 @BindingAdapter("app:soldBanner")
-fun soldBanner (view: View, dateSold:String? =null) {
-    view.visibility = if (dateSold=="") {
+fun soldBanner (view: View, dateSold: Date? =null) {
+    view.visibility = if (dateSold==null) {
         View.GONE
     } else {
         View.VISIBLE

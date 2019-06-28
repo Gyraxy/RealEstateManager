@@ -5,6 +5,8 @@ import android.util.Log
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.nicolas.duboscq.realestatemanager.utils.toFRDate
+import java.util.*
 
 @Entity
 data class Property(
@@ -19,8 +21,8 @@ data class Property(
     @ColumnInfo(name = "type") var type: String,
     @ColumnInfo(name = "points_of_interest") var points_interest: String,
     @ColumnInfo(name = "nb_of_pictures") var nbPictures:Int,
-    @ColumnInfo(name = "date_entry") var date_entry:String,
-    @ColumnInfo(name = "date_sold") var date_sold:String,
+    @ColumnInfo(name = "date_entry") var date_entry: Date,
+    @ColumnInfo(name = "date_sold") var date_sold:Date?,
     @ColumnInfo(name = "date_creation") var dateCreation: String,
     @ColumnInfo(name = "date_modified") var dateModified: String
 )
@@ -29,7 +31,7 @@ data class Property(
 
     constructor() : this("", "", 0, 0, 0,
         0, 0, "", "", "",
-        0, "", "", "", "")
+        0, Date(), null, "", "")
 }
 
 fun fromContentValues(values: ContentValues): Property {
@@ -45,8 +47,8 @@ fun fromContentValues(values: ContentValues): Property {
     if (values.containsKey("type")) property.type = values.getAsString("type")
     if (values.containsKey("points_of_interest")) property.points_interest = values.getAsString("points_of_interest")
     if (values.containsKey("nb_of_pictures")) property.nbPictures = values.getAsInteger("nb_of_pictures")
-    if (values.containsKey("date_entry")) property.date_entry = values.getAsString("date_entry")
-    if (values.containsKey("date_sold")) property.date_sold = values.getAsString("date_sold")
+    if (values.containsKey("date_entry")) property.date_entry = values.getAsString("date_entry").toFRDate()
+    if (values.containsKey("date_sold")) property.date_sold = values.getAsString("date_sold").toFRDate()
     if (values.containsKey("date_creation")) property.dateCreation = values.getAsString("date_creation")
     if (values.containsKey("date_modified")) property.dateModified = values.getAsString("date_modified")
 

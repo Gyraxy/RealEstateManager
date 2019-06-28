@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.sqlite.db.SupportSQLiteQuery
 import com.nicolas.duboscq.realestatemanager.database.dao.PropertyDao
 import com.nicolas.duboscq.realestatemanager.models.Property
+import java.util.*
 
 class PropertyRepository(private val propertyDao: PropertyDao) {
 
@@ -19,7 +20,7 @@ class PropertyRepository(private val propertyDao: PropertyDao) {
         return propertyDao.getPropertyById(prop_id)
     }
 
-    fun updatePropertyById(prop_id:Int,agent:String, status: String,price: Int, surface:Int,room: Int,bedroom:Int,bathroom: Int,description:String,type:String,points_interest:String,nbPictures:Int,dateEntry:String,dateSold:String,dateModified:String){
+    fun updatePropertyById(prop_id:Int, agent:String, status: String, price: Int, surface:Int, room: Int, bedroom:Int, bathroom: Int, description:String, type:String, points_interest:String, nbPictures:Int, dateEntry: Date, dateSold:Date?, dateModified:String){
         return propertyDao.updatePropertyById(prop_id,agent,status,price,surface,room,bedroom,bathroom,description,type,points_interest,nbPictures,dateEntry,dateSold,dateModified)
     }
 

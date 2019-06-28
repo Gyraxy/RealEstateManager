@@ -15,6 +15,9 @@ import java.util.concurrent.Executor
 import android.widget.AdapterView
 import com.nicolas.duboscq.realestatemanager.utils.Notifications
 import com.nicolas.duboscq.realestatemanager.utils.Utils
+import java.text.SimpleDateFormat
+import java.time.format.DateTimeFormatter
+import java.util.*
 
 class PropertyAddUpdateViewModel (
     private val propertyDataSource: PropertyRepository,
@@ -23,7 +26,8 @@ class PropertyAddUpdateViewModel (
     private val executor: Executor
 ): ViewModel() {
 
-    var property = MutableLiveData<Property>(Property("","A Vendre",0,0,0,0,0,"","","",0,"","", Utils.getTodayDate()," "))
+    var property = MutableLiveData<Property>(Property("","A Vendre",0,0,0,0,0,"","","",0,
+        Date(),null, Utils.getTodayDate()," "))
     var address = MutableLiveData<Address>(Address(0,"","","","",""))
     var picture = MutableLiveData<Picture>(Picture(0,"","",0))
 
@@ -63,9 +67,9 @@ class PropertyAddUpdateViewModel (
     fun updatePropertyById(propId:Int,context: Context){
         if (canSaveToDataBase()){
             executor.execute {
-                if (!property.value!!.date_sold.equals("")){
+                if (property.value!!.date_sold != null) {
                     property.value!!.status = "Vendu"
-                }
+                    }
                 propertyDataSource.updatePropertyById(propId,
                     property.value!!.agent,
                     property.value!!.status,
@@ -103,7 +107,7 @@ class PropertyAddUpdateViewModel (
     }
 
     private fun onClearPropertyAddUpdateViewModel(){
-        property.value = Property("","A Vendre",0,0,0,0,0,"","","",0,"","", Utils.getTodayDate()," ")
+        property.value = Property("","A Vendre",0,0,0,0,0,"","","",0,Date(),null, Utils.getTodayDate()," ")
         address.value = Address(0,"","","","","")
         pictureLinkListVM.clear()
         pictureDescriptionListVM.clear()
@@ -135,26 +139,21 @@ class PropertyAddUpdateViewModel (
     }
 
     private fun canSaveToDataBase():Boolean{
-        if (!property.value!!.agent.equals("") &&
-            !property.value!!.date_entry.equals("") &&
-            !property.value!!.price.equals(0) &&
-            !property.value!!.surface.equals(0) &&
-            !property.value!!.room.equals(0) &&
-            !property.value!!.bedroom.equals(0) &&
-            !property.value!!.bathroom.equals(0) &&
-            !property.value!!.description.equals("") &&
-            !property.value!!.type.equals("")&&
-            !property.value!!.points_interest.equals("")&&
-            !pictureLinkList.value!!.size.equals(0) &&
-            !pictureDescriptionList.value!!.size.equals(0) &&
-            !address.value!!.city.equals("") &&
-            !address.value!!.zipcode.equals("") &&
-            !address.value!!.streetName.equals("") &&
-            !address.value!!.streetNumber.equals("") &&
-            !address.value!!.country.equals(""))
-        {
-            return true
-        }
-        else return false
+        return !property.value!!.agent.equals("") &&
+                !property.value!!.price.equals(0) &&
+                !property.value!!.surface.equals(0) &&
+                !property.value!!.room.equals(0) &&
+                !property.value!!.bedroom.equals(0) &&
+                !property.value!!.bathroom.equals(0) &&
+                !property.value!!.description.equals("") &&
+                !property.value!!.type.equals("")&&
+                !property.value!!.points_interest.equals("")&&
+                !pictureLinkList.value!!.size.equals(0) &&
+                !pictureDescriptionList.value!!.size.equals(0) &&
+                !address.value!!.city.equals("") &&
+                !address.value!!.zipcode.equals("") &&
+                !address.value!!.streetName.equals("") &&
+                !address.value!!.streetNumber.equals("") &&
+                !address.value!!.country.equals("")
     }
 }

@@ -79,6 +79,11 @@ class SearchFragment : Fragment() {
                 Toast.makeText(activity!!.applicationContext,getString(R.string.date_error),Toast.LENGTH_LONG).show()
             }
         })
+        viewModel.message.observe(this,androidx.lifecycle.Observer {
+            if(it=="empty"){
+                Toast.makeText(context as SearchResultActivity,getString(R.string.no_result),Toast.LENGTH_LONG).show()
+            }
+        })
     }
 
     //SPINNER CONFIGURATION
