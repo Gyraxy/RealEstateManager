@@ -13,7 +13,7 @@ class PropertyViewHolder(itemView: View) : androidx.recyclerview.widget.Recycler
 
         // SHOW PROPERTY INFO
         itemView.property_listview_type_txt.text = listProperty[position].type
-        val priceEuro = listProperty[position].price.toString()+" €"
+        val priceEuro = listProperty[position].price.toString()+" $"
         itemView.property_listview_price_txt.text = priceEuro
         val ref = "Ref: "+listProperty[position].id.toString()
         itemView.property_listview_ref_txt.text = ref

@@ -10,8 +10,7 @@ import com.nicolas.duboscq.realestatemanager.models.Property
 import com.nicolas.duboscq.realestatemanager.repositories.AddressRepository
 import com.nicolas.duboscq.realestatemanager.repositories.PictureRepository
 import com.nicolas.duboscq.realestatemanager.repositories.PropertyRepository
-import com.nicolas.duboscq.realestatemanager.utils.Utils
-import com.nicolas.duboscq.realestatemanager.utils.toFRDate
+import java.util.*
 import java.util.concurrent.Executor
 
 class SearchViewModel(
@@ -21,9 +20,12 @@ class SearchViewModel(
     private val executor: Executor
 ) : ViewModel(){
 
+    //Query for SQLLite Query
     private var query = "Select * FROM Property"
+    //Argument for SQLLite Query
     private var args = arrayListOf<Any>()
 
+    //Search Values
     var priceMin : MutableLiveData<String> = MutableLiveData("")
     var priceMax : MutableLiveData<String> = MutableLiveData("")
     var roomMin : MutableLiveData<String> = MutableLiveData("")
@@ -36,28 +38,32 @@ class SearchViewModel(
     var bedroomMax : MutableLiveData<String> = MutableLiveData("")
     var pictureMin : MutableLiveData<String> = MutableLiveData("")
     var pictureMax : MutableLiveData<String> = MutableLiveData("")
-    var dateEntryMin : MutableLiveData<String> = MutableLiveData("")
-    var dateEntryMax : MutableLiveData<String> = MutableLiveData("")
-    var dateSoldMin : MutableLiveData<String> = MutableLiveData("")
-    var dateSoldMax : MutableLiveData<String> = MutableLiveData("")
+    var dateEntryMin : MutableLiveData<Date?> = MutableLiveData(null)
+    var dateEntryMax : MutableLiveData<Date?> = MutableLiveData(null)
+    var dateSoldMin : MutableLiveData<Date?> = MutableLiveData(null)
+    var dateSoldMax : MutableLiveData<Date?> = MutableLiveData(null)
     var localisation : MutableLiveData<String> = MutableLiveData("")
     var type: MutableLiveData<String> = MutableLiveData("")
     var status: MutableLiveData<String> = MutableLiveData("")
     var pointOfInterest: MutableLiveData<String> = MutableLiveData("")
 
+    //Toast value to show toast if Date not well taken or ValueMin>ValueMax
     var toastValue:MutableLiveData<Boolean> = MutableLiveData(false)
     var toastDate:MutableLiveData<Boolean> = MutableLiveData(false)
 
+    //For Toast No Search Resul found
     var message:MutableLiveData<String> = MutableLiveData("")
 
+    //Property,Address,Picture Result
     var propertyListResult : MutableLiveData<MutableList<Property>> = MutableLiveData(mutableListOf())
     var addressListResult : MutableLiveData<MutableList<Address>> = MutableLiveData(mutableListOf())
     var pictureListResult : MutableLiveData<MutableList<Picture>> = MutableLiveData(mutableListOf())
 
+    //Method to find Property according to Search Arguments
     fun findProperty(){
 
-        if (checkMinMaxValue()){
-            if (checkDateMinDateMax()) {
+        if (checkMinValueLowerMaxValue()){
+            if (checkDateMinBeforeDateMax()) {
                 query = "Select * FROM Address a JOIN Picture pi ON (a.property_id = pi.property_id) JOIN Property p ON (a.property_id=p.id) WHERE picture_property_number=0"
                 args = arrayListOf()
 
@@ -153,28 +159,28 @@ class SearchViewModel(
                     args.add(localisation.value!!)
                 }
 
-                if (!dateEntryMin.value.equals("")){
+                if (dateEntryMin.value != null){
                     query += " AND date_entry >= :dateEntryMin"
-                    args.add(dateEntryMin.value!!.toFRDate().time)
-                    Log.i("PropertyDateEntry",dateEntryMin.value)
+                    args.add(dateEntryMin.value!!.time)
+                    Log.i("PropertyDateEntry",dateEntryMin.value.toString())
                 }
 
-                if (!dateEntryMax.value.equals("")){
+                if (dateEntryMax.value != null){
                     query += " AND date_entry <= :dateEntryMax"
-                    args.add(dateEntryMax.value!!.toFRDate().time)
-                    Log.i("PropertyDateEntry",dateEntryMax.value)
+                    args.add(dateEntryMax.value!!.time)
+                    Log.i("PropertyDateEntry",dateEntryMax.value.toString())
                 }
 
-                if (!dateSoldMin.value.equals("")){
+                if (dateSoldMin.value != null){
                     query += " AND date_entry >= :dateSoldMin"
-                    args.add(dateSoldMin.value!!.toFRDate().time)
-                    Log.i("PropertyDateEntry",dateSoldMin.value)
+                    args.add(dateSoldMin.value!!.time)
+                    Log.i("PropertyDateEntry",dateSoldMin.value.toString())
                 }
 
-                if (!dateSoldMax.value.equals("")){
+                if (dateSoldMax.value != null){
                     query += " AND date_entry <= :dateSoldMax"
-                    args.add(dateSoldMax.value!!.toFRDate().time)
-                    Log.i("PropertyDateEntry",dateSoldMax.value)
+                    args.add(dateSoldMax.value!!.time)
+                    Log.i("PropertyDateEntry",dateSoldMax.value.toString())
                 }
 
                 executor.execute {
@@ -199,6 +205,7 @@ class SearchViewModel(
         }
     }
 
+    //Methods to update PropertyList/AddressList & PictureList
     private fun updatePropertySearchlist(list:MutableList<Property>){
         propertyListResult.postValue(list)
     }
@@ -211,13 +218,15 @@ class SearchViewModel(
         pictureListResult.postValue(list)
     }
 
+    //Method to show Message if no result found
     private fun updateMessage(list:MutableList<Property>){
         if (list.isEmpty()){
             message.postValue("empty")
         }
     }
 
-    private fun checkMinMaxValue():Boolean{
+    //Method to check that Min value < Max Value
+    private fun checkMinValueLowerMaxValue():Boolean{
         if (!priceMin.value.equals("")&&!priceMax.value.equals("")){
             return (priceMin.value!!.toInt())<(priceMax.value!!.toInt())
         }
@@ -239,12 +248,13 @@ class SearchViewModel(
         else return true
     }
 
-    private fun checkDateMinDateMax(): Boolean{
-        if (!dateEntryMin.value.equals("")&&!dateEntryMax.value.equals("")){
-            return (Utils.convertingStringDate(dateEntryMin.value).before(Utils.convertingStringDate(dateEntryMax.value)))
+    //Method to check MinDate before MaxDate
+    private fun checkDateMinBeforeDateMax(): Boolean{
+        if (dateEntryMin.value!=null &&dateEntryMax.value!=null){
+            return (dateEntryMin.value!!.before(dateEntryMax.value))
         }
-        else if (!dateSoldMin.value.equals("")&&!dateSoldMax.value.equals("")){
-            return (Utils.convertingStringDate(dateSoldMin.value).before(Utils.convertingStringDate(dateSoldMax.value)))
+        else if (dateSoldMin.value!=null &&dateSoldMax.value!=null){
+            return (dateSoldMin.value!!.before(dateSoldMax.value))
         }
         else return true
     }
