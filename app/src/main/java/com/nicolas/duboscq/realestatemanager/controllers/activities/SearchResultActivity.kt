@@ -36,6 +36,7 @@ class SearchResultActivity : AppCompatActivity() {
         ab!!.setDisplayHomeAsUpEnabled(true)
     }
 
+    //FRAGMENT CONFIGURATION
     private fun openFragment(fragment: Fragment) {
         val fragmentTransaction = supportFragmentManager.beginTransaction()
         fragmentTransaction.replace(R.id.search_activity_frame_layout, fragment)

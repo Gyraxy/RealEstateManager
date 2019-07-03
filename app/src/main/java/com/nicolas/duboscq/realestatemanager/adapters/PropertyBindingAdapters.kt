@@ -1,9 +1,11 @@
 package com.nicolas.duboscq.realestatemanager.adapters
 
 import android.view.View
+import android.widget.EditText
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import com.nicolas.duboscq.realestatemanager.models.Address
+import java.text.NumberFormat
 import java.util.*
 
 @BindingAdapter("isGone")
@@ -48,8 +50,13 @@ fun soldBanner (view: View, dateSold: Date? =null) {
     }
 }
 
-@BindingAdapter("app:AddDollarSymbol")
-fun bindDollarSymbol(view: TextView,price:String){
-    val priceDollar = "$price $"
-    view.text = priceDollar
+@BindingAdapter("app:ConvertToDollarCur")
+fun bindConvertToDollarCur(view: TextView,price:String){
+    if (price != ""){
+        val priceNumber = price.toDouble()
+        val formatDollar = NumberFormat.getCurrencyInstance(Locale.US)
+        view.text = (formatDollar.format(priceNumber)).toString()
+    } else {
+        view.text = ""
+    }
 }

@@ -86,6 +86,7 @@ class DetailFragment : androidx.fragment.app.Fragment() {
     }
 
     // VIEWPAGER
+    // Method to configure ViewPager with picture property slider
 
     private fun configViewPager(pictureL: MutableList<Picture>){
 
@@ -96,6 +97,7 @@ class DetailFragment : androidx.fragment.app.Fragment() {
         }
         for (i in 0..pictureL.size-1){
             pictureList.add(i,pictureL[i].pictureLink)
+            Log.i("PictureLinkDetail",pictureL[i].pictureLink)
         }
         slidingViewPager = picture_viewpager
         slidingPictureAdapter = SlidingPictureAdapter(activity!!.applicationContext, this.pictureList, this.pictDescList)

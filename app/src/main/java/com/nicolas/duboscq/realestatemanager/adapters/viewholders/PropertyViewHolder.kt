@@ -6,6 +6,8 @@ import com.nicolas.duboscq.realestatemanager.models.Address
 import com.nicolas.duboscq.realestatemanager.models.Picture
 import com.nicolas.duboscq.realestatemanager.models.Property
 import kotlinx.android.synthetic.main.property_list_view.view.*
+import java.text.NumberFormat
+import java.util.*
 
 class PropertyViewHolder(itemView: View) : androidx.recyclerview.widget.RecyclerView.ViewHolder(itemView){
 
@@ -13,8 +15,8 @@ class PropertyViewHolder(itemView: View) : androidx.recyclerview.widget.Recycler
 
         // SHOW PROPERTY INFO
         itemView.property_listview_type_txt.text = listProperty[position].type
-        val priceEuro = listProperty[position].price.toString()+" $"
-        itemView.property_listview_price_txt.text = priceEuro
+        val formatDollar = NumberFormat.getCurrencyInstance(Locale.US)
+        itemView.property_listview_price_txt.text = formatDollar.format(listProperty[position].price)
         val ref = "Ref: "+listProperty[position].id.toString()
         itemView.property_listview_ref_txt.text = ref
 

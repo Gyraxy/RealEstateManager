@@ -49,10 +49,6 @@ class ListFragment : androidx.fragment.app.Fragment() {
         mode=arguments!!.getString("mode",null)
     }
 
-    private fun configureSwipeRefreshLayout() {
-        fragment_list_swipe_container.setOnRefreshListener { configureViewModel()}
-    }
-
     // VIEW MODEL
 
     private fun configureViewModel(){
@@ -121,7 +117,11 @@ class ListFragment : androidx.fragment.app.Fragment() {
             }
     }
 
-    // UPDATE UI
+    private fun configureSwipeRefreshLayout() {
+        fragment_list_swipe_container.setOnRefreshListener { configureViewModel()}
+    }
+
+    // UPDATE UI WITH VIEWMODEL INFORMATION
 
     private fun updateProperty(proplist: MutableList<Property>) {
         propertylist.clear()

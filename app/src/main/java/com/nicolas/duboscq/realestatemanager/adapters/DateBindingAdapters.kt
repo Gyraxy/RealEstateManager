@@ -12,6 +12,7 @@ import com.nicolas.duboscq.realestatemanager.utils.toFRDate
 import java.text.SimpleDateFormat
 import java.util.*
 
+// Method for two-way Data Binding in AddUpdateActivity to transform Date <-> String
 object DateBindingAdapters {
     @BindingAdapter("app:date")
     @JvmStatic fun setDate(view: EditText, value: Date?) {
@@ -56,6 +57,7 @@ object DateBindingAdapters {
         }
 }
 
+// Method to show text in detail activity from Date value
 @BindingAdapter("app:showDate")
 fun showDate(view: TextView, value: Date?) {
     if (value == null ){

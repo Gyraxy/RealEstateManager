@@ -70,6 +70,7 @@ class ResultFragment : Fragment() {
         })
     }
 
+    // RECYCLERVIEW CONFIGURATION
     private fun configureRecyclerView(){
         propertyAdapter = PropertyAdapter(propertylist, addresslist,picturelist, Glide.with(this))
         fragment_result_recyclerView.adapter = propertyAdapter
@@ -77,6 +78,7 @@ class ResultFragment : Fragment() {
         fragment_result_recyclerView.addItemDecoration(mDividerItemDecoration)
     }
 
+    // ON CLICK ELEMENT OF RECYCLER VIEW
     private fun configureOnClickRecyclerView(){
         ItemClickSupport.addTo(fragment_result_recyclerView, R.layout.property_list_view)
             .setOnItemClickListener{_, position, _ ->
@@ -89,6 +91,7 @@ class ResultFragment : Fragment() {
             }
     }
 
+    // UPDATE INFORMATION WITH PROPERTY,ADDRESS,PICTURE LIST
     private fun updateProperty(proplist: MutableList<Property>) {
         propertylist.addAll(proplist)
         propertyAdapter.notifyDataSetChanged()

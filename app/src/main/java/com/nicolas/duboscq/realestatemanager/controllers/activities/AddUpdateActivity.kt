@@ -324,7 +324,8 @@ class AddUpdateActivity : AppCompatActivity() {
         }
 
         if (resultCode == Activity.RESULT_OK && requestCode == REQUEST_CHOOSE_PHOTO){
-            this.picturePath = data?.data.toString()
+            val uri: Uri? = data?.data
+            this.picturePath = uri.toString()
             createAlertDiagDescription()
         }
     }

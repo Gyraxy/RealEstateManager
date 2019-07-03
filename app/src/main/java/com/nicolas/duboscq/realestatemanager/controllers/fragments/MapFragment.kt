@@ -66,6 +66,7 @@ class MapFragment : androidx.fragment.app.Fragment() , OnMapReadyCallback,Google
         mapViewModel = ViewModelProviders.of(this,factory).get(PropertyMapViewModel::class.java)
     }
 
+    // MAP SET UP
     private fun setUpMap() {
         if (ActivityCompat.checkSelfPermission(activity!!.applicationContext,
                 ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
@@ -108,6 +109,7 @@ class MapFragment : androidx.fragment.app.Fragment() , OnMapReadyCallback,Google
         return false
     }
 
+    // METHOD TO CENTER ON USER LOCATION WHEN CLICK ON FLOATING BUTTON
     private fun centerMyLocation() {
         if (ContextCompat.checkSelfPermission(
                 context!!,
@@ -123,6 +125,7 @@ class MapFragment : androidx.fragment.app.Fragment() , OnMapReadyCallback,Google
         }
     }
 
+    // MARKER GENERATION USING AN ADDRESS LIST
     private fun generateMarker(addressList: MutableList<Address>){
         for (i in 0 .. addressList.size-1){
             val addressTxt = "${addressList[i].streetNumber} ${addressList[i].streetName} ${addressList[i].zipcode} ${addressList[i].city} ${addressList[i].country}"
