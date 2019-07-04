@@ -15,6 +15,7 @@ import org.hamcrest.MatcherAssert.assertThat
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
+import java.util.*
 
 @RunWith(AndroidJUnit4::class)
 class ItemContentProviderTest {
@@ -71,8 +72,8 @@ class ItemContentProviderTest {
         values.put("type", "Maison")
         values.put("PointOfInterest", "Ecole")
         values.put("nb_of_pictures",2)
-        values.put("date_entry","01/06/2019")
-        values.put("date_sold","")
+        values.put("date_entry", "28/06/2019")
+        values.put("date_sold","04/07/2019")
         values.put("date_creation",Utils.getTodayDate())
         values.put("date_modified","")
 

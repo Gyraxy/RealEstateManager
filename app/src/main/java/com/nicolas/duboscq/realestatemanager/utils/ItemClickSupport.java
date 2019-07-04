@@ -84,12 +84,12 @@ public class ItemClickSupport {
         view.setTag(mItemID, null);
     }
 
-    private interface OnItemClickListener {
+    public interface OnItemClickListener {
 
         void onItemClicked(RecyclerView recyclerView, int position, View v);
     }
 
-    private interface OnItemLongClickListener {
+    public interface OnItemLongClickListener {
 
         boolean onItemLongClicked(RecyclerView recyclerView, int position, View v);
     }
